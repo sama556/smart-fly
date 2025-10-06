@@ -1,0 +1,2035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlySmart - Intelligent Travel Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #62b6cb 100%);
+            --secondary-gradient: linear-gradient(135deg, #1b4965 0%, #cae9ff 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark-blue: #1E3A8A;
+            --light-blue: #3B82F6;
+            --white: #FFFFFF;
+            --light-gray: #F8FAFC;
+            --dark-gray: #4B5563;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #62b6cb 0%, #bee9e8 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2 {
+            font-family: "Dancing Script", cursive;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        /* Glass Effect Components */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow);
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background: white;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        header.scrolled .logo {
+            color: var(--dark-blue);
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 12px;
+            animation: plane-fly 3s ease-in-out infinite;
+        }
+
+        @keyframes plane-fly {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        header.scrolled .nav-links a {
+            color: var(--dark-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        header.scrolled .btn-secondary {
+            color: var(--dark-blue);
+            border-color: var(--dark-blue);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 120vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80') center/cover;
+            filter: brightness(0.3);
+            z-index: -1;
+        }
+
+        .hero-content {
+            color: white;
+            margin-top:100px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .search-container {
+            margin-top: 50px;
+        }
+
+        /* Search UX polish */
+        .search-form.glass {
+            border-radius: 16px;
+            box-shadow: 0 14px 40px rgba(2,8,23,0.12);
+            border: 1px solid rgba(255,255,255,0.22);
+            gap: 18px;
+        }
+        .search-form .form-group label {
+            color: #eaf2ff;
+        }
+        .search-form .form-group input,
+        .search-form .form-group select {
+            background: rgba(255,255,255,0.16);
+            color: #fff;
+            border: 1.5px solid rgba(255,255,255,0.28);
+            border-radius: 12px;
+        }
+        .search-form .form-group input::placeholder { color: rgba(255,255,255,0.8); }
+        .search-form .form-group input:focus,
+        .search-form .form-group select:focus {
+            background: rgba(255,255,255,0.25);
+            border-color: #4facfe;
+            box-shadow: 0 0 0 4px rgba(79,172,254,0.22);
+        }
+        .search-actions { grid-column: 1 / -1; display: flex; justify-content: flex-end; }
+        .search-btn { min-width: 180px; border-radius: 12px; font-weight: 700; letter-spacing: .2px; }
+        @media (max-width: 640px){ .search-actions { justify-content: stretch; } .search-btn { width: 100%; } }
+
+        .search-form {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            align-items: end;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group option {
+            background-color: #1b4965;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4facfe;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-btn {
+            background: var(--secondary-gradient);
+            color: white;
+            border: none;
+            padding: 22px 20px;
+            border-radius: 12px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px var(--glass-bg);
+        }
+
+        .info-box {
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .info-box i {
+            color: #4facfe;
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+
+        .info-box p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Auto-booking section */
+        .auto-booking-section {
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        .auto-booking-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #4facfe;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+
+        .auto-booking-options {
+            display: none;
+            margin-top: 15px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .auto-booking-options.active {
+            display: block;
+        }
+
+        .price-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .price-input-group input {
+            flex: 1;
+        }
+
+        .auto-booking-info {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.4;
+        }
+
+        /* Flight Slider Section */
+        .deals-section {
+            padding: 100px 0;
+            background: var(--light-gray);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--dark-blue);
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+
+        .flight-slider {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            margin: 0 20px;
+        }
+
+        .flight-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .flight-card {
+            min-width: 350px;
+            margin: 0 15px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .flight-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .flight-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flight-image i {
+            font-size: 3rem;
+            color: white;
+        }
+
+        .price-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+
+        .flight-info {
+            padding: 25px;
+        }
+
+        .route {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .city {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--dark-blue);
+        }
+
+        .flight-time {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        .airline {
+            color: var(--light-blue);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .book-btn {
+            width: 100%;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .book-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.4);
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .slider-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary-gradient);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .slider-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 100px 0;
+            background: white;
+            position: relative;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--light-gray);
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--light-blue);
+        }
+
+        .stat-label {
+            color: var(--dark-gray);
+            font-weight: 600;
+        }
+
+        .about-visual {
+            position: relative;
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .visual-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visual-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-gradient);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .visual-icon {
+            font-size: 4rem;
+            color: var(--light-blue);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 100px 0;
+            background: var(--light-gray);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-gradient);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: rotateY(360deg);
+        }
+
+        .feature-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 0;
+            background: white;
+            position: relative;
+        }
+
+        .contact-content {
+            display: grid;
+            gap: 80px;
+        }
+
+        .contact-form {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 48px 40px;
+            box-shadow: 0 20px 60px rgba(2, 8, 23, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 28px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(98,182,203,0.6), rgba(59,130,246,0.5));
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .contact-form h3 {
+            color: var(--dark-blue);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 16px 18px;
+            margin-top: 10px;
+            border: 1.5px solid rgba(30, 58, 138, 0.15);
+            border-radius: 14px;
+            background: rgba(255,255,255,0.95);
+            transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.02) inset;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 4px rgba(59,130,246,0.15);
+            background: #fff;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(55, 65, 81, 0.6);
+        }
+
+        .contact-form input:valid:not(:placeholder-shown),
+        .contact-form textarea:valid:not(:placeholder-shown) {
+            border-color: rgba(16,185,129,0.7);
+        }
+
+        .contact-form input:invalid:focus,
+        .contact-form textarea:invalid:focus {
+            border-color: rgba(239,68,68,0.8);
+            box-shadow: 0 0 0 4px rgba(239,68,68,0.15);
+        }
+
+        .contact-form textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #1b4965, #3B82F6);
+            color: white;
+            border: none;
+            padding: 16px 18px; 
+            margin-top: 8px;
+            border-radius: 14px;
+            font-weight: 700;
+            letter-spacing: .3px;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: transform .15s ease, box-shadow .25s ease, filter .25s ease;
+            box-shadow: 0 14px 30px rgba(27,73,101,0.25);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 36px rgba(59,130,246,0.35);
+            filter: brightness(1.02);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 10px 20px rgba(59,130,246,0.28);
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 100px 0;
+            background: var(--primary-gradient);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.05"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.05"/><circle cx="25" cy="75" r="1" fill="white" opacity="0.05"/><circle cx="75" cy="25" r="1" fill="white" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial-slide {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            animation: fadeInScale 0.8s ease-out;
+        }
+
+        .testimonial-slide.active {
+            display: block;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .testimonial-content {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--dark-blue);
+            padding: 80px 0 30px;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            color: var(--dark-blue);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--dark-blue);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--light-blue);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--dark-blue);
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        header.scrolled .menu-toggle {
+            color: var(--dark-blue);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 20px;
+                border-radius: 0 0 20px 20px;
+                gap: 15px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                color: var(--dark-blue) !important;
+                padding: 10px 0;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+            .auth-buttons {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .flight-card {
+                min-width: 280px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .auth-buttons a{
+            text-decoration: none;
+        }
+        
+        .auth-buttons a:hover{
+            text-decoration: none;
+            color:#1b4965
+        }
+
+        /* Header Icons */
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-right: 20px;
+        }
+
+        .notification-icon,
+        .cart-icon,
+        .profile-icon {
+            position: relative;
+            cursor: pointer;
+            color: var(--white);
+            font-size: 1.2rem;
+            transition: var(--transition);
+            padding: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        header.scrolled .notification-icon,
+        header.scrolled .cart-icon,
+        header.scrolled .profile-icon {
+            color: var(--dark-blue);
+            background: rgba(30, 58, 138, 0.1);
+            border-color: rgba(30, 58, 138, 0.2);
+        }
+
+        .notification-icon:hover,
+        .cart-icon:hover,
+        .profile-icon:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        header.scrolled .notification-icon:hover,
+        header.scrolled .cart-icon:hover,
+        header.scrolled .profile-icon:hover {
+            background: rgba(30, 58, 138, 0.2);
+        }
+
+        .notification-badge,
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+
+        .cart-badge {
+            background: #2ed573;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .profile-icon a {
+            color: inherit;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .profile-icon a:hover {
+            color: inherit;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.4s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg" id="animatedBg"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#home" class="logo">
+                    <img src="./images/1.png" alt="FlySmart Logo">
+                </a>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#deals">Deals</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <div class="header-icons">
+                        <div class="notification-icon" id="notificationIcon">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge" id="notificationBadge">0</span>
+                        </div>
+                        <div class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-badge" id="cartBadge">0</span>
+                        </div>
+                        <div class="profile-icon" id="profileIcon">
+                            <a href="customer/profile.html"><i class="fas fa-user"></i></a>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" id="loginBtn"> <a href="login.html">login</a></button>
+                    <button class="btn btn-primary" id="registerBtn"><a href="register.html">Register</a></button>
+                </div>
+                
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>FlySmart: Intelligent Travel Solutions</h1>
+                <p>Experience the future of travel booking with AI-powered price predictions, seamless bookings, and personalized recommendations.</p>
+                
+                <div class="search-container">
+                    <form class="search-form glass" id="quickSearch">
+                        <div class="form-group">
+                            <label>From</label>
+                            <input type="text" placeholder="Departure City" required>
+                        </div>
+                        <div class="form-group">
+                            <label>To</label>
+                            <input type="text" placeholder="Destination City" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Departure</label>
+                            <input type="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Return</label>
+                            <input type="date">
+                        </div>
+                        <div class="form-group">
+                            <label>Passengers</label>
+                            <select>
+                                <option>1 Passenger</option>
+                                
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="class">Class</label>
+                            <select>
+                                <option>Economy</option>
+                                <option>Business</option>
+                                <option>First</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="search-btn">
+                                <i class="fas fa-search"></i> Search Flights
+                            </button>
+                        </div>
+                        <!-- Auto-booking section -->
+                        <div class="auto-booking-section">
+                            <div class="auto-booking-toggle">
+                                <div class="toggle-label">
+                                    <i class="fas fa-robot"></i>
+                                    <span>Enable Auto-Booking</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="autoBookingToggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="auto-booking-options" id="autoBookingOptions">
+                                <div class="price-input-group">
+                                    <div class="form-group" style="flex: 1;">
+                                        <label>Max Price (SAR)</label>
+                                        <input type="number" id="maxPrice" placeholder="e.g. 500">
+                                    </div>
+                                    <div class="form-group" style="flex: 1;">
+                                        <label>Preferred Time</label>
+                                        <select id="preferredTime">
+                                            <option>Any Time</option>
+                                           
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Our AI will monitor prices and automatically reserve the flight when it matches or drops below your target price. You'll have 10 minutes to complete payment.</p>
+                        </div>
+
+                       
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flight Deals Section -->
+    <section class="deals-section" id="deals">
+        <div class="container">
+            <h2 class="section-title scroll-animate">🔥 Hottest Flight Deals</h2>
+            
+            <div class="flight-slider scroll-animate">
+                <div class="flight-slides" id="flightSlides">
+                    <div class="flight-card">
+                        <div class="flight-image" style="background-image: url('./images/image1.jpg')">
+                            <div class="price-badge">299SAR</div>
+                        </div>
+                        <div class="flight-info">
+                            <div class="route">
+                                <div class="city">JED</div>
+                                <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                <div class="city">DXB</div>
+                            </div>
+                            <div class="flight-time">2h 30m • Direct Flight</div>
+                            <div class="airline">Saudia Airlines</div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="flight-card">
+                        <div class="flight-image" style="background-image: url('./images/image2.jpg')">
+                            <div class="price-badge">459SAR</div>
+                        </div>
+                        <div class="flight-info">
+                            <div class="route">
+                                <div class="city">JED</div>
+                                <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                <div class="city">LHR</div>
+                            </div>
+                            <div class="flight-time">6h 45m • Direct Flight</div>
+                            <div class="airline">Saudia Airlines</div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="flight-card">
+                        <div class="flight-image" style="background-image: url('images/image4.jpg')">
+                            <div class="price-badge">189SAR</div>
+                        </div>
+                        <div class="flight-info">
+                            <div class="route">
+                                <div class="city">DMM</div>
+                                <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                <div class="city">CAI</div>
+                            </div>
+                            <div class="flight-time">2h 15m • Direct Flight</div>
+                            <div class="airline">EgyptAir</div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="flight-card">
+                        <div class="flight-image" style="background-image: url('images/image5.jpg')">
+                            <div class="price-badge">699SAR</div>
+                        </div>
+                        <div class="flight-info">
+                            <div class="route">
+                                <div class="city">JED</div>
+                                <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                <div class="city">IST</div>
+                            </div>
+                            <div class="flight-time">3h 20m • Direct Flight</div>
+                            <div class="airline">Saudia Airlines</div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
+                     <div class="flight-card">
+                        <div class="flight-image" style="background-image: url('images/image.jpg')">
+                            <div class="price-badge">699SAR</div>
+                        </div>
+                        <div class="flight-info">
+                            <div class="route">
+                                <div class="city">JED</div>
+                                <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                <div class="city">IST</div>
+                            </div>
+                            <div class="flight-time">3h 20m • Direct Flight</div>
+                            <div class="airline">Saudia Airlines</div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="flight-card">
+                        <div class="flight-image" style="background-image: url('images/image6.jpg')">
+                            <div class="price-badge">329SAR</div>
+                        </div>
+                        <div class="flight-info">
+                            <div class="route">
+                                <div class="city">RUH</div>
+                                <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                <div class="city">BKK</div>
+                            </div>
+                            <div class="flight-time">7h 10m • Direct Flight</div>
+                            <div class="airline">Thai Airways</div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slider-controls">
+                    <button class="slider-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text scroll-animate">
+                    <h2>About FlySmart</h2>
+                    <p>FlySmart revolutionizes the way you book flights by combining cutting-edge AI technology with user-friendly design. Our platform analyzes millions of flight data points in real-time to provide you with the most accurate price predictions and personalized recommendations.</p>
+                    
+                    <p>Founded by travel enthusiasts and tech experts, we understand the frustration of fluctuating flight prices and complex booking processes. That's why we created FlySmart - to make intelligent travel accessible to everyone.</p>
+
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="2.5">0</div>
+                            <div class="stat-label">Million+ Users</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="500">0</div>
+                            <div class="stat-label">Airlines Partners</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="95">0</div>
+                            <div class="stat-label">% Accuracy Rate</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="150">0</div>
+                            <div class="stat-label">Countries Covered</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-visual scroll-animate">
+                    <div class="visual-card glass">
+                        <div class="visual-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>AI-Powered Intelligence</h3>
+                        <p>Our advanced machine learning algorithms analyze historical data, market trends, and real-time information to predict the best times to book your flights.</p>
+                        
+                        <div style="margin-top: 30px;">
+                            <div class="visual-icon" style="font-size: 2rem; margin-bottom: 10px;">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <p>Save up to 40% on average compared to traditional booking methods</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <h2 class="section-title scroll-animate">Why Choose FlySmart?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI Price Predictions</h3>
+                    <p>Our machine learning algorithms analyze millions of data points to predict price trends with 95% accuracy, helping you book at the perfect time.</p>
+                </div>
+                
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Smart Search Engine</h3>
+                    <p>Compare flights across 500+ airlines instantly. Our intelligent filters help you find the perfect flight based on your preferences and budget.</p>
+                </div>
+                
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Price Alerts</h3>
+                    <p>Get notified when prices drop for your desired routes. Set up personalized alerts and never miss a great deal again.</p>
+                </div>
+
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Smart Auto-Booking</h3>
+                    <p>Set your preferences and let our AI automatically book flights when they match your criteria. Save time and never miss the best deals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title scroll-animate">Get In Touch</h2>
+            
+            <div class="contact-content">
+                <div class="contact-form glass scroll-animate">
+                    <h3>Send us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <input type="text" placeholder="First Name" required>
+                            <input type="text" placeholder="Last Name" required>
+                        </div>
+                        <div class="form-row">
+                            <input type="email" placeholder="Email Address" required>
+                            <input type="tel" placeholder="Phone Number">
+                        </div>
+                        <input type="text" placeholder="Subject" required>
+                        <textarea placeholder="Your Message" required></textarea>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title scroll-animate" style="color: white;">What Our Customers Say</h2>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial-slide active">
+                    <p class="testimonial-content">"FlySmart's AI predictions saved me over $400 on my family vacation to Europe. The price alerts feature is incredibly accurate!"</p>
+                    <p class="testimonial-author">- Sarah Ahmed, Family Traveler</p>
+                </div>
+                
+                <div class="testimonial-slide">
+                    <p class="testimonial-content">"As a frequent business traveler, FlySmart has become my go-to platform. The booking process is seamless and the deals are unbeatable."</p>
+                    <p class="testimonial-author">- Ali kamal, Business Executive</p>
+                </div>
+                
+                <div class="testimonial-slide">
+                    <p class="testimonial-content">"The mobile experience is fantastic! I booked my last-minute flight in under 3 minutes while waiting at the airport."</p>
+                    <p class="testimonial-author">- Eman Ramadan, Digital Nomad</p>
+                </div>
+
+                <div class="testimonial-slide">
+                    <p class="testimonial-content">"Customer support is exceptional. They helped me change my flight during the pandemic with no hassle. Truly customer-first service!"</p>
+                    <p class="testimonial-author">- Ahmed Hassen , Leisure Traveler</p>
+                </div>
+                
+                <div class="slider-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                    <span class="dot" data-slide="3"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>FlySmart</h3>
+                    <p>Revolutionizing airline bookings with AI-driven insights for the best travel experiences. Your intelligent travel companion.</p>
+                    
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#deals">Flight Deals</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+              
+              
+            
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 FlySmart. All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auto-booking Notification -->
+    <div class="notification" id="autoBookingNotification">
+        <div class="notification-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <div>
+           
+            <div style="font-size: 12px;">We'll notify you when flights match your criteria</div>
+        </div>
+    </div>
+<script src="js/script.js"></script>
+    <script>
+        // Create animated background
+        function createAnimatedBackground() {
+            const bg = document.getElementById('animatedBg');
+            const colors = ['rgba(255,255,255,0.1)', 'rgba(200,200,255,0.05)', 'rgba(150,200,255,0.08)'];
+            
+            for (let i = 0; i < 15; i++) {
+                const shape = document.createElement('div');
+                shape.classList.add('floating-shape');
+                
+                // Random properties
+                const size = Math.random() * 100 + 50;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 30 + 20;
+                const animationDelay = Math.random() * 5;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                shape.style.width = `${size}px`;
+                shape.style.height = `${size}px`;
+                shape.style.left = `${left}%`;
+                shape.style.background = color;
+                shape.style.animationDuration = `${animationDuration}s`;
+                shape.style.animationDelay = `${animationDelay}s`;
+                
+                bg.appendChild(shape);
+            }
+        }
+
+        // Header scroll effect
+        function handleHeaderScroll() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+
+        // Mobile menu toggle
+        function setupMobileMenu() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+
+        // Flight slider functionality
+        function setupFlightSlider() {
+            const flightSlides = document.getElementById('flightSlides');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const flightCards = document.querySelectorAll('.flight-card');
+            let currentIndex = 0;
+            const cardsPerView = Math.floor(flightSlides.offsetWidth / 380);
+            
+            function updateSlider() {
+                const translateX = -currentIndex * (380 + 30);
+                flightSlides.style.transform = `translateX(${translateX}px)`;
+            }
+            
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < flightCards.length - cardsPerView) {
+                    currentIndex++;
+                    updateSlider();
+                }
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateSlider();
+                }
+            });
+            
+            // Initialize slider
+            updateSlider();
+        }
+
+        // Auto-booking functionality
+        function setupAutoBooking() {
+            const autoBookingToggle = document.getElementById('autoBookingToggle');
+            const autoBookingOptions = document.getElementById('autoBookingOptions');
+            const autoBookingNotification = document.getElementById('autoBookingNotification');
+            
+            autoBookingToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    autoBookingOptions.classList.add('active');
+                    
+                    // Show notification
+                    autoBookingNotification.classList.add('show');
+                    setTimeout(() => {
+                        autoBookingNotification.classList.remove('show');
+                    }, 5000);
+                    
+                    // Simulate auto-booking process
+                    simulateAutoBooking();
+                } else {
+                    autoBookingOptions.classList.remove('active');
+                }
+            });
+        }
+        
+        // Simulate auto-booking process
+        function simulateAutoBooking() {
+            setTimeout(() => {
+                const notification = document.getElementById('autoBookingNotification');
+                notification.querySelector('.notification-icon').innerHTML = '<i class="fas fa-plane"></i>';
+               
+                notification.querySelector('div > div:last-child').textContent = 'A flight matching your preferences has been found';
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 5000);
+            }, 3000);
+        }
+
+        // Scroll animations
+        function setupScrollAnimations() {
+            const scrollElements = document.querySelectorAll('.scroll-animate');
+            
+            const elementInView = (el, dividend = 1) => {
+                const elementTop = el.getBoundingClientRect().top;
+                return (
+                    elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+                );
+            };
+            
+            const displayScrollElement = (element) => {
+                element.classList.add('animate');
+            };
+            
+            const handleScrollAnimation = () => {
+                scrollElements.forEach((el) => {
+                    if (elementInView(el, 1.2)) {
+                        displayScrollElement(el);
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', () => {
+                handleScrollAnimation();
+            });
+            
+            // Initial check
+            handleScrollAnimation();
+        }
+
+        // Form submission handlers
+        function setupFormHandlers() {
+            // Quick search form
+            const quickSearchForm = document.getElementById('quickSearch');
+            quickSearchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(this);
+                const from = formData.get('from') || this.querySelector('input[type="text"]').value;
+                const to = formData.get('to') || this.querySelectorAll('input[type="text"]')[1].value;
+                const departure = formData.get('departure') || this.querySelector('input[type="date"]').value;
+                
+                // Show loading state
+                const searchBtn = this.querySelector('.search-btn');
+                const originalText = searchBtn.innerHTML;
+                searchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
+                searchBtn.disabled = true;
+                
+                // Simulate search process and redirect to flight-booking
+                setTimeout(() => {
+                    searchBtn.innerHTML = originalText;
+                    searchBtn.disabled = false;
+                    
+                    // Store search data in localStorage for flight-booking page
+                    const searchData = {
+                        from: from,
+                        to: to,
+                        departure: departure,
+                        timestamp: new Date().toISOString()
+                    };
+                    localStorage.setItem('searchData', JSON.stringify(searchData));
+                    
+                    // Redirect to flight-booking page
+                    window.location.href = 'customer/flight-booking.html';
+                }, 2000);
+            });
+            
+            // Contact form
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                const submitBtn = this.querySelector('.submit-btn');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                submitBtn.disabled = true;
+                
+                // Simulate sending process
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Show success message
+                    alert('Thank you for your message! We will get back to you soon.');
+                    this.reset();
+                }, 2000);
+            });
+        }
+
+        // Testimonial slider
+        function setupTestimonialSlider() {
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const dots = document.querySelectorAll('.dot');
+            let currentSlide = 0;
+            
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                currentSlide = n;
+                if (currentSlide >= slides.length) currentSlide = 0;
+                if (currentSlide < 0) currentSlide = slides.length - 1;
+                
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+            
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                });
+            });
+            
+            // Auto-advance slides
+            setInterval(() => {
+                showSlide(currentSlide + 1);
+            }, 5000);
+        }
+
+        // Setup Book Now buttons
+        function setupBookNowButtons() {
+            const bookButtons = document.querySelectorAll('.book-btn');
+            bookButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Get flight data from the card
+                    const flightCard = this.closest('.flight-card');
+                    const route = flightCard.querySelector('.route');
+                    const fromCity = route.querySelector('.city:first-child').textContent;
+                    const toCity = route.querySelector('.city:last-child').textContent;
+                    const flightTime = flightCard.querySelector('.flight-time').textContent;
+                    const airline = flightCard.querySelector('.airline').textContent;
+                    const priceBadge = flightCard.querySelector('.price-badge');
+                    const price = priceBadge ? priceBadge.textContent : 'N/A';
+                    
+                    // Store flight data for flight-booking page
+                    const flightData = {
+                        from: fromCity,
+                        to: toCity,
+                        flightTime: flightTime,
+                        airline: airline,
+                        price: price,
+                        timestamp: new Date().toISOString()
+                    };
+                    localStorage.setItem('selectedFlight', JSON.stringify(flightData));
+                    
+                    // Show loading state
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+                    this.disabled = true;
+                    
+                    // Redirect to flight-booking page
+                    setTimeout(() => {
+                        window.location.href = 'customer/flight-booking.html';
+                    }, 1000);
+                });
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createAnimatedBackground();
+            handleHeaderScroll();
+            setupMobileMenu();
+            setupFlightSlider();
+            setupAutoBooking();
+            setupScrollAnimations();
+            setupFormHandlers();
+            setupTestimonialSlider();
+            setupBookNowButtons();
+            
+            // Add scroll event listener for header
+            window.addEventListener('scroll', handleHeaderScroll);
+        });
+    </script>
+</body>
+</html>

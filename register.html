@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register | FlightMe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+ 
+      <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-image: url('./images/flight.avif');
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      padding: 0 !important; /* remove side gaps so header/footer span full width */
+    }
+
+    .wrapper {
+      max-width: 460px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.15);
+      margin: 100px auto 40px auto; /* leave room under sticky header */
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      padding: 45px 35px;
+      border-radius: 18px;
+      box-shadow: 0 25px 50px rgba(255, 255, 255, 0.2);
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo {
+      text-align: center;
+     
+    }
+
+    .logo img {
+      width: 50px;
+      height: 50;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #1a1a1a;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #333;
+      display: block;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      transition: 0.3s;
+      background: #fefefe;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #3a70ff;
+      box-shadow: 0 0 0 3px rgba(58, 112, 255, 0.15);
+    }
+
+    input.error {
+      border-color: #ff3a3a;
+      box-shadow: 0 0 0 3px rgba(255, 58, 58, 0.15);
+    }
+
+    .error-message {
+      color: #ff3a3a;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .btn {
+      width: 100%;
+      background: linear-gradient(135deg, #3a70ff, #2a5be6);
+      color: white;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #2f5ce3, #2349b8);
+    }
+
+    .btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .link {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .link a {
+      color: #3a70ff;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Sweet Notification Styles */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      border-radius: 10px;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      max-width: 350px;
+      transform: translateX(400px);
+      transition: transform 0.4s ease;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .notification.success {
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+    }
+
+    .notification.error {
+      background: linear-gradient(135deg, #ff3a3a, #e53935);
+    }
+
+    .notification.warning {
+      background: linear-gradient(135deg, #ff9800, #f57c00);
+    }
+
+    .notification-icon {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+
+    .notification-close {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 480px) {
+      .wrapper {
+        padding: 35px 25px;
+      }
+
+      .logo img {
+        width: 120px;
+      }
+      
+      .notification {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+      }
+    }
+    /* Header and Footer styles to match login page */
+    /* Header */
+    #header { position: sticky; top: 0; background: #ffffff; box-shadow: 0 8px 24px rgba(0,0,0,0.06); z-index: 1000; width: 100%; }
+    #header.scrolled { background: white; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
+    #header .navbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
+    /* Push the Back to home button to the far right */
+    #header .auth-buttons { margin-left: auto; display: flex; align-items: center; }
+    #header .menu-toggle { margin-left: 12px; }
+    #header .logo img { height: 48px; width: auto; display: block; }
+    .auth-buttons .btn { padding: 10px 16px; border-radius: 10px; }
+    .auth-buttons .btn a { color: #ffffff; text-decoration: none; display: block; }
+
+    /* Footer (full width) */
+    footer { width: 100%; background: #0b1f3a; color: #ffffff; margin-top: 60px; }
+    footer .container { max-width: 100% !important; width: 100% !important; margin: 0 !important; padding: 40px 20px !important; }
+    .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; }
+    .footer-column h3 { margin-bottom: 14px; font-weight: 700; }
+    .footer-links { list-style: none; padding: 0; margin: 0; }
+    .footer-links li { margin: 8px 0; }
+    .footer-links a { color: #e6eefc; text-decoration: none; }
+    .footer-links a:hover { color: #fff; text-decoration: underline; }
+    .footer-bottom { text-align: center; padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.15); color: #c7d2fe; }
+    /* Make header container full width as well */
+    #header .container { max-width: 100% !important; width: 100% !important; margin: 0 !important; padding: 0 20px !important; }
+
+    /* Header Icons */
+    .header-icons {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-right: 15px;
+    }
+
+    .notification-icon,
+    .cart-icon,
+    .profile-icon {
+        position: relative;
+        cursor: pointer;
+        color: #1E3A8A;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        padding: 8px;
+        border-radius: 50%;
+        background: rgba(30, 58, 138, 0.1);
+        border: 1px solid rgba(30, 58, 138, 0.2);
+    }
+
+    .notification-icon:hover,
+    .cart-icon:hover,
+    .profile-icon:hover {
+        transform: scale(1.1);
+        background: rgba(30, 58, 138, 0.2);
+    }
+
+    .notification-badge,
+    .cart-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #ff4757;
+        color: white;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        font-size: 0.6rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pulse 2s infinite;
+    }
+
+    .cart-badge {
+        background: #2ed573;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .profile-icon a {
+        color: inherit;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .profile-icon a:hover {
+        color: inherit;
+    }
+    /* Ensure footer spans edge to edge regardless of global .container */
+    footer, footer * { box-sizing: border-box; }
+  </style>
+</head>
+<body>
+
+     <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#home" class="logo">
+                    <img src="./images/1.png" alt="FlySmart Logo">
+                </a>
+                
+                
+                
+                <div class="auth-buttons">
+                    <div class="header-icons">
+                        <div class="notification-icon" id="notificationIcon">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge" id="notificationBadge">0</span>
+                        </div>
+                        <div class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-badge" id="cartBadge">0</span>
+                        </div>
+                        <div class="profile-icon" id="profileIcon">
+                            <a href="customer/profile.html"><i class="fas fa-user"></i></a>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" ><a href="index.html">Back to home</a></button>
+                </div>
+                
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+  <div class="wrapper">
+    <div class="logo">
+      <img src="images/1.png" alt="FlightMe Logo" />
+    </div>
+    <h2>Create your account</h2>
+    <form id="registrationForm">
+      <div class="input-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" placeholder="Rima Al-Asmari" required />
+        <div class="error-message" id="fullNameError">Please enter your full name</div>
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="email@example.com" required />
+        <div class="error-message" id="emailError">Please enter a valid email address</div>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required />
+        <div class="error-message" id="passwordError">Password must be at least 8 characters</div>
+      </div>
+
+      <div class="input-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="Re-enter password" required />
+        <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+      </div>
+
+      <button type="submit" class="btn" id="submitBtn">Register</button>
+    </form>
+
+    <div class="link">
+      Already have an account? <a href="login.html">Login</a>
+    </div>
+  </div>
+  <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>FlySmart</h3>
+                    <p>Revolutionizing airline bookings with AI-driven insights for the best travel experiences. Your intelligent travel companion.</p>
+                    
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                   <ul class="footer-links">
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#deals">Flight Deals</a></li>
+                        <li><a href="index.html#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+              
+              
+            
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 FlySmart. All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+  <script>
+    // Notification system
+    function showNotification(message, type = 'success') {
+      // Create notification element
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      
+      // Set icon based on type
+      let icon = '✓';
+      if (type === 'error') icon = '✕';
+      if (type === 'warning') icon = '⚠';
+      
+      notification.innerHTML = `
+        <span class="notification-icon">${icon}</span>
+        <span class="notification-message">${message}</span>
+        <button class="notification-close">×</button>
+      `;
+      
+      // Add to body
+      document.body.appendChild(notification);
+      
+      // Show notification
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 10);
+      
+      // Auto remove after 5 seconds
+      const autoRemove = setTimeout(() => {
+        closeNotification(notification);
+      }, 5000);
+      
+      // Close button event
+      const closeBtn = notification.querySelector('.notification-close');
+      closeBtn.addEventListener('click', () => {
+        clearTimeout(autoRemove);
+        closeNotification(notification);
+      });
+    }
+    
+    function closeNotification(notification) {
+      notification.classList.remove('show');
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.parentNode.removeChild(notification);
+        }
+      }, 400);
+    }
+    
+    // Form validation and submission
+    const form = document.getElementById('registrationForm');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    // Validation functions
+    function validateFullName() {
+      const fullName = document.getElementById('fullName').value.trim();
+      const errorElement = document.getElementById('fullNameError');
+      
+      if (fullName.length < 2) {
+        showError('fullName', errorElement, 'Please enter your full name');
+        return false;
+      } else {
+        clearError('fullName', errorElement);
+        return true;
+      }
+    }
+    
+    function validateEmail() {
+      const email = document.getElementById('email').value.trim();
+      const errorElement = document.getElementById('emailError');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      if (!emailRegex.test(email)) {
+        showError('email', errorElement, 'Please enter a valid email address');
+        return false;
+      } else {
+        clearError('email', errorElement);
+        return true;
+      }
+    }
+    
+    function validatePassword() {
+      const password = document.getElementById('password').value;
+      const errorElement = document.getElementById('passwordError');
+      
+      if (password.length < 8) {
+        showError('password', errorElement, 'Password must be at least 8 characters');
+        return false;
+      } else {
+        clearError('password', errorElement);
+        return true;
+      }
+    }
+    
+    function validateConfirmPassword() {
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const errorElement = document.getElementById('confirmPasswordError');
+      
+      if (password !== confirmPassword) {
+        showError('confirmPassword', errorElement, 'Passwords do not match');
+        return false;
+      } else {
+        clearError('confirmPassword', errorElement);
+        return true;
+      }
+    }
+    
+    function showError(fieldId, errorElement, message) {
+      document.getElementById(fieldId).classList.add('error');
+      errorElement.textContent = message;
+      errorElement.style.display = 'block';
+    }
+    
+    function clearError(fieldId, errorElement) {
+      document.getElementById(fieldId).classList.remove('error');
+      errorElement.style.display = 'none';
+    }
+    
+    // Real-time validation
+    document.getElementById('fullName').addEventListener('blur', validateFullName);
+    document.getElementById('email').addEventListener('blur', validateEmail);
+    document.getElementById('password').addEventListener('blur', validatePassword);
+    document.getElementById('confirmPassword').addEventListener('blur', validateConfirmPassword);
+    
+    // Form submission
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Validate all fields
+      const isFullNameValid = validateFullName();
+      const isEmailValid = validateEmail();
+      const isPasswordValid = validatePassword();
+      const isConfirmPasswordValid = validateConfirmPassword();
+      
+      if (isFullNameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid) {
+        // Disable submit button to prevent multiple submissions
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating Account...';
+        
+        // Simulate API call
+        setTimeout(() => {
+          showNotification('✅ Account created successfully! Redirecting...', 'success');
+          
+          // Redirect after a short delay
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 2000);
+        }, 1500);
+      } else {
+        showNotification('⚠ Please fix the errors in the form', 'warning');
+      }
+    });
+  </script>
+
+</body>
+</html>

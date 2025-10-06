@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | FlightMe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/header.css">
+  
+
+  <style>
+    /* Page-specific layout polish for header and full-width footer */
+    html, body { margin: 0; padding: 0; }
+    /* Header */
+    #header { position: sticky; top: 0; background: #ffffff; box-shadow: 0 8px 24px rgba(0,0,0,0.06); z-index: 1000; }
+    #header.scrolled { background: white; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
+    #header .navbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
+    #header .logo img { height: 48px; width: auto; display: block; }
+    .auth-buttons .btn { padding: 10px 16px; border-radius: 10px; }
+    .auth-buttons .btn a { color: #ffffff; text-decoration: none; display: block; }
+
+    /* Footer (full width) */
+    footer { width: 100%; background: #0b1f3a; color: #ffffff; margin-top: 60px; }
+    footer .container { max-width: 100%; width: 100%; margin: 0; padding: 40px 20px; }
+    .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; }
+    .footer-column h3 { margin-bottom: 14px; font-weight: 700; }
+    .footer-links { list-style: none; padding: 0; margin: 0; }
+    .footer-links li { margin: 8px 0; }
+    .footer-links a { color: #e6eefc; text-decoration: none; }
+    .footer-links a:hover { color: #fff; text-decoration: underline; }
+    .footer-bottom { text-align: center; padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.15); color: #c7d2fe; }
+    /* Make header container full width as well */
+    #header .container { max-width: 100%; width: 100%; margin: 0; padding: 0 20px; }
+
+    /* Header Icons */
+    .header-icons {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-right: 15px;
+    }
+
+    .notification-icon,
+    .cart-icon,
+    .profile-icon {
+        position: relative;
+        cursor: pointer;
+        color: #1E3A8A;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        padding: 8px;
+        border-radius: 50%;
+        background: rgba(30, 58, 138, 0.1);
+        border: 1px solid rgba(30, 58, 138, 0.2);
+    }
+
+    .notification-icon:hover,
+    .cart-icon:hover,
+    .profile-icon:hover {
+        transform: scale(1.1);
+        background: rgba(30, 58, 138, 0.2);
+    }
+
+    .notification-badge,
+    .cart-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #ff4757;
+        color: white;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        font-size: 0.6rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pulse 2s infinite;
+    }
+
+    .cart-badge {
+        background: #2ed573;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .profile-icon a {
+        color: inherit;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .profile-icon a:hover {
+        color: inherit;
+    }
+  </style>
+
+</head>
+<body>
+   <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#home" class="logo">
+                    <img src="./images/1.png" alt="FlySmart Logo">
+                </a>
+                
+                
+                
+                <div class="auth-buttons">
+                    <div class="header-icons">
+                        <div class="notification-icon" id="notificationIcon">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge" id="notificationBadge">0</span>
+                        </div>
+                        <div class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-badge" id="cartBadge">0</span>
+                        </div>
+                        <div class="profile-icon" id="profileIcon">
+                            <a href="customer/profile.html"><i class="fas fa-user"></i></a>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" ><a href="index.html">Back to home</a></button>
+                </div>
+                
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+  <div class="wrapper">
+    <div class="logo">
+      <img src="images/1.png" alt="FlightMe Logo" />
+    </div>
+    <h2>Welcome back</h2>
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="email@example.com" required />
+        <div class="error-message" id="emailError">Please enter a valid email address</div>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required />
+        <div class="error-message" id="passwordError">Please enter your password</div>
+      </div>
+
+      <button type="submit" class="btn" id="submitBtn">Login</button>
+      
+    
+      
+    </form>
+<div class="link">
+      Forget your password? <a href="forgetpassword.html">Forget Password</a>
+    </div>
+    <div class="link">
+      Don't have an account? <a href="register.html">Sign up</a>
+    </div>
+  </div>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>FlySmart</h3>
+                    <p>Revolutionizing airline bookings with AI-driven insights for the best travel experiences. Your intelligent travel companion.</p>
+                    
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                   <ul class="footer-links">
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#deals">Flight Deals</a></li>
+                        <li><a href="index.html#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+              
+              
+            
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 FlySmart. All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+  <script>
+    // Notification system
+    function showNotification(message, type = 'success') {
+      // Create notification element
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      
+      // Set icon based on type
+      let icon = '✓';
+      if (type === 'error') icon = '✕';
+      if (type === 'warning') icon = '⚠';
+      
+      notification.innerHTML = `
+        <span class="notification-icon">${icon}</span>
+        <span class="notification-message">${message}</span>
+        <button class="notification-close">×</button>
+      `;
+      
+      // Add to body
+      document.body.appendChild(notification);
+      
+      // Show notification
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 10);
+      
+      // Auto remove after 5 seconds
+      const autoRemove = setTimeout(() => {
+        closeNotification(notification);
+      }, 5000);
+      
+      // Close button event
+      const closeBtn = notification.querySelector('.notification-close');
+      closeBtn.addEventListener('click', () => {
+        clearTimeout(autoRemove);
+        closeNotification(notification);
+      });
+    }
+    
+    function closeNotification(notification) {
+      notification.classList.remove('show');
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.parentNode.removeChild(notification);
+        }
+      }, 400);
+    }
+    
+    // Form validation and submission
+    const form = document.getElementById('loginForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const googleLoginBtn = document.getElementById('googleLoginBtn');
+    
+    // Validation functions
+    function validateEmail() {
+      const email = document.getElementById('email').value.trim();
+      const errorElement = document.getElementById('emailError');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      if (!emailRegex.test(email)) {
+        showError('email', errorElement, 'Please enter a valid email address');
+        return false;
+      } else {
+        clearError('email', errorElement);
+        return true;
+      }
+    }
+    
+    function validatePassword() {
+      const password = document.getElementById('password').value;
+      const errorElement = document.getElementById('passwordError');
+      
+      if (password.length < 1) {
+        showError('password', errorElement, 'Please enter your password');
+        return false;
+      } else {
+        clearError('password', errorElement);
+        return true;
+      }
+    }
+    
+    function showError(fieldId, errorElement, message) {
+      document.getElementById(fieldId).classList.add('error');
+      errorElement.textContent = message;
+      errorElement.style.display = 'block';
+    }
+    
+    function clearError(fieldId, errorElement) {
+      document.getElementById(fieldId).classList.remove('error');
+      errorElement.style.display = 'none';
+    }
+    
+    // Real-time validation
+    document.getElementById('email').addEventListener('blur', validateEmail);
+    document.getElementById('password').addEventListener('blur', validatePassword);
+    
+    // Form submission
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Validate all fields
+      const isEmailValid = validateEmail();
+      const isPasswordValid = validatePassword();
+      
+      if (isEmailValid && isPasswordValid) {
+        // Disable submit button to prevent multiple submissions
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Signing in...';
+        
+        // Simulate API call
+        setTimeout(() => {
+          showNotification('✅ Login successful! Redirecting...', 'success');
+          
+          // Redirect after a short delay
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 2000);
+        }, 1500);
+      } else {
+        showNotification('⚠ Please fix the errors in the form', 'warning');
+      }
+    });
+    
+    // Google Login functionality
+    googleLoginBtn.addEventListener('click', function() {
+      // Disable button to prevent multiple clicks
+      googleLoginBtn.disabled = true;
+      googleLoginBtn.innerHTML = `
+        <svg class="google-icon" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        </svg>
+        Connecting...
+      `;
+      
+      // Simulate Google OAuth process
+      showNotification('🔐 Connecting to Google...', 'success');
+      
+      setTimeout(() => {
+        // Simulate successful Google login
+        showNotification('✅ Google login successful! Redirecting...', 'success');
+        
+        // Redirect after a short delay
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 2000);
+      }, 2000);
+    });
+    
+  
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking - FlySmart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/flight-booking.css">
+    <link rel="stylesheet" href="css/notifications.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg" id="animatedBg"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#home" class="logo">
+                    <img src="./images/1.png" alt="FlySmart Logo">
+                </a>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="airlines.html">Airlines</a></li>
+                    <li><a href="index.html#deals">Deals</a></li> 
+                    <li><a href ="bookings.html">Bookings</a>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <div class="header-icons">
+                        <div class="notification-icon" id="notificationIcon">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge" id="notificationBadge">0</span>
+                        </div>
+                        <div class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-badge" id="cartBadge">0</span>
+                        </div>
+                        <div class="profile-icon" id="profileIcon">
+                           <a href="profile.html" ><i class="fas fa-user"></i></a>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="registerBtn"><a href="../login.html">sigin out </a></button>
+                </div>
+                
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Notification Dropdown -->
+    <div class="notification-dropdown" id="notificationDropdown">
+        <div class="notification-header">
+            <span>Notifications</span>
+            <button onclick="clearAllNotifications()" style="background: none; border: none; color: var(--light-blue); cursor: pointer; font-size: 0.8rem;">Clear All</button>
+        </div>
+        <div id="notificationList">
+            <div class="notification-item">
+                <div class="notification-title">Price Drop Alert</div>
+                <div class="notification-message">Flight from JED to DXB dropped to 299 SAR</div>
+                <div class="notification-time">2 minutes ago</div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-title">Booking Confirmation</div>
+                <div class="notification-message">Your flight booking has been confirmed</div>
+                <div class="notification-time">1 hour ago</div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-title">New Deal Available</div>
+                <div class="notification-message">Special offer: 20% off on all flights to Europe</div>
+                <div class="notification-time">3 hours ago</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Dropdown -->
+    <div class="cart-dropdown" id="cartDropdown">
+        <div class="cart-header">
+            <span>Your Bookings</span>
+            <span id="cartItemCount">0 items</span>
+        </div>
+        <div id="cartList">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Your cart is empty</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Add some flights to get started!</p>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">0 SAR</span>
+            </div>
+            <button class="cart-checkout" onclick="proceedToCheckout()">
+                <i class="fas fa-credit-card"></i> Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Profile Dropdown -->
+    <div class="profile-dropdown" id="profileDropdown">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="profile-name">Ahmed Al-Rashid</div>
+            <div class="profile-email">ahmed.rashid@email.com</div>
+        </div>
+        <div class="profile-menu">
+            <a href="#" class="profile-menu-item" onclick="openProfile()">
+                <i class="fas fa-user-circle"></i>
+                My Profile
+            </a>
+            <a href="#" class="profile-menu-item" onclick="openBookings()">
+                <i class="fas fa-plane"></i>
+                My Bookings
+            </a>
+            <a href="#" class="profile-menu-item" onclick="openFavorites()">
+                <i class="fas fa-heart"></i>
+                Favorites
+            </a>
+            <a href="#" class="profile-menu-item" onclick="openSettings()">
+                <i class="fas fa-cog"></i>
+                Settings
+            </a>
+            <div class="profile-menu-divider"></div>
+            <a href="#" class="profile-menu-item" onclick="openHelp()">
+                <i class="fas fa-question-circle"></i>
+                Help & Support
+            </a>
+            <a href="#" class="profile-menu-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                Sign Out
+            </a>
+        </div>
+    </div>
+
+    <!-- Flight Booking Section -->
+    <section class="flight-booking-section">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="breadcrumb">
+                    <a href="index.html">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                    <span class="breadcrumb-separator">
+                        <i class="fas fa-chevron-right"></i>
+                    </span>
+                    <a href="airlines.html">
+                        <i class="fas fa-plane"></i>
+                        Airlines
+                    </a>
+                    <span class="breadcrumb-separator">
+                        <i class="fas fa-chevron-right"></i>
+                    </span>
+                    <a href="airline-details.html">
+                        <i class="fas fa-info-circle"></i>
+                        Airline Details
+                    </a>
+                    <span class="breadcrumb-separator">
+                        <i class="fas fa-chevron-right"></i>
+                    </span>
+                    <span class="current-page">
+                        <i class="fas fa-ticket-alt"></i>
+                        Flight Booking
+                    </span>
+                </div>
+                <div class="page-title-section">
+                    <h1 class="page-title">
+                        <i class="fas fa-rocket"></i>
+                        Complete Your Booking
+                    </h1>
+                    <p class="page-subtitle">Select your seat and choose your booking preference for the perfect travel experience</p>
+                    <div class="booking-progress">
+                        <div class="progress-step completed">
+                            <div class="step-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Flight Selected</span>
+                        </div>
+                        <div class="progress-line"></div>
+                        <div class="progress-step active">
+                            <div class="step-icon">
+                                <i class="fas fa-chair"></i>
+                            </div>
+                            <span>Seat Selection</span>
+                        </div>
+                        <div class="progress-line"></div>
+                        <div class="progress-step">
+                            <div class="step-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <span>Payment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flight-booking-content">
+                <!-- Flight Information Card -->
+                <div class="flight-info-card glass">
+                    <div class="card-header">
+                        <div class="flight-header">
+                            <div class="flight-number-section">
+                                <div class="flight-number" id="flightNumber">SV1234</div>
+                                <div class="flight-type">Direct Flight</div>
+                            </div>
+                            <div class="flight-status on-time">
+                                <div class="status-indicator">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                                <div class="status-text">On Time</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flight-route">
+                        <div class="departure">
+                            <div class="airport-section">
+                                <div class="airport-code">RUH</div>
+                                <div class="airport-name">King Khalid International</div>
+                            </div>
+                            <div class="city">Riyadh, Saudi Arabia</div>
+                            <div class="datetime">
+                                <div class="date-section">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span class="date">15 Jan 2024</span>
+                                </div>
+                                <div class="time-section">
+                                    <i class="fas fa-clock"></i>
+                                    <span class="time">08:30</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flight-info">
+                            <div class="duration-section">
+                                <div class="duration">
+                                    <i class="fas fa-clock"></i>
+                                    <span>2h 45m</span>
+                                </div>
+                                <div class="flight-type-badge">Direct</div>
+                            </div>
+                            <div class="flight-line">
+                                <div class="line-start"></div>
+                                <div class="line-middle">
+                                    <div class="airline-logo">
+                                        <img src="images/image1.jpg" alt="Saudia" onerror="this.src='./images/airline-placeholder.png'">
+                                    </div>
+                                    <div class="flight-path">
+                                        <i class="fas fa-plane"></i>
+                                    </div>
+                                </div>
+                                <div class="line-end"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="arrival">
+                            <div class="airport-section">
+                                <div class="airport-code">JED</div>
+                                <div class="airport-name">King Abdulaziz International</div>
+                            </div>
+                            <div class="city">Jeddah, Saudi Arabia</div>
+                            <div class="datetime">
+                                <div class="date-section">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span class="date">15 Jan 2024</span>
+                                </div>
+                                <div class="time-section">
+                                    <i class="fas fa-clock"></i>
+                                    <span class="time">11:15</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flight-details">
+                        <div class="airline-info">
+                            <div class="airline-logo-small">
+                                <img src="images/image1.jpg" alt="Saudia" onerror="this.src='./images/airline-placeholder.png'">
+                            </div>
+                            <div class="airline-details">
+                                <div class="airline-name">Saudia (Saudi Arabian Airlines)</div>
+                                <div class="aircraft-info">
+                                    <i class="fas fa-plane"></i>
+                                    <span class="aircraft-type">Boeing 737-800</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-info">
+                            <div class="price-section">
+                                <div class="price-label">Starting from</div>
+                                <div class="base-price">299 SAR</div>
+                                <div class="price-note">per person</div>
+                            </div>
+                            <div class="price-breakdown">
+                                <button class="btn-price-details" onclick="showPriceBreakdown()">
+                                    <i class="fas fa-info-circle"></i>
+                                    Price Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seat Selection Card -->
+                <div class="seat-selection-card glass">
+                    <div class="card-header">
+                        <div class="header-content">
+                            <h2>
+                                <i class="fas fa-chair"></i>
+                                Select Your Seat
+                            </h2>
+                            <p class="header-subtitle">Choose your preferred seat for a comfortable journey</p>
+                        </div>
+                        <div class="seat-stats">
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fas fa-chair"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-number">4</div>
+                                    <div class="stat-label">Available</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-number">2</div>
+                                    <div class="stat-label">Premium</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="seat-map-container">
+                        <div class="seat-map-section">
+                            <div class="seat-map-header">
+                                <h3>Aircraft Layout</h3>
+                                <div class="aircraft-info">
+                                    <i class="fas fa-plane"></i>
+                                    <span>Boeing 737-800</span>
+                                </div>
+                            </div>
+                            <div class="seat-map" id="seatMap">
+                                <!-- Seat map will be generated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="seat-legend">
+                            <div class="legend-header">
+                                <h4>Seat Types</h4>
+                                <p>Click on available seats to select</p>
+                            </div>
+                            <div class="legend-items">
+                                <div class="legend-item available">
+                                    <div class="seat-legend available"></div>
+                                    <div class="legend-content">
+                                        <span class="legend-title">Available</span>
+                                        <span class="legend-desc">Click to select</span>
+                                    </div>
+                                </div>
+                                <div class="legend-item selected">
+                                    <div class="seat-legend selected"></div>
+                                    <div class="legend-content">
+                                        <span class="legend-title">Selected</span>
+                                        <span class="legend-desc">Your choice</span>
+                                    </div>
+                                </div>
+                                <div class="legend-item occupied">
+                                    <div class="seat-legend occupied"></div>
+                                    <div class="legend-content">
+                                        <span class="legend-title">Occupied</span>
+                                        <span class="legend-desc">Not available</span>
+                                    </div>
+                                </div>
+                                <div class="legend-item premium">
+                                    <div class="seat-legend premium"></div>
+                                    <div class="legend-content">
+                                        <span class="legend-title">Premium</span>
+                                        <span class="legend-desc">Extra comfort</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Seat Selection Feedback -->
+                    <div class="seat-feedback" id="seatFeedback" style="display: none;">
+                        <div class="feedback-content">
+                            <div class="feedback-header">
+                                <h4>
+                                    <i class="fas fa-check-circle"></i>
+                                    Seat Selected
+                                </h4>
+                                <button class="btn-change-seat" onclick="changeSeat()">
+                                    <i class="fas fa-edit"></i>
+                                    Change
+                                </button>
+                            </div>
+                            <div class="seat-details">
+                                <div class="seat-info">
+                                    <div class="seat-number" id="selectedSeatNumber">-</div>
+                                    <div class="seat-description">
+                                        <span class="seat-row">Row <span id="selectedRow">-</span></span>
+                                        <span class="seat-letter">Seat <span id="selectedSeatLetter">-</span></span>
+                                    </div>
+                                </div>
+                                <div class="seat-price">
+                                    <div class="price-label">Total Price</div>
+                                    <div class="price-value" id="seatPrice">299 SAR</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Options Card -->
+                <div class="booking-options-card glass">
+                    <div class="card-header">
+                        <div class="header-content">
+                            <h2>
+                                <i class="fas fa-cog"></i>
+                                Choose Your Booking Option
+                            </h2>
+                            <p>Select how you'd like to complete your booking</p>
+                        </div>
+                        <div class="booking-tips">
+                            <div class="tip-item">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Manual booking gives you full control</span>
+                            </div>
+                            <div class="tip-item">
+                                <i class="fas fa-robot"></i>
+                                <span>AI booking finds the best seat automatically</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-options">
+                        <div class="booking-option manual-option">
+                            <div class="option-header">
+                                <div class="option-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="option-content">
+                                    <h3>Manual Reservation</h3>
+                                    <p>Take full control of your booking experience</p>
+                                    <div class="option-badge">
+                                        <i class="fas fa-star"></i>
+                                        <span>Recommended</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn-booking manual-booking" onclick="proceedToManualBooking()">
+                                <i class="fas fa-hand-pointer"></i>
+                                <span>Manual Booking</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="booking-option automatic-option">
+                            <div class="option-header">
+                                <div class="option-icon">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="option-content">
+                                    <h3>Automatic Reservation</h3>
+                                    <p>Let AI find the perfect seat for you</p>
+                                    <div class="option-badge ai">
+                                        <i class="fas fa-magic"></i>
+                                        <span>AI Powered</span>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <button class="btn-booking automatic-booking" onclick="proceedToAutomaticBooking()">
+                                <i class="fas fa-magic"></i>
+                                <span>Automatic Booking</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>FlySmart</h3>
+                    <p>Revolutionizing airline bookings with AI-driven insights for the best travel experiences. Your intelligent travel companion.</p>
+                    
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#deals">Flight Deals</a></li>
+                        <li><a href="index.html#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+              
+              
+            
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 FlySmart. All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/flight-booking.js"></script>
+    <script src="js/notifications.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,62 @@
+.cart-dropdown {
+    position: fixed; /* keep anchored to viewport under fixed header */
+    top: 70px; /* header height offset */
+    right: 20px; /* align near header icons */
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    min-width: 340px;
+    max-height: 60vh;
+    overflow-y: auto;
+    z-index: 2000;
+    display: none;
+}
+
+.cart-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+    color: #1E3A8A;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-item { padding: 15px 20px; border-bottom: 1px solid rgba(0,0,0,.05); display: flex; align-items: center; gap: 15px; }
+.cart-item:last-child { border-bottom: none; }
+.cart-item-info { flex: 1; }
+.cart-item-title { font-weight: 700; color: #1E3A8A; margin-bottom: 5px; }
+.cart-item-sub { font-size: .9rem; color: #4B5563; }
+.cart-item-price { font-weight: 700; color: #3B82F6; }
+
+.cart-footer { padding: 15px 20px; border-top: 1px solid rgba(0,0,0,.1); background: #F8FAFC; position: sticky; bottom: 0; }
+.cart-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-weight: 700; color: #1E3A8A; }
+.cart-checkout { width: 100%; background: linear-gradient(135deg, #667eea 0%, #62b6cb 100%); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all .2s ease; }
+.cart-checkout:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.2); }
+
+.empty-cart { text-align: center; padding: 40px 20px; color: #4B5563; }
+.empty-cart i { font-size: 3rem; color: #ddd; margin-bottom: 15px; }
+
+/* Responsive placement */
+@media (max-width: 768px) {
+  .cart-dropdown {
+    right: 10px;
+    left: 10px;
+    min-width: auto;
+  }
+}
+
+
+.notification-icon, .cart-icon, .profile-icon {
+    position: relative;
+    cursor: pointer;
+    color: darkblue;
+    font-size: 1.2rem;
+    transition: var(--transition);
+    padding: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}

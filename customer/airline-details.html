@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airline Details - FlySmart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/airline-details.css">
+    <link rel="stylesheet" href="css/notifications.css">
+  
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg" id="animatedBg"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#home" class="logo">
+                    <img src="./images/1.png" alt="FlySmart Logo">
+                </a>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="airlines.html">Airlines</a></li>
+                    <li><a href="index.html#deals">Deals</a></li> 
+                    <li><a href ="bookings.html">Bookings</a>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <div class="header-icons">
+                        <div class="notification-icon" id="notificationIcon">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge" id="notificationBadge">0</span>
+                        </div>
+                        <div class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-badge" id="cartBadge">0</span>
+                        </div>
+                        <div class="profile-icon" id="profileIcon">
+                           <a href="profile.html" ><i class="fas fa-user"></i></a>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="registerBtn"><a href="../login.html">sigin out </a></button>
+                </div>
+                
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Notification Dropdown -->
+    <div class="notification-dropdown" id="notificationDropdown">
+        <div class="notification-header">
+            <span>Notifications</span>
+            <button onclick="clearAllNotifications()" style="background: none; border: none; color: var(--light-blue); cursor: pointer; font-size: 0.8rem;">Clear All</button>
+        </div>
+        <div id="notificationList">
+            <div class="notification-item">
+                <div class="notification-title">Price Drop Alert</div>
+                <div class="notification-message">Flight from JED to DXB dropped to 299 SAR</div>
+                <div class="notification-time">2 minutes ago</div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-title">Booking Confirmation</div>
+                <div class="notification-message">Your flight booking has been confirmed</div>
+                <div class="notification-time">1 hour ago</div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-title">New Deal Available</div>
+                <div class="notification-message">Special offer: 20% off on all flights to Europe</div>
+                <div class="notification-time">3 hours ago</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Dropdown -->
+    <div class="cart-dropdown" id="cartDropdown">
+        <div class="cart-header">
+            <span>Your Bookings</span>
+            <span id="cartItemCount">0 items</span>
+        </div>
+        <div id="cartList">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Your cart is empty</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Add some flights to get started!</p>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">0 SAR</span>
+            </div>
+            <button class="cart-checkout" onclick="proceedToCheckout()">
+                <i class="fas fa-credit-card"></i> Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Profile Dropdown -->
+    <div class="profile-dropdown" id="profileDropdown">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="profile-name">Ahmed Al-Rashid</div>
+            <div class="profile-email">ahmed.rashid@email.com</div>
+        </div>
+        <div class="profile-menu">
+            <a href="#" class="profile-menu-item" onclick="openProfile()">
+                <i class="fas fa-user-circle"></i>
+                My Profile
+            </a>
+            <a href="#" class="profile-menu-item" onclick="openBookings()">
+                <i class="fas fa-plane"></i>
+                My Bookings
+            </a>
+            <a href="#" class="profile-menu-item" onclick="openFavorites()">
+                <i class="fas fa-heart"></i>
+                Favorites
+            </a>
+            <a href="#" class="profile-menu-item" onclick="openSettings()">
+                <i class="fas fa-cog"></i>
+                Settings
+            </a>
+            <div class="profile-menu-divider"></div>
+            <a href="#" class="profile-menu-item" onclick="openHelp()">
+                <i class="fas fa-question-circle"></i>
+                Help & Support
+            </a>
+            <a href="#" class="profile-menu-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                Sign Out
+            </a>
+        </div>
+    </div>
+
+    <!-- Search Section -->
+ 
+
+    <!-- Airline Details Section -->
+    <section class="airline-details-section">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <a href="airlines.html">Airlines</a>
+                <span>/</span>
+                <span id="airlineName">Airline Details</span>
+            </div>
+            
+            <div class="airline-details-content" id="airlineDetailsContent">
+                <!-- Saudia (Saudi Arabian Airlines) Details -->
+                <div class="airline-header-detail">
+                    <div class="airline-header-content">
+                        <img src="images/image.jpg" alt="Saudia" class="airline-logo-large" onerror="this.src='./images/airline-placeholder.png'">
+                        <div class="airline-info-detail">
+                            <h1>Saudia (Saudi Arabian Airlines)</h1>
+                            <span class="airline-number-large">SV001</span>
+                            <p class="airline-description-large">The national flag carrier of Saudi Arabia, connecting the Kingdom to the world with world-class service and modern aircraft.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="airline-stats-detail">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <span class="stat-value-large">90+</span>
+                        <span class="stat-label-large">Destinations</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <span class="stat-value-large">150+</span>
+                        <span class="stat-label-large">Aircraft</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <span class="stat-value-large">1945</span>
+                        <span class="stat-label-large">Founded</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="stat-value-large">4.8</span>
+                        <span class="stat-label-large">Rating</span>
+                    </div>
+                </div>
+                
+                <div class="airline-features-detail">
+                    <h2>Services & Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <h3 class="feature-title">Business Class</h3>
+                            <p class="feature-description">Premium seating with enhanced comfort and service</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <h3 class="feature-title">Economy Plus</h3>
+                            <p class="feature-description">Extra legroom and enhanced amenities</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-wifi"></i>
+                            </div>
+                            <h3 class="feature-title">WiFi</h3>
+                            <p class="feature-description">Complimentary high-speed internet access</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-tv"></i>
+                            </div>
+                            <h3 class="feature-title">Entertainment</h3>
+                            <p class="feature-description">Personal entertainment system with latest content</p>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                </div>
+                <section class="search-section">
+                    <div class="container">
+                        <div class="search-container">
+                            <form class="search-form glass" id="quickSearch">
+                                <div class="form-group">
+                                    <label>From</label>
+                                    <input type="text" placeholder="Departure City" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>To</label>
+                                    <input type="text" placeholder="Destination City" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Departure</label>
+                                    <input type="date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Return</label>
+                                    <input type="date">
+                                </div>
+                                <div class="form-group">
+                                    <label>Passengers</label>
+                                    <select>
+                                        <option>1 Passenger</option>
+                                        <option>2 Passengers</option>
+                                        <option>3 Passengers</option>
+                                        <option>4 Passengers</option>
+                                        <option>5+ Passengers</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="class">Class</label>
+                                    <select>
+                                        <option>Economy</option>
+                                        <option>Business</option>
+                                        <option>First</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="search-btn">
+                                        <i class="fas fa-search"></i> Search Flights
+                                    </button>
+                                </div>
+                                <!-- Auto-booking section -->
+                                <div class="auto-booking-section">
+                                    <div class="auto-booking-toggle">
+                                        <div class="toggle-label">
+                                            <i class="fas fa-robot"></i>
+                                            <span>Enable Auto-Booking</span>
+                                        </div>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" id="autoBookingToggle">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="auto-booking-options" id="autoBookingOptions">
+                                        <div class="price-input-group">
+                                            <div class="form-group" style="flex: 1;">
+                                                <label>Max Price (SAR)</label>
+                                                <input type="number" id="maxPrice" placeholder="e.g. 500">
+                                            </div>
+                                            <div class="form-group" style="flex: 1;">
+                                                <label>Preferred Time</label>
+                                                <select id="preferredTime">
+                                                    <option>Any Time</option>
+                                                    <option>Early Morning (6-9 AM)</option>
+                                                    <option>Morning (9-12 PM)</option>
+                                                    <option>Afternoon (12-6 PM)</option>
+                                                    <option>Evening (6-9 PM)</option>
+                                                    <option>Night (9 PM-6 AM)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="info-box">
+                                    <i class="fas fa-info-circle"></i>
+                                    <p>Our AI will monitor prices and automatically reserve the flight when it matches or drops below your target price. You'll have 10 minutes to complete payment.</p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+                <!-- Flights Section -->
+                <div class="flights-section">
+                    <h2>Available Flights</h2>
+                    <p>Book your next journey with Saudia</p>
+                    
+                    <div class="flights-grid">
+                        <!-- Flight 1 -->
+                        <div class="flight-card">
+                            <div class="flight-header">
+                                <div class="flight-number">SV1234</div>
+                                <div class="flight-status on-time">On Time</div>
+                            </div>
+                            
+                            <div class="flight-route">
+                                <div class="departure">
+                                    <div class="airport-code">RUH</div>
+                                    <div class="city">Riyadh</div>
+                                    <div class="datetime">
+                                        <span class="date">15 Jan 2024</span>
+                                        <span class="time">08:30</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-info">
+                                    <div class="duration">2h 45m</div>
+                                    <div class="airline-logo-small">
+                                        <img src="images/image1.jpg" alt="Saudia" onerror="this.src='./images/airline-placeholder.png'">
+                                    </div>
+                                </div>
+                                
+                                <div class="arrival">
+                                    <div class="airport-code">JED</div>
+                                    <div class="city">Jeddah</div>
+                                    <div class="datetime">
+                                        <span class="date">15 Jan 2024</span>
+                                        <span class="time">11:15</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-details">
+                                <div class="seats-info">
+                                    <span class="seats-available">Total Seats: 180</span>
+                                    <span class="seats-remaining">Available: 45</span>
+                                </div>
+                                <div class="price-info">
+                                    <span class="base-price">From 299 SAR</span>
+                                    <button class="btn-book" onclick="bookFlight('SV1234')">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Flight 2 -->
+                        <div class="flight-card">
+                            <div class="flight-header">
+                                <div class="flight-number">SV5678</div>
+                                <div class="flight-status delayed">Delayed</div>
+                            </div>
+                            
+                            <div class="flight-route">
+                                <div class="departure">
+                                    <div class="airport-code">JED</div>
+                                    <div class="city">Jeddah</div>
+                                    <div class="datetime">
+                                        <span class="date">16 Jan 2024</span>
+                                        <span class="time">14:20</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-info">
+                                    <div class="duration">3h 15m</div>
+                                    <div class="airline-logo-small">
+                                        <img src="images/image3.jpg" alt="Saudia" onerror="this.src='./images/airline-placeholder.png'">
+                                    </div>
+                                </div>
+                                
+                                <div class="arrival">
+                                    <div class="airport-code">DMM</div>
+                                    <div class="city">Dammam</div>
+                                    <div class="datetime">
+                                        <span class="date">16 Jan 2024</span>
+                                        <span class="time">17:35</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-details">
+                                <div class="seats-info">
+                                    <span class="seats-available">Total Seats: 150</span>
+                                    <span class="seats-remaining">Available: 12</span>
+                                </div>
+                                <div class="price-info">
+                                    <span class="base-price">From 189 SAR</span>
+                                    <button class="btn-book" onclick="bookFlight('SV5678')">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Flight 3 -->
+                        <div class="flight-card">
+                            <div class="flight-header">
+                                <div class="flight-number">SV9012</div>
+                                <div class="flight-status on-time">On Time</div>
+                            </div>
+                            
+                            <div class="flight-route">
+                                <div class="departure">
+                                    <div class="airport-code">RUH</div>
+                                    <div class="city">Riyadh</div>
+                                    <div class="datetime">
+                                        <span class="date">17 Jan 2024</span>
+                                        <span class="time">22:45</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-info">
+                                    <div class="duration">6h 30m</div>
+                                    <div class="airline-logo-small">
+                                        <img src="../images/image4.jpg" alt="Saudia" onerror="this.src='./images/airline-placeholder.png'">
+                                    </div>
+                                </div>
+                                
+                                <div class="arrival">
+                                    <div class="airport-code">LHR</div>
+                                    <div class="city">London</div>
+                                    <div class="datetime">
+                                        <span class="date">18 Jan 2024</span>
+                                        <span class="time">05:15</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-details">
+                                <div class="seats-info">
+                                    <span class="seats-available">Total Seats: 300</span>
+                                    <span class="seats-remaining">Available: 78</span>
+                                </div>
+                                <div class="price-info">
+                                    <span class="base-price">From 1,899 SAR</span>
+                                    <button class="btn-book" onclick="bookFlight('SV9012')">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Flight 4 -->
+                        <div class="flight-card">
+                            <div class="flight-header">
+                                <div class="flight-number">SV3456</div>
+                                <div class="flight-status cancelled">Cancelled</div>
+                            </div>
+                            
+                            <div class="flight-route">
+                                <div class="departure">
+                                    <div class="airport-code">JED</div>
+                                    <div class="city">Jeddah</div>
+                                    <div class="datetime">
+                                        <span class="date">18 Jan 2024</span>
+                                        <span class="time">09:15</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-info">
+                                    <div class="duration">4h 20m</div>
+                                    <div class="airline-logo-small">
+                                        <img src="images/image6.jpg" alt="Saudia" onerror="this.src='./images/airline-placeholder.png'">
+                                    </div>
+                                </div>
+                                
+                                <div class="arrival">
+                                    <div class="airport-code">DXB</div>
+                                    <div class="city">Dubai</div>
+                                    <div class="datetime">
+                                        <span class="date">18 Jan 2024</span>
+                                        <span class="time">13:35</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-details">
+                                <div class="seats-info">
+                                    <span class="seats-available">Total Seats: 200</span>
+                                    <span class="seats-remaining">Available: 0</span>
+                                </div>
+                                <div class="price-info">
+                                    <span class="base-price">From 599 SAR</span>
+                                    <button class="btn-book disabled" disabled>Not Available</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="booking-section">
+                    <h2>Book Your Flight</h2>
+                    <p>Ready to fly with Saudia (Saudi Arabian Airlines)? Choose your preferred booking option.</p>
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="cart-dropdown" id="cartDropdown">
+        <div class="cart-header">
+            <span>Your Bookings</span>
+            <span id="cartItemCount">0 items</span>
+        </div>
+        <div id="cartList">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Your cart is empty</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Add some flights to get started!</p>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">0 SAR</span>
+            </div>
+            <button class="cart-checkout" onclick="proceedToCheckout()">
+                <i class="fas fa-credit-card"></i> Proceed to Checkout
+            </button>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>FlySmart</h3>
+                    <p>Revolutionizing airline bookings with AI-driven insights for the best travel experiences. Your intelligent travel companion.</p>
+                    
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#deals">Flight Deals</a></li>
+                        <li><a href="index.html#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+              
+              
+            
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 FlySmart. All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/airline-details.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>

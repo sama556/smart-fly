@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - FlySmart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/notifications.css">
+
+
+  
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg" id="animatedBg"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#home" class="logo">
+                    <img src="./images/1.png" alt="FlySmart Logo">
+                </a>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="airlines.html">Airlines</a></li>
+                    <li><a href="index.html#deals">Deals</a></li> 
+                    <li><a href ="bookings.html">Bookings</a>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <div class="header-icons">
+                        <div class="notification-icon" id="notificationIcon">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge" id="notificationBadge">0</span>
+                        </div>
+                        <div class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-badge" id="cartBadge">0</span>
+                        </div>
+                        <div class="profile-icon" id="profileIcon">
+                           <a href="profile.html" ><i class="fas fa-user"></i></a>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="registerBtn"><a href="../login.html">sigin out </a></button>
+                </div>
+                
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Profile Dropdown -->
+    <div class="profile-dropdown" id="profileDropdown">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="profile-name">Ahmed Al-Rashid</div>
+            <div class="profile-email">ahmed.rashid@email.com</div>
+        </div>
+        <div class="profile-menu">
+            <a href="profile.html" class="profile-menu-item">
+                <i class="fas fa-user-circle"></i>
+                My Profile
+            </a>
+            <a href="../admin/bookings.html" class="profile-menu-item">
+                <i class="fas fa-plane"></i>
+                My Bookings
+            </a>
+            <a href="#" class="profile-menu-item" onclick="openFavorites()">
+                <i class="fas fa-heart"></i>
+                Favorites
+            </a>
+            <a href="#" class="profile-menu-item" onclick="openSettings()">
+                <i class="fas fa-cog"></i>
+                Settings
+            </a>
+            <div class="profile-menu-divider"></div>
+            <a href="#" class="profile-menu-item" onclick="openHelp()">
+                <i class="fas fa-question-circle"></i>
+                Help & Support
+            </a>
+            <a href="#" class="profile-menu-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                Sign Out
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="profile-container">
+            <!-- Profile Header -->
+            <div class="profile-header-section">
+                <h1 class="profile-title">My Profile</h1>
+                <p class="profile-subtitle">Manage your account information and travel preferences</p>
+            </div>
+
+            <!-- Profile Information -->
+            <div class="profile-grid">
+                <!-- Profile Photo Section -->
+                <div class="profile-card profile-photo-section">
+                    <div class="profile-photo" id="profilePhoto">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <button class="photo-upload-btn" onclick="document.getElementById('photo-upload').click()">
+                        <i class="fas fa-camera"></i> Change Photo
+                    </button>
+                    <input type="file" id="photo-upload" accept="image/*" onchange="handlePhotoUpload(event)">
+                </div>
+
+                <!-- Profile Info Section -->
+                <div class="profile-card profile-info-section">
+                    <h3>Personal Information</h3>
+                    <div class="info-item">
+                        <span class="info-label">Full Name:</span>
+                        <span class="info-value">Ahmed Al-Rashid</span>
+                        <button class="edit-btn" onclick="editField('name')">Edit</button>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Email:</span>
+                        <span class="info-value">ahmed.rashid@email.com</span>
+                        <button class="edit-btn" onclick="editField('email')">Edit</button>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Mobile:</span>
+                        <span class="info-value">+966 50 123 4567</span>
+                        <button class="edit-btn" onclick="editField('mobile')">Edit</button>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Country:</span>
+                        <span class="info-value">Saudi Arabia</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Passenger Type:</span>
+                        <span class="info-value">Traveler</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Traveler ID:</span>
+                        <span class="info-value">TRV-998877</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Member Since:</span>
+                        <span class="info-value">October 2025</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Password:</span>
+                        <span class="info-value">••••••••</span>
+                        <button class="edit-btn" onclick="showChangePasswordModal()">Change Password</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wallet Section -->
+            <div class="wallet-section">
+                <div class="section-header">
+                    <h2 class="section-title">My Wallet</h2>
+                    <button class="add-card-btn" onclick="showAddCardModal()">
+                        <i class="fas fa-plus"></i> Add Card
+                    </button>
+                </div>
+                
+                <!-- Wallet Balance -->
+                <div class="wallet-balance-card">
+                    <div class="balance-info">
+                        <div class="balance-label">Available Balance</div>
+                        <div class="balance-amount" id="walletBalance">2,450.00 SAR</div>
+                    </div>
+                    <div class="balance-actions">
+                        <button class="add-money-btn" onclick="showAddMoneyModal()">
+                            <i class="fas fa-plus"></i> Add Money
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Payment Cards -->
+                <div class="cards-grid" id="cardsGrid">
+                    <!-- Card 1 -->
+                    <div class="card-item">
+                        <div class="card-header">
+                            <div class="card-type">
+                                <i class="fab fa-cc-visa"></i>
+                                <span>Visa</span>
+                            </div>
+                            <div class="card-actions">
+                                
+                                <button class="action-btn" onclick="deleteCard(1)" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-info">
+                            <div class="card-number">**** **** **** 1234</div>
+                            <div class="card-details">
+                                <span class="card-holder">Ahmed Al-Rashid</span>
+                                <span class="card-expiry">12/26</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="card-item">
+                        <div class="card-header">
+                            <div class="card-type">
+                                <i class="fab fa-cc-mastercard"></i>
+                                <span>Mastercard</span>
+                            </div>
+                            <div class="card-actions">
+                                
+                                <button class="action-btn" onclick="deleteCard(2)" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-info">
+                            <div class="card-number">**** **** **** 5678</div>
+                            <div class="card-details">
+                                <span class="card-holder">Ahmed Al-Rashid</span>
+                                <span class="card-expiry">08/27</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions -->
+                <div class="transactions-section">
+                    <h3 class="transactions-title">Recent Transactions</h3>
+                    <div class="transactions-list">
+                        <div class="transaction-item">
+                            <div class="transaction-icon">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <div class="transaction-description">Wallet Top-up</div>
+                                <div class="transaction-date">Today, 2:30 PM</div>
+                            </div>
+                            <div class="transaction-amount positive">+500.00 SAR</div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="transaction-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <div class="transaction-description">Flight Booking - JED to DXB</div>
+                                <div class="transaction-date">Yesterday, 10:15 AM</div>
+                            </div>
+                            <div class="transaction-amount negative">-299.00 SAR</div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="transaction-icon">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <div class="transaction-description">Wallet Top-up</div>
+                                <div class="transaction-date">3 days ago</div>
+                            </div>
+                            <div class="transaction-amount positive">+1,000.00 SAR</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Add Money Modal -->
+    <div class="modal-overlay" id="addMoneyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Money to Wallet</h3>
+                <button class="modal-close" onclick="closeAddMoneyModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addMoneyForm">
+                    <div class="form-group">
+                        <label for="amount">Amount (SAR)</label>
+                        <input type="number" id="amount" placeholder="Enter amount" required min="1" step="0.01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required maxlength="19">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiryDate">Expiry Date</label>
+                            <input type="text" id="expiryDate" placeholder="MM/YY" required maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" placeholder="123" required maxlength="4">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cardHolder">Cardholder Name</label>
+                        <input type="text" id="cardHolder" placeholder="Ahmed Al-Rashid" required>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" onclick="closeAddMoneyModal()">Cancel</button>
+                        <button type="submit" class="btn-save">Add Money</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Card Modal -->
+    <div class="modal-overlay" id="addCardModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Card</h3>
+                <button class="modal-close" onclick="closeAddCardModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addCardForm">
+                    <div class="form-group">
+                        <label for="newCardNumber">Card Number</label>
+                        <input type="text" id="newCardNumber" placeholder="1234 5678 9012 3456" required maxlength="19">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newExpiryDate">Expiry Date</label>
+                            <input type="text" id="newExpiryDate" placeholder="MM/YY" required maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="newCvv">CVV</label>
+                            <input type="text" id="newCvv" placeholder="123" required maxlength="4">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newCardHolder">Cardholder Name</label>
+                        <input type="text" id="newCardHolder" placeholder="Ahmed Al-Rashid" required>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" onclick="closeAddCardModal()">Cancel</button>
+                        <button type="submit" class="btn-save">Add Card</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal-overlay" id="changePasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+                <button class="modal-close" onclick="closeChangePasswordModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    <div class="form-group">
+                        <label for="currentPassword">Current Password</label>
+                        <input type="password" id="currentPassword" placeholder="Enter your current password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" placeholder="Enter your new password" required minlength="8">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm New Password</label>
+                        <input type="password" id="confirmPassword" placeholder="Confirm your new password" required>
+                    </div>
+                    
+                    <div class="password-requirements">
+                        <h4>Password Requirements:</h4>
+                        <ul>
+                            <li>At least 8 characters long</li>
+                            <li>Contains uppercase and lowercase letters</li>
+                            <li>Contains at least one number</li>
+                            <li>Contains at least one special character</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" onclick="closeChangePasswordModal()">Cancel</button>
+                        <button type="submit" class="btn-save">Change Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="cart-dropdown" id="cartDropdown">
+        <div class="cart-header">
+            <span>Your Bookings</span>
+            <span id="cartItemCount">0 items</span>
+        </div>
+        <div id="cartList">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Your cart is empty</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Add some flights to get started!</p>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">0 SAR</span>
+            </div>
+            <button class="cart-checkout" onclick="proceedToCheckout()">
+                <i class="fas fa-credit-card"></i> Proceed to Checkout
+            </button>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>FlySmart</h3>
+                    <p>Revolutionizing airline bookings with AI-driven insights for the best travel experiences. Your intelligent travel companion.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#deals">Flight Deals</a></li>
+                        <li><a href="index.html#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 FlySmart. All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+<script src="js/profile.js"></script>
+<script src="js/index.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/notifications.js"></script>
+   
+</body>
+</html>
+</html>

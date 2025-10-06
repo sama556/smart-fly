@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airlines - FlySmart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/airlines.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/notifications.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg" id="animatedBg"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#home" class="logo">
+                    <img src="./images/1.png" alt="FlySmart Logo">
+                </a>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="airlines.html">Airlines</a></li>
+                    <li><a href="index.html#deals">Deals</a></li> 
+                    <li><a href ="bookings.html">Bookings</a>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <div class="header-icons">
+                        <div class="notification-icon" id="notificationIcon">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge" id="notificationBadge">0</span>
+                        </div>
+                        <div class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-badge" id="cartBadge">0</span>
+                        </div>
+                        <div class="profile-icon" id="profileIcon">
+                           <a href="profile.html" ><i class="fas fa-user"></i></a>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="registerBtn"><a href="../login.html">sigin out </a></button>
+                </div>
+                
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Our Partner Airlines</h1>
+                <p>Discover the world's leading airlines and their exceptional services. Choose from our trusted partners for your next journey.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="scrollToAirlines()">Explore Airlines</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='index.html'">Back to Home</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Airlines Section -->
+    <section class="airlines-section" id="airlines">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Partner Airlines</h2>
+                <p class="section-subtitle">Choose from our trusted airline partners for your next journey</p>
+            </div>
+            
+            <div class="airlines-grid" id="airlinesGrid">
+                <!-- Saudia (Saudi Arabian Airlines) -->
+                <div class="airline-card" data-aos="fade-up" data-aos-delay="100" onclick="openAirlineDetails(1)">
+                    <div class="airline-header">
+                        <img src="../images/image4.jpg" alt="Saudia" class="airline-logo" onerror="this.src='./images/airline-placeholder.png'">
+                        <div class="airline-info">
+                            <h3>Saudia (Saudi Arabian Airlines)</h3>
+                            <span class="airline-number">SV001</span>
+                        </div>
+                    </div>
+                    
+                    <div class="airline-details">
+                        <p class="airline-description">The national flag carrier of Saudi Arabia, connecting the Kingdom to the world with world-class service and modern aircraft.</p>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="airline-actions">
+                        <button class="btn-airline btn-primary-airline" onclick="event.stopPropagation(); openAirlineDetails(1)">
+                            View Details
+                        </button>
+                        <button class="btn-airline btn-secondary-airline" onclick="event.stopPropagation(); bookWithAirline(1)">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Flyadeal -->
+                <div class="airline-card" data-aos="fade-up" data-aos-delay="200" onclick="openAirlineDetails(2)">
+                    <div class="airline-header">
+                        <img src="../images/image2.jpg" alt="Flyadeal" class="airline-logo" onerror="this.src='./images/airline-placeholder.png'">
+                        <div class="airline-info">
+                            <h3>Flyadeal</h3>
+                            <span class="airline-number">FZ002</span>
+                        </div>
+                    </div>
+                    
+                    <div class="airline-details">
+                        <p class="airline-description">Saudi Arabia's leading low-cost carrier, offering affordable domestic and international flights with modern aircraft.</p>
+                        
+                       
+                        
+                       
+                    </div>
+                    
+                    <div class="airline-actions">
+                        <button class="btn-airline btn-primary-airline" onclick="event.stopPropagation(); openAirlineDetails(2)">
+                            View Details
+                        </button>
+                        <button class="btn-airline btn-secondary-airline" onclick="event.stopPropagation(); bookWithAirline(2)">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Flynas -->
+                <div class="airline-card" data-aos="fade-up" data-aos-delay="300" onclick="openAirlineDetails(3)">
+                    <div class="airline-header">
+                        <img src="../images/image6.jpg" alt="Flynas" class="airline-logo" onerror="this.src='./images/airline-placeholder.png'">
+                        <div class="airline-info">
+                            <h3>Flynas</h3>
+                            <span class="airline-number">XY003</span>
+                        </div>
+                    </div>
+                    
+                    <div class="airline-details">
+                        <p class="airline-description">Saudi Arabia's first low-cost airline, providing affordable travel options across the Middle East and beyond.</p>
+                        
+                       
+                        
+                       
+                    </div>
+                    
+                    <div class="airline-actions">
+                        <button class="btn-airline btn-primary-airline" onclick="event.stopPropagation(); openAirlineDetails(3)">
+                            View Details
+                        </button>
+                        <button class="btn-airline btn-secondary-airline" onclick="event.stopPropagation(); bookWithAirline(3)">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Qatar Airways -->
+                <div class="airline-card" data-aos="fade-up" data-aos-delay="400" onclick="openAirlineDetails(4)">
+                    <div class="airline-header">
+                        <img src="../images/image5.jpg" alt="Qatar Airways" class="airline-logo" onerror="this.src='./images/airline-placeholder.png'">
+                        <div class="airline-info">
+                            <h3>Qatar Airways</h3>
+                            <span class="airline-number">QR004</span>
+                        </div>
+                    </div>
+                    
+                    <div class="airline-details">
+                        <p class="airline-description">Award-winning airline known for exceptional service, modern aircraft, and extensive global connectivity.</p>
+                    </div>
+                    
+                    <div class="airline-actions">
+                        <button class="btn-airline btn-primary-airline" onclick="event.stopPropagation(); openAirlineDetails(4)">
+                            View Details
+                        </button>
+                        <button class="btn-airline btn-secondary-airline" onclick="event.stopPropagation(); bookWithAirline(4)">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Emirates -->
+                <div class="airline-card" data-aos="fade-up" data-aos-delay="500" onclick="openAirlineDetails(5)">
+                    <div class="airline-header">
+                        <img src="images/Emirates_logo.svg.png" alt="Emirates" class="airline-logo" onerror="this.src='./images/airline-placeholder.png'">
+                        <div class="airline-info">
+                            <h3>Emirates</h3>
+                            <span class="airline-number">EK005</span>
+                        </div>
+                    </div>
+                    
+                    <div class="airline-details">
+                        <p class="airline-description">One of the world's largest airlines, known for luxury service, modern fleet, and extensive global network.</p>
+                    </div>
+                    
+                    <div class="airline-actions">
+                        <button class="btn-airline btn-primary-airline" onclick="event.stopPropagation(); openAirlineDetails(5)">
+                            View Details
+                        </button>
+                        <button class="btn-airline btn-secondary-airline" onclick="event.stopPropagation(); bookWithAirline(5)">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Turkish Airlines -->
+                <div class="airline-card" data-aos="fade-up" data-aos-delay="600" onclick="openAirlineDetails(6)">
+                    <div class="airline-header">
+                        <img src="images/image.jpg" alt="Turkish Airlines" class="airline-logo" onerror="this.src='./images/airline-placeholder.png'">
+                        <div class="airline-info">
+                            <h3>Turkish Airlines</h3>
+                            <span class="airline-number">TK006</span>
+                        </div>
+                    </div>
+                    
+                    <div class="airline-details">
+                        <p class="airline-description">Turkey's national flag carrier, connecting Europe, Asia, and Africa with world-class service.</p>
+                    </div>
+                    
+                    <div class="airline-actions">
+                        <button class="btn-airline btn-primary-airline" onclick="event.stopPropagation(); openAirlineDetails(6)">
+                            View Details
+                        </button>
+                        <button class="btn-airline btn-secondary-airline" onclick="event.stopPropagation(); bookWithAirline(6)">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- EgyptAir -->
+                <div class="airline-card" data-aos="fade-up" data-aos-delay="700" onclick="openAirlineDetails(7)">
+                    <div class="airline-header">
+                        <img src="../images/image4.jpg" alt="EgyptAir" class="airline-logo" onerror="this.src='./images/airline-placeholder.png'">
+                        <div class="airline-info">
+                            <h3>EgyptAir</h3>
+                            <span class="airline-number">MS007</span>
+                        </div>
+                    </div>
+                    
+                    <div class="airline-details">
+                        <p class="airline-description">Egypt's national airline, providing reliable service across Africa, Europe, and the Middle East.</p>
+                    </div>
+                    
+                    <div class="airline-actions">
+                        <button class="btn-airline btn-primary-airline" onclick="event.stopPropagation(); openAirlineDetails(7)">
+                            View Details
+                        </button>
+                        <button class="btn-airline btn-secondary-airline" onclick="event.stopPropagation(); bookWithAirline(7)">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lufthansa -->
+                <div class="airline-card" data-aos="fade-up" data-aos-delay="800" onclick="openAirlineDetails(8)">
+                    <div class="airline-header">
+                        <img src="images/image3.jpg" alt="Lufthansa" class="airline-logo" onerror="this.src='./images/airline-placeholder.png'">
+                        <div class="airline-info">
+                            <h3>Lufthansa</h3>
+                            <span class="airline-number">LH008</span>
+                        </div>
+                    </div>
+                    
+                    <div class="airline-details">
+                        <p class="airline-description">Germany's largest airline, known for precision, reliability, and extensive European network.</p>
+                    </div>
+                    
+                    <div class="airline-actions">
+                        <button class="btn-airline btn-primary-airline" onclick="event.stopPropagation(); openAirlineDetails(8)">
+                            View Details
+                        </button>
+                        <button class="btn-airline btn-secondary-airline" onclick="event.stopPropagation(); bookWithAirline(8)">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- British Airways -->
+                <div class="airline-card" data-aos="fade-up" data-aos-delay="900" onclick="openAirlineDetails(9)">
+                    <div class="airline-header">
+                        <img src="images/image4.jpg" alt="British Airways" class="airline-logo" onerror="this.src='./images/airline-placeholder.png'">
+                        <div class="airline-info">
+                            <h3>British Airways</h3>
+                            <span class="airline-number">BA009</span>
+                        </div>
+                    </div>
+                    
+                    <div class="airline-details">
+                        <p class="airline-description">The UK's flag carrier, connecting London to destinations worldwide with British hospitality.</p>
+                    </div>
+                    
+                    <div class="airline-actions">
+                        <button class="btn-airline btn-primary-airline" onclick="event.stopPropagation(); openAirlineDetails(9)">
+                            View Details
+                        </button>
+                        <button class="btn-airline btn-secondary-airline" onclick="event.stopPropagation(); bookWithAirline(9)">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                
+                <!-- Etihad Airways -->
+               
+                   
+                </div>
+
+            
+              
+            </div>
+        </div>
+    </section>
+    <div class="cart-dropdown" id="cartDropdown">
+        <div class="cart-header">
+            <span>Your Bookings</span>
+            <span id="cartItemCount">0 items</span>
+        </div>
+        <div id="cartList">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Your cart is empty</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Add some flights to get started!</p>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">0 SAR</span>
+            </div>
+            <button class="cart-checkout" onclick="proceedToCheckout()">
+                <i class="fas fa-credit-card"></i> Proceed to Checkout
+            </button>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>FlySmart</h3>
+                    <p>Revolutionizing airline bookings with AI-driven insights for the best travel experiences. Your intelligent travel companion.</p>
+                    
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#deals">Flight Deals</a></li>
+                        <li><a href="index.html#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+              
+              
+            
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 FlySmart. All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/airlines.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html>

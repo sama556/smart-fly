@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlySmart - Intelligent Travel Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/notifications.css">
+   
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg" id="animatedBg"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#home" class="logo">
+                    <img src="./images/1.png" alt="FlySmart Logo">
+                </a>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="airlines.html">Airlines</a></li>
+                    <li><a href="index.html#deals">Deals</a></li> 
+                    <li><a href ="bookings.html">Bookings</a>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <div class="header-icons">
+                        <div class="notification-icon" id="notificationIcon">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge" id="notificationBadge">0</span>
+                        </div>
+                        <div class="cart-icon" id="cartIcon">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-badge" id="cartBadge">0</span>
+                        </div>
+                        <div class="profile-icon" id="profileIcon">
+                           <a href="profile.html" ><i class="fas fa-user"></i></a>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="registerBtn"><a href="../login.html">sigin out </a></button>
+                </div>
+                
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Notification Dropdown -->
+    <div class="notification-dropdown" id="notificationDropdown">
+        <div class="notification-header">
+            <span>Notifications</span>
+            <button onclick="clearAllNotifications()" style="background: none; border: none; color: var(--light-blue); cursor: pointer; font-size: 0.8rem;">Clear All</button>
+        </div>
+        <div id="notificationList">
+            <div class="notification-item">
+                <div class="notification-title">Price Drop Alert</div>
+                <div class="notification-message">Flight from JED to DXB dropped to 299 SAR</div>
+                <div class="notification-time">2 minutes ago</div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-title">Booking Confirmation</div>
+                <div class="notification-message">Your flight booking has been confirmed</div>
+                <div class="notification-time">1 hour ago</div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-title">New Deal Available</div>
+                <div class="notification-message">Special offer: 20% off on all flights to Europe</div>
+                <div class="notification-time">3 hours ago</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Dropdown -->
+    <div class="cart-dropdown" id="cartDropdown">
+        <div class="cart-header">
+            <span>Your Bookings</span>
+            <span id="cartItemCount">0 items</span>
+        </div>
+        <div id="cartList">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Your cart is empty</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Add some flights to get started!</p>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">0 SAR</span>
+            </div>
+            <button class="cart-checkout" onclick="proceedToCheckout()">
+                <i class="fas fa-credit-card"></i> Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Profile Dropdown -->
+    <div class="profile-dropdown" id="profileDropdown">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="profile-name">Ahmed Al-Rashid</div>
+            <div class="profile-email">ahmed.rashid@email.com</div>
+        </div>
+        <div class="profile-menu">
+            <a href="#" class="profile-menu-item" onclick="openProfile()">
+                <i class="fas fa-user-circle"></i>
+                My Profile
+            </a>
+            <a href="#" class="profile-menu-item" onclick="openBookings()">
+                <i class="fas fa-plane"></i>
+                My Bookings
+            </a>
+            <a href="#" class="profile-menu-item" onclick="openFavorites()">
+                <i class="fas fa-heart"></i>
+                Favorites
+            </a>
+            <a href="#" class="profile-menu-item" onclick="openSettings()">
+                <i class="fas fa-cog"></i>
+                Settings
+            </a>
+            <div class="profile-menu-divider"></div>
+            <a href="#" class="profile-menu-item" onclick="openHelp()">
+                <i class="fas fa-question-circle"></i>
+                Help & Support
+            </a>
+            <a href="#" class="profile-menu-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                Sign Out
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>FlySmart: Intelligent Travel Solutions</h1>
+                <p>Experience the future of travel booking with AI-powered price predictions, seamless bookings, and personalized recommendations.</p>
+                
+                <div class="search-container">
+                    <form class="search-form glass" id="quickSearch">
+                        <div class="form-group">
+                            <label>From</label>
+                            <input type="text" placeholder="Departure City" required>
+                        </div>
+                        <div class="form-group">
+                            <label>To</label>
+                            <input type="text" placeholder="Destination City" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Departure</label>
+                            <input type="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Return</label>
+                            <input type="date">
+                        </div>
+                        <div class="form-group">
+                            <label>Passengers</label>
+                            <select>
+                                <option>1 Passenger</option>
+                                
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="class">Class</label>
+                            <select>
+                                <option>Economy</option>
+                                <option>Business</option>
+                                <option>First</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="search-btn">
+                                <i class="fas fa-search"></i> Search Flights
+                            </button>
+                        </div>
+                        <!-- Auto-booking section -->
+                        <div class="auto-booking-section">
+                            <div class="auto-booking-toggle">
+                                <div class="toggle-label">
+                                    <i class="fas fa-robot"></i>
+                                    <span>Enable Auto-Booking</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="autoBookingToggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="auto-booking-options" id="autoBookingOptions">
+                                <div class="price-input-group">
+                                    <div class="form-group" style="flex: 1;">
+                                        <label>Max Price (SAR)</label>
+                                        <input type="number" id="maxPrice" placeholder="e.g. 500">
+                                    </div>
+                                    <div class="form-group" style="flex: 1;">
+                                        <label>Preferred Time</label>
+                                        <select id="preferredTime">
+                                            <option>Any Time</option>
+                                           
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Our AI will monitor prices and automatically reserve the flight when it matches or drops below your target price. You'll have 10 minutes to complete payment.</p>
+                        </div>
+
+                       
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flight Deals Section -->
+    <section class="deals-section" id="deals">
+        <div class="container">
+            <h2 class="section-title scroll-animate">🔥 Hottest Flight Deals</h2>
+            
+            <div class="flight-slider scroll-animate">
+                <div class="flight-slides" id="flightSlides">
+                    <div class="flight-card">
+                        <div class="flight-image" style="background-image: url('./images/image1.jpg')">
+                            <div class="price-badge">299SAR</div>
+                        </div>
+                        <div class="flight-info">
+                            <div class="route">
+                                <div class="city">JED</div>
+                                <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                <div class="city">DXB</div>
+                            </div>
+                            <div class="flight-time">2h 30m • Direct Flight</div>
+                            <div class="airline">Saudia Airlines</div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="flight-card">
+                        <div class="flight-image" style="background-image: url('./images/image2.jpg')">
+                            <div class="price-badge">459SAR</div>
+                        </div>
+                        <div class="flight-info">
+                            <div class="route">
+                                <div class="city">JED</div>
+                                <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                <div class="city">LHR</div>
+                            </div>
+                            <div class="flight-time">6h 45m • Direct Flight</div>
+                            <div class="airline">Saudia Airlines</div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="flight-card">
+                        <div class="flight-image" style="background-image: url('images/image4.jpg')">
+                            <div class="price-badge">189SAR</div>
+                        </div>
+                        <div class="flight-info">
+                            <div class="route">
+                                <div class="city">DMM</div>
+                                <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                <div class="city">CAI</div>
+                            </div>
+                            <div class="flight-time">2h 15m • Direct Flight</div>
+                            <div class="airline">EgyptAir</div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="flight-card">
+                        <div class="flight-image" style="background-image: url('images/image5.jpg')">
+                            <div class="price-badge">699SAR</div>
+                        </div>
+                        <div class="flight-info">
+                            <div class="route">
+                                <div class="city">JED</div>
+                                <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                <div class="city">IST</div>
+                            </div>
+                            <div class="flight-time">3h 20m • Direct Flight</div>
+                            <div class="airline">Saudia Airlines</div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
+                     <div class="flight-card">
+                        <div class="flight-image" style="background-image: url('images/image.jpg')">
+                            <div class="price-badge">699SAR</div>
+                        </div>
+                        <div class="flight-info">
+                            <div class="route">
+                                <div class="city">JED</div>
+                                <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                <div class="city">IST</div>
+                            </div>
+                            <div class="flight-time">3h 20m • Direct Flight</div>
+                            <div class="airline">Saudia Airlines</div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="flight-card">
+                        <div class="flight-image" style="background-image: url('images/image6.jpg')">
+                            <div class="price-badge">329SAR</div>
+                        </div>
+                        <div class="flight-info">
+                            <div class="route">
+                                <div class="city">RUH</div>
+                                <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                <div class="city">BKK</div>
+                            </div>
+                            <div class="flight-time">7h 10m • Direct Flight</div>
+                            <div class="airline">Thai Airways</div>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slider-controls">
+                    <button class="slider-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text scroll-animate">
+                    <h2>About FlySmart</h2>
+                    <p>FlySmart revolutionizes the way you book flights by combining cutting-edge AI technology with user-friendly design. Our platform analyzes millions of flight data points in real-time to provide you with the most accurate price predictions and personalized recommendations.</p>
+                    
+                    <p>Founded by travel enthusiasts and tech experts, we understand the frustration of fluctuating flight prices and complex booking processes. That's why we created FlySmart - to make intelligent travel accessible to everyone.</p>
+
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="2.5">0</div>
+                            <div class="stat-label">Million+ Users</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="500">0</div>
+                            <div class="stat-label">Airlines Partners</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="95">0</div>
+                            <div class="stat-label">% Accuracy Rate</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-count="150">0</div>
+                            <div class="stat-label">Countries Covered</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-visual scroll-animate">
+                    <div class="visual-card glass">
+                        <div class="visual-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>AI-Powered Intelligence</h3>
+                        <p>Our advanced machine learning algorithms analyze historical data, market trends, and real-time information to predict the best times to book your flights.</p>
+                        
+                        <div style="margin-top: 30px;">
+                            <div class="visual-icon" style="font-size: 2rem; margin-bottom: 10px;">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <p>Save up to 40% on average compared to traditional booking methods</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <h2 class="section-title scroll-animate">Why Choose FlySmart?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI Price Predictions</h3>
+                    <p>Our machine learning algorithms analyze millions of data points to predict price trends with 95% accuracy, helping you book at the perfect time.</p>
+                </div>
+                
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Smart Search Engine</h3>
+                    <p>Compare flights across 500+ airlines instantly. Our intelligent filters help you find the perfect flight based on your preferences and budget.</p>
+                </div>
+                
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Price Alerts</h3>
+                    <p>Get notified when prices drop for your desired routes. Set up personalized alerts and never miss a great deal again.</p>
+                </div>
+
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Smart Auto-Booking</h3>
+                    <p>Set your preferences and let our AI automatically book flights when they match your criteria. Save time and never miss the best deals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title scroll-animate">Get In Touch</h2>
+            
+            <div class="contact-content">
+                <div class="contact-form glass scroll-animate">
+                    <h3>Send us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <input type="text" placeholder="First Name" required>
+                            <input type="text" placeholder="Last Name" required>
+                        </div>
+                        <div class="form-row">
+                            <input type="email" placeholder="Email Address" required>
+                            <input type="tel" placeholder="Phone Number">
+                        </div>
+                        <input type="text" placeholder="Subject" required>
+                        <textarea placeholder="Your Message" required></textarea>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title scroll-animate" style="color: white;">What Our Customers Say</h2>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial-slide active">
+                    <p class="testimonial-content">"FlySmart's AI predictions saved me over $400 on my family vacation to Europe. The price alerts feature is incredibly accurate!"</p>
+                    <p class="testimonial-author">- Sarah Ahmed, Family Traveler</p>
+                </div>
+                
+                <div class="testimonial-slide">
+                    <p class="testimonial-content">"As a frequent business traveler, FlySmart has become my go-to platform. The booking process is seamless and the deals are unbeatable."</p>
+                    <p class="testimonial-author">- Ali kamal, Business Executive</p>
+                </div>
+                
+                <div class="testimonial-slide">
+                    <p class="testimonial-content">"The mobile experience is fantastic! I booked my last-minute flight in under 3 minutes while waiting at the airport."</p>
+                    <p class="testimonial-author">- Eman Ramadan, Digital Nomad</p>
+                </div>
+
+                <div class="testimonial-slide">
+                    <p class="testimonial-content">"Customer support is exceptional. They helped me change my flight during the pandemic with no hassle. Truly customer-first service!"</p>
+                    <p class="testimonial-author">- Ahmed Hassen , Leisure Traveler</p>
+                </div>
+                
+                <div class="slider-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                    <span class="dot" data-slide="3"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>FlySmart</h3>
+                    <p>Revolutionizing airline bookings with AI-driven insights for the best travel experiences. Your intelligent travel companion.</p>
+                    
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#deals">Flight Deals</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+              
+              
+            
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 FlySmart. All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auto-booking Notification -->
+    <div class="notification" id="autoBookingNotification">
+        <div class="notification-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <div>
+           
+            <div style="font-size: 12px;">We'll notify you when flights match your criteria</div>
+        </div>
+    </div>
+<script src="js/script.js"></script>
+<script src="js/index.js"></script>
+   
+</body>
+</html>
+   
+
+

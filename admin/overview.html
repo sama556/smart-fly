@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Fly - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #62b6cb 100%);
+            --secondary-gradient: linear-gradient(135deg, #1b4965 0%, #cae9ff 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark-blue: #1E3A8A;
+            --light-blue: #3B82F6;
+            --white: #FFFFFF;
+            --light-gray: #F8FAFC;
+            --dark-gray: #4B5563;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+   .logo-container img{
+            height: 50px;
+            width: 50px;
+            align-items: center;
+            margin-left: 50px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--secondary-gradient);
+          
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 260px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid var(--glass-border);
+            padding: 20px 0;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0 15px;
+        }
+
+        .menu-item {
+            margin-bottom: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+            border-radius: 10px;
+        }
+
+        .menu-link:hover, .menu-link.active {
+            background: var(--glass-bg);
+            transform: translateX(5px);
+        }
+
+        .menu-icon {
+            margin-right: 12px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: var(--white);
+            color: var(--dark-blue);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 600;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Stats Cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            color: var(--dark-blue);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--white);
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-title {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Recent Data Section */
+        .recent-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 992px) {
+            .recent-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .recent-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            color: var(--dark-blue);
+        }
+
+        .recent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .recent-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .view-all {
+            font-size: 14px;
+            color: var(--light-blue);
+            text-decoration: none;
+        }
+
+        .recent-list {
+            list-style: none;
+        }
+
+        .recent-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .recent-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-avatar-sm {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            color: var(--white);
+        }
+
+        .flight-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: var(--white);
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .item-meta {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .item-status {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        .status-pending {
+            background: rgba(255, 152, 0, 0.1);
+            color: #FF9800;
+        }
+
+        .status-completed {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .action-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            color: var(--dark-blue);
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .action-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+            color: var(--white);
+        }
+
+        .action-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .action-desc {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.4s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .toast.success .toast-icon {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+
+        .toast.error .toast-icon {
+            background: rgba(244, 67, 54, 0.2);
+            color: #F44336;
+        }
+
+        .toast.info .toast-icon {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196F3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+            
+            .sidebar-menu {
+                display: flex;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .menu-item {
+                flex-shrink: 0;
+                margin-right: 10px;
+                margin-bottom: 0;
+            }
+            
+            .menu-link {
+                padding: 10px 15px;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="../images/1.png" alt="logo">
+            </div>
+            <ul class="sidebar-menu">
+                <li class="menu-item">
+                    <a href="overview.html" class="menu-link active" data-page="overview">
+                        <i class="fas fa-chart-pie menu-icon"></i>
+                        <span>Overview</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="airline.html" class="menu-link" >
+                        <i class="fas fa-plane menu-icon"></i>
+                        <span>Manage Airlines</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="mangeflight.html" class="menu-link" >
+                        <i class="fas fa-route menu-icon"></i>
+                        <span>Manage Flights</span>
+                    </a>
+                </li>
+            
+                <li class="menu-item">
+                    <a href="users.html" class="menu-link" data-page="users">
+                        <i class="fas fa-users menu-icon"></i>
+                        <span>Manage Users</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="bookings.html" class="menu-link" data-page="bookings">
+                        <i class="fas fa-receipt menu-icon"></i>
+                        <span>Manage Bookings</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="profile.html" class="menu-link ">
+                        <i class="fas fa-user-cog menu-icon"></i>
+                        <span>Admin Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <h1 class="page-title">Dashboard Overview</h1>
+                <div class="user-info">
+                    <div class="user-avatar">A</div>
+                    <div>
+                        <div style="color: var(--dark-blue);">Admin</div>
+                        <div style="font-size: 12px; opacity: 0.8; color: var(--dark-blue);">Administrator</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value">2,847</div>
+                            <div class="stat-title">Total Users</div>
+                        </div>
+                        <div class="stat-icon" style="background: var(--accent-gradient);">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; opacity: 0.8;">+12% from last month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value">1,243</div>
+                            <div class="stat-title">Total Bookings</div>
+                        </div>
+                        <div class="stat-icon" style="background: var(--primary-gradient);">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; opacity: 0.8;">+8% from last month</div>
+                </div>
+              
+               
+            </div>
+
+            <!-- Recent Data Section -->
+            <div class="recent-container">
+                <div class="recent-card">
+                    <div class="recent-header">
+                        <div class="recent-title">Recent Users</div>
+                        <a href="users.html" class="view-all">View All</a>
+                    </div>
+                    <ul class="recent-list">
+                        <li class="recent-item">
+                            <div class="user-avatar-sm">MA</div>
+                            <div class="item-details">
+                                <div class="item-name">Mohammed Al-Farsi</div>
+                                <div class="item-meta">m.alfarsi@example.com</div>
+                            </div>
+                            <div class="item-status status-active">Active</div>
+                        </li>
+                        <li class="recent-item">
+                            <div class="user-avatar-sm">SA</div>
+                            <div class="item-details">
+                                <div class="item-name">Sarah Al-Jaber</div>
+                                <div class="item-meta">s.aljaber@example.com</div>
+                            </div>
+                            <div class="item-status status-active">Active</div>
+                        </li>
+                        <li class="recent-item">
+                            <div class="user-avatar-sm">KA</div>
+                            <div class="item-details">
+                                <div class="item-name">Khalid Al-Mansour</div>
+                                <div class="item-meta">k.mansour@example.com</div>
+                            </div>
+                            <div class="item-status status-pending">Pending</div>
+                        </li>
+                        <li class="recent-item">
+                            <div class="user-avatar-sm">FA</div>
+                            <div class="item-details">
+                                <div class="item-name">Fatima Al-Rashid</div>
+                                <div class="item-meta">f.rashid@example.com</div>
+                            </div>
+                            <div class="item-status status-active">Active</div>
+                        </li>
+                        <li class="recent-item">
+                            <div class="user-avatar-sm">AA</div>
+                            <div class="item-details">
+                                <div class="item-name">Abdullah Al-Saud</div>
+                                <div class="item-meta">a.alsaud@example.com</div>
+                            </div>
+                            <div class="item-status status-active">Active</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="recent-card">
+                    <div class="recent-header">
+                        <div class="recent-title">Recent Flights</div>
+                        <a href="mangeflight.html" class="view-all">View All</a>
+                    </div>
+                    <ul class="recent-list">
+                        <li class="recent-item">
+                            <div class="flight-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <div class="item-details">
+                                <div class="item-name">SV101 - Riyadh to Jeddah</div>
+                                <div class="item-meta">Departure: 08:30 AM | Duration: 1h 45m</div>
+                            </div>
+                            <div class="item-status status-completed">Completed</div>
+                        </li>
+                        <li class="recent-item">
+                            <div class="flight-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <div class="item-details">
+                                <div class="item-name">SV202 - Jeddah to Dubai</div>
+                                <div class="item-meta">Departure: 11:15 AM | Duration: 2h 30m</div>
+                            </div>
+                            <div class="item-status status-active">Active</div>
+                        </li>
+                        <li class="recent-item">
+                            <div class="flight-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <div class="item-details">
+                                <div class="item-name">SV305 - Dammam to Cairo</div>
+                                <div class="item-meta">Departure: 02:45 PM | Duration: 3h 15m</div>
+                            </div>
+                            <div class="item-status status-active">Active</div>
+                        </li>
+                        <li class="recent-item">
+                            <div class="flight-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <div class="item-details">
+                                <div class="item-name">SV408 - Riyadh to London</div>
+                                <div class="item-meta">Departure: 10:20 PM | Duration: 6h 45m</div>
+                            </div>
+                            <div class="item-status status-pending">Scheduled</div>
+                        </li>
+                        <li class="recent-item">
+                            <div class="flight-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <div class="item-details">
+                                <div class="item-name">SV512 - Jeddah to Istanbul</div>
+                                <div class="item-meta">Departure: 04:10 PM | Duration: 4h 20m</div>
+                            </div>
+                            <div class="item-status status-completed">Completed</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+          
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast info">
+        <div class="toast-icon">
+            <i class="fas fa-info-circle"></i>
+        </div>
+        <div>
+            <div style="font-weight: 600;">Welcome to Smart Fly Admin</div>
+        </div>
+    </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Show welcome toast
+        setTimeout(() => {
+            document.querySelector('.toast').classList.add('show');
+        }, 1000);
+
+        // Hide toast after 5 seconds
+        setTimeout(() => {
+            document.querySelector('.toast').classList.remove('show');
+        }, 6000);
+    });
+</script>
+</body>
+</html>
