@@ -243,16 +243,114 @@
 
 
             </div>
-            <section class="search-section">
+          
+            <div class="booking-options-card glass">
+                <div class="card-header">
+                    <div class="header-content">
+                        <h2>
+                            <i class="fas fa-cog"></i>
+                            Choose Your Booking Option
+                        </h2>
+                        <p>Select how you'd like to complete your booking</p>
+                    </div>
+                    <div class="booking-tips">
+                        <div class="tip-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Manual booking gives you full control</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-robot"></i>
+                            <span>AI booking finds the best seat automatically</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="booking-options">
+                    <div class="booking-option manual-option">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="option-content">
+                                <h3>Manual Reservation</h3>
+                                <p>Take full control of your booking experience</p>
+                                <div class="option-badge">
+                                    <i class="fas fa-star"></i>
+                                    <span>Recommended</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-booking manual-booking" onclick="proceedToManualBooking()">
+                            <i class="fas fa-hand-pointer"></i>
+                            <span>Manual Booking</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="booking-option automatic-option">
+                        <div class="option-header">
+                            <div class="option-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="option-content">
+                                <h3>Automatic Reservation</h3>
+                                <p>Let AI find the perfect seat for you</p>
+                                <div class="option-badge ai">
+                                    <i class="fas fa-magic"></i>
+                                    <span>AI Powered</span>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <button class="btn-booking automatic-booking" onclick="proceedToAutomaticBooking()">
+                            <i class="fas fa-magic"></i>
+                            <span>Automatic Booking</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Manual Search Section (hidden by default) -->
+            <section class="search-section" id="manualSearchSection" style="display: none;">
                 <div class="container">
                     <div class="search-container">
                         <div class="search-mode-switch" id="searchModeSwitch">
                             <button type="button" class="mode-btn active" data-mode="manual">
                                 <i class="fas fa-hand-pointer"></i> Manual Search
                             </button>
-                            <button type="button" class="mode-btn" data-mode="automatic">
-                                <i class="fas fa-robot"></i> Automatic Search
-                            </button>
+                           
+                        </div>
+                        <form class="search-form glass" id="manualSearchForm">
+                           
+                           
+                           
+                            <div class="form-group">
+                                <label>Price Range</label>
+                                <input type="number" id="maxPrice" name="maxPrice" placeholder="e.g. 500">
+                               
+                            </div>
+                            <div class="form-group" id="priceGroup">
+                                <label for="maxPrice">Max Price (SAR)</label>
+                                <input type="number" id="maxPrice" name="maxPrice" placeholder="e.g. 500">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="search-btn">
+                                    <i class="fas fa-search"></i> Search Flights
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Automatic Booking Section (hidden by default) -->
+            <section class="search-section" id="automaticBookingSection" style="display: none;">
+                <div class="container">
+                    <div class="search-container">
+                        <div class="search-header">
+                            <h2><i class="fas fa-robot"></i> Automatic Booking Setup</h2>
+                            <p>Configure your preferences for AI-powered automatic booking</p>
                         </div>
                         <form class="search-form glass" id="quickSearch">
                             <div class="form-group trip-type-group">
@@ -344,6 +442,21 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Flights Results Section (hidden by default) -->
+            <section class="flights-section" id="flightsSection" style="display: none;">
+                <div class="container">
+                    <div class="flights-header">
+                        <h2><i class="fas fa-plane"></i> Available Flights</h2>
+                        <p>Flights matching your search criteria</p>
+                    </div>
+                    <div class="flights-list" id="flightsList">
+                        <!-- Flight results will be populated here -->
+                    </div>
+                </div>
+            </section>
+
+        
             <!-- Flights Section -->
             <div class="flights-section">
                 <h2>Available Flights</h2>
@@ -602,6 +715,159 @@
     <script src="js/index.js"></script>
     <script src="js/airline-details.js"></script>
     <script src="js/notifications.js"></script>
+    
+    <script>
+        // Manual Booking Functions
+        function proceedToManualBooking() {
+            document.getElementById('manualSearchSection').style.display = 'block';
+            document.getElementById('automaticBookingSection').style.display = 'none';
+            document.getElementById('flightsSection').style.display = 'none';
+        }
+        
+        function hideManualSearch() {
+            document.getElementById('manualSearchSection').style.display = 'none';
+        }
+        
+        // Automatic Booking Functions
+        function proceedToAutomaticBooking() {
+            document.getElementById('automaticBookingSection').style.display = 'block';
+            document.getElementById('manualSearchSection').style.display = 'none';
+            document.getElementById('flightsSection').style.display = 'none';
+        }
+        
+        function hideAutomaticBooking() {
+            document.getElementById('automaticBookingSection').style.display = 'none';
+        }
+        
+        // Manual Search Form Handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const manualSearchForm = document.getElementById('manualSearchForm');
+            if (manualSearchForm) {
+                manualSearchForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const maxPrice = document.getElementById('maxPrice').value;
+                    const preferredTime = document.getElementById('preferredTime').value;
+                    
+                    // Hide search section and show flights
+                    document.getElementById('manualSearchSection').style.display = 'none';
+                    document.getElementById('flightsSection').style.display = 'block';
+                    
+                    // Populate flights list with sample data
+                    populateFlightsList(maxPrice, preferredTime);
+                });
+            }
+            
+            // Automatic Booking Form Handler
+            const automaticBookingForm = document.getElementById('automaticBookingForm');
+            if (automaticBookingForm) {
+                automaticBookingForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const maxPrice = document.getElementById('autoMaxPrice').value;
+                    const preferredTime = document.getElementById('autoPreferredTime').value;
+                    const seatPreference = document.getElementById('autoSeatPreference').value;
+                    const notification = document.getElementById('autoNotification').value;
+                    
+                    // Show success message
+                    alert('Automatic booking preferences saved! We will notify you when flights match your criteria.');
+                    
+                    // Hide the form
+                    document.getElementById('automaticBookingSection').style.display = 'none';
+                });
+            }
+        });
+        
+        function populateFlightsList(maxPrice, preferredTime) {
+            const flightsList = document.getElementById('flightsList');
+            if (!flightsList) return;
+            
+            // Sample flight data
+            const flights = [
+                {
+                    id: 1,
+                    airline: 'Saudia Airlines',
+                    flightNumber: 'SV1234',
+                    departure: 'RUH',
+                    arrival: 'JED',
+                    departureTime: '08:30',
+                    arrivalTime: '11:15',
+                    duration: '2h 45m',
+                    price: Math.min(parseInt(maxPrice) - 50, 299),
+                    status: 'Available'
+                },
+                {
+                    id: 2,
+                    airline: 'Saudia Airlines',
+                    flightNumber: 'SV1236',
+                    departure: 'RUH',
+                    arrival: 'JED',
+                    departureTime: '14:20',
+                    arrivalTime: '17:05',
+                    duration: '2h 45m',
+                    price: Math.min(parseInt(maxPrice) - 30, 329),
+                    status: 'Available'
+                },
+                {
+                    id: 3,
+                    airline: 'Saudia Airlines',
+                    flightNumber: 'SV1238',
+                    departure: 'RUH',
+                    arrival: 'JED',
+                    departureTime: '19:45',
+                    arrivalTime: '22:30',
+                    duration: '2h 45m',
+                    price: Math.min(parseInt(maxPrice) - 20, 349),
+                    status: 'Available'
+                }
+            ];
+            
+            flightsList.innerHTML = flights.map(flight => `
+                <div class="flight-card glass">
+                    <div class="flight-header">
+                        <div class="airline-info">
+                            <img src="./images/1.png" alt="${flight.airline}" style="width: 40px; height: 40px; border-radius: 8px;">
+                            <div>
+                                <h3>${flight.airline}</h3>
+                                <p>Flight ${flight.flightNumber}</p>
+                            </div>
+                        </div>
+                        <div class="flight-status">
+                            <span class="status-badge available">${flight.status}</span>
+                        </div>
+                    </div>
+                    <div class="flight-route">
+                        <div class="route-info">
+                            <div class="airport">
+                                <div class="airport-code">${flight.departure}</div>
+                                <div class="time">${flight.departureTime}</div>
+                            </div>
+                            <div class="flight-line">
+                                <div class="line"></div>
+                                <i class="fas fa-plane"></i>
+                                <div class="duration">${flight.duration}</div>
+                            </div>
+                            <div class="airport">
+                                <div class="airport-code">${flight.arrival}</div>
+                                <div class="time">${flight.arrivalTime}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flight-footer">
+                        <div class="price">
+                            <span class="price-amount">${flight.price} SAR</span>
+                        </div>
+                        <button class="btn-book" onclick="bookFlight(${flight.id})">
+                            <i class="fas fa-shopping-cart"></i> Book Now
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function bookFlight(flightId) {
+            alert(`Booking flight ${flightId}. Redirecting to booking confirmation...`);
+            window.location.href = 'booking-confirmation.html';
+        }
+    </script>
 
 </body>
 

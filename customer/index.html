@@ -9,7 +9,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Segoe+UI:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+        <link rel="stylesheet" href="css/airline-details.css">
     <link rel="stylesheet" href="css/index.css">
+
 
     <link rel="stylesheet" href="css/notifications.css">
 
@@ -96,49 +98,112 @@
 
 
             </div>
+            <section class="search-section">
+                <div class="container">
+                    <div class="search-container">
+                        <div class="search-mode-switch" id="searchModeSwitch">
+                            <button type="button" class="mode-btn active" data-mode="manual">
+                                <i class="fas fa-hand-pointer"></i> Manual Search
+                            </button>
+                            <button type="button" class="mode-btn" data-mode="automatic">
+                                <i class="fas fa-robot"></i> Automatic Search
+                            </button>
+                        </div>
+                        <form class="search-form glass" id="quickSearch">
+                            <div class="form-group trip-type-group">
+                                <label>Trip Type</label>
+                                <div class="trip-type-options" role="radiogroup" aria-label="Trip Type">
+                                    <label class="trip-pill">
+                                        <input type="radio" name="tripType" value="oneway" checked>
+                                        <span><i class="fas fa-arrow-right"></i> One way</span>
+                                    </label>
+                                    <label class="trip-pill">
+                                        <input type="radio" name="tripType" value="round">
+                                        <span><i class="fas fa-arrows-rotate"></i> Round trip</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="from">From</label>
+                                <select id="from" name="from" required>
+                                    <option value="">Select departure city</option>
+                                    <option value="RUH">Riyadh (RUH)</option>
+                                    <option value="JED">Jeddah (JED)</option>
+                                    <option value="DMM">Dammam (DMM)</option>
+                                    <option value="MED">Medina (MED)</option>
+                                    <option value="DXB">Dubai (DXB)</option>
+                                    <option value="AUH">Abu Dhabi (AUH)</option>
+                                    <option value="CAI">Cairo (CAI)</option>
+                                    <option value="LHR">London (LHR)</option>
+                                    <option value="CDG">Paris (CDG)</option>
+                                    <option value="FRA">Frankfurt (FRA)</option>
+                                    <option value="IST">Istanbul (IST)</option>
+                                    <option value="BKK">Bangkok (BKK)</option>
+                                    <option value="SIN">Singapore (SIN)</option>
+                                    <option value="NRT">Tokyo (NRT)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="to">To</label>
+                                <select id="to" name="to" required>
+                                    <option value="">Select destination city</option>
+                                    <option value="RUH">Riyadh (RUH)</option>
+                                    <option value="JED">Jeddah (JED)</option>
+                                    <option value="DMM">Dammam (DMM)</option>
+                                    <option value="MED">Medina (MED)</option>
+                                    <option value="DXB">Dubai (DXB)</option>
+                                    <option value="AUH">Abu Dhabi (AUH)</option>
+                                    <option value="CAI">Cairo (CAI)</option>
+                                    <option value="LHR">London (LHR)</option>
+                                    <option value="CDG">Paris (CDG)</option>
+                                    <option value="FRA">Frankfurt (FRA)</option>
+                                    <option value="IST">Istanbul (IST)</option>
+                                    <option value="BKK">Bangkok (BKK)</option>
+                                    <option value="SIN">Singapore (SIN)</option>
+                                    <option value="NRT">Tokyo (NRT)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Departure</label>
+                                <input type="date" required>
+                            </div>
+                            <div class="form-group" id="returnDateGroup">
+                                <label>Return</label>
+                                <input type="date" id="returnDate" name="return">
+                            </div>
+                            <div class="form-group">
+                                <label>Passengers</label>
+                                <select>
+                                    <option>1 Passenger</option>
+                                    <option>2 Passengers</option>
+                                    <option>3 Passengers</option>
+                                    <option>4 Passengers</option>
+                                    <option>5+ Passengers</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="priceGroup" style="display:none;">
+                                <label for="maxPrice">Max Price (SAR)</label>
+                                <input type="number" id="maxPrice" name="maxPrice" placeholder="e.g. 500">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="search-btn">
+                                    <i class="fas fa-search"></i> Search Flights
+                                </button>
+                            </div>
+                            <div class="info-box" id="autoInfo" style="display:none;">
+                                <i class="fas fa-info-circle"></i>
+                                <p>Our AI will monitor prices and automatically reserve the flight when it matches or
+                                    drops below your target price. You'll have 10 minutes to complete payment.</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
         </div>
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonials-section">
-        <div class="container">
-            <h2 class="section-title scroll-animate" style="color: white;">What Our Customers Say</h2>
-
-            <div class="testimonial-slider">
-                <div class="testimonial-slide active">
-                    <p class="testimonial-content">"FlySmart's AI predictions saved me over $400 on my family vacation
-                        to Europe. The price alerts feature is incredibly accurate!"</p>
-                    <p class="testimonial-author">- Sarah Ahmed, Family Traveler</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <p class="testimonial-content">"As a frequent business traveler, FlySmart has become my go-to
-                        platform. The booking process is seamless and the deals are unbeatable."</p>
-                    <p class="testimonial-author">- Ali kamal, Business Executive</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <p class="testimonial-content">"The mobile experience is fantastic! I booked my last-minute flight
-                        in under 3 minutes while waiting at the airport."</p>
-                    <p class="testimonial-author">- Eman Ramadan, Digital Nomad</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <p class="testimonial-content">"Customer support is exceptional. They helped me change my flight
-                        during the pandemic with no hassle. Truly customer-first service!"</p>
-                    <p class="testimonial-author">- Ahmed Hassen , Leisure Traveler</p>
-                </div>
-
-                <div class="slider-dots">
-                    <span class="dot active" data-slide="0"></span>
-                    <span class="dot" data-slide="1"></span>
-                    <span class="dot" data-slide="2"></span>
-                    <span class="dot" data-slide="3"></span>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    
     <!-- Flight Deals Section -->
     <section class="deals-section" id="deals">
         <div class="container">
@@ -349,6 +414,44 @@
             </div>
         </div>
     </section>
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title scroll-animate" style="color: white;">What Our Customers Say</h2>
+
+            <div class="testimonial-slider">
+                <div class="testimonial-slide active">
+                    <p class="testimonial-content">"FlySmart's AI predictions saved me over $400 on my family vacation
+                        to Europe. The price alerts feature is incredibly accurate!"</p>
+                    <p class="testimonial-author">- Sarah Ahmed, Family Traveler</p>
+                </div>
+
+                <div class="testimonial-slide">
+                    <p class="testimonial-content">"As a frequent business traveler, FlySmart has become my go-to
+                        platform. The booking process is seamless and the deals are unbeatable."</p>
+                    <p class="testimonial-author">- Ali kamal, Business Executive</p>
+                </div>
+
+                <div class="testimonial-slide">
+                    <p class="testimonial-content">"The mobile experience is fantastic! I booked my last-minute flight
+                        in under 3 minutes while waiting at the airport."</p>
+                    <p class="testimonial-author">- Eman Ramadan, Digital Nomad</p>
+                </div>
+
+                <div class="testimonial-slide">
+                    <p class="testimonial-content">"Customer support is exceptional. They helped me change my flight
+                        during the pandemic with no hassle. Truly customer-first service!"</p>
+                    <p class="testimonial-author">- Ahmed Hassen , Leisure Traveler</p>
+                </div>
+
+                <div class="slider-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                    <span class="dot" data-slide="3"></span>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Contact Section -->
     <section class="contact-section" id="contact">
@@ -423,6 +526,7 @@
     <script src="js/script.js"></script>
     <script src="js/index.js"></script>
     <script src="js/notifications.js"></script>
+    <script src="js/airline-details.js"></script>
 
 </body>
 

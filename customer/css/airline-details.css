@@ -299,22 +299,22 @@ input:checked + .toggle-slider:before {
 .breadcrumb {
     padding: 20px 0;
     margin-bottom: 30px;
-    color: var(--dark-gray);
+    color: white;
 }
 
 .breadcrumb a {
-    color: var(--light-blue);
+    color: white;
     text-decoration: none;
     transition: var(--transition);
 }
 
 .breadcrumb a:hover {
-    color: var(--dark-blue);
+    color: white;
 }
 
 .breadcrumb span {
     margin: 0 10px;
-    color: var(--dark-gray);
+    color: white;
 }
 
 /* Airline Details Section */
@@ -901,4 +901,292 @@ header .nav-links a{
 }
 .search-form .form-group label {
     color: var(--dark-blue);
+}
+.booking-options-card {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 35px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.booking-options-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+.booking-options-card .header-content h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 10px;
+}
+
+.booking-options-card .header-content h2 i {
+    color: var(--light-blue);
+}
+
+.booking-options-card .header-content p {
+    color: var(--dark-gray);
+    font-size: 1rem;
+}
+
+.booking-tips {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tip-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: #78350f;
+    font-weight: 500;
+}
+
+.tip-item i {
+    color: #f59e0b;
+    font-size: 1rem;
+}
+
+.booking-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 30px;
+}
+
+.booking-option {
+    background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+    border-radius: 20px;
+    padding: 30px;
+    border: 2px solid #e5e7eb;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.booking-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--primary-gradient);
+    opacity: 0;
+    transition: var(--transition);
+    z-index: 0;
+}
+
+.booking-option:hover {
+    border-color: var(--light-blue);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.2);
+}
+
+.booking-option:hover::before {
+    opacity: 0.03;
+}
+
+.booking-option > * {
+    position: relative;
+    z-index: 1;
+}
+
+.option-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.option-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background: var(--accent-gradient);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 2.5rem;
+    box-shadow: 0 8px 20px rgba(79, 172, 254, 0.3);
+    transition: var(--transition);
+}
+
+.booking-option:hover .option-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 10px 25px rgba(79, 172, 254, 0.4);
+}
+
+.automatic-option .option-icon {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.option-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #1f2937;
+    font-weight: 700;
+}
+
+.option-content p {
+    color: var(--dark-gray);
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.option-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #1f2937;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+}
+
+.option-badge.ai {
+    background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.option-features {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+.feature-item:last-child {
+    margin-bottom: 0;
+}
+
+.feature-item i {
+    color: #10b981;
+    font-size: 1rem;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #d1fae5;
+    border-radius: 50%;
+    padding: 3px;
+}
+
+/* Booking Buttons */
+.btn-booking {
+    width: 100%;
+    padding: 16px 28px;
+    border: none;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-booking::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-booking:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-booking > * {
+    position: relative;
+    z-index: 1;
+}
+
+.manual-booking {
+    background: var(--accent-gradient);
+    color: var(--white);
+    box-shadow: 0 6px 20px rgba(79, 172, 254, 0.3);
+}
+
+.manual-booking:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+}
+
+.automatic-booking {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: var(--white);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
+
+.automatic-booking:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+
+.btn-booking:active {
+    transform: translateY(-1px);
+}
+
+/* Loading State */
+.btn-booking.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.btn-booking.loading span {
+    opacity: 0;
+}
+
+.btn-booking.loading::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid var(--white);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    z-index: 2;
 }
