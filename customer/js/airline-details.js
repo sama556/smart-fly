@@ -1,51 +1,77 @@
 // Airline Details Page JavaScript
 
 // Initialize airline details page
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Content is now static in HTML, no need to load dynamically
     console.log('Airline details page loaded with static content');
-    
+
     // Initialize search form functionality
     initializeSearchForm();
-    
-    // Initialize auto-booking functionality
-    initializeAutoBooking();
+
+    // Initialize search mode (manual/automatic)
+    initializeSearchMode();
 });
 
 // Initialize search form functionality
 function initializeSearchForm() {
     const searchForm = document.getElementById('quickSearch');
     if (!searchForm) return;
-    
-    searchForm.addEventListener('submit', function(e) {
+    const returnDateGroup = document.getElementById('returnDateGroup');
+    const returnDate = document.getElementById('returnDate');
+    const tripTypeRadios = searchForm.querySelectorAll('input[name="tripType"]');
+
+    // Default state: one way → hide return date
+    if (returnDateGroup) {
+        returnDateGroup.style.display = 'none';
+        if (returnDate) returnDate.required = false;
+    }
+
+    tripTypeRadios.forEach(r => {
+        r.addEventListener('change', () => {
+            if (r.checked && r.value === 'round') {
+                if (returnDateGroup) returnDateGroup.style.display = '';
+                if (returnDate) returnDate.required = true;
+            } else if (r.checked && r.value === 'oneway') {
+                if (returnDateGroup) returnDateGroup.style.display = 'none';
+                if (returnDate) {
+                    returnDate.required = false;
+                    returnDate.value = '';
+                }
+            }
+        });
+    });
+
+    searchForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        
+
         // Get form data
         const formData = new FormData(this);
         const from = formData.get('from') || this.querySelector('input[type="text"]').value;
         const to = formData.get('to') || this.querySelectorAll('input[type="text"]')[1].value;
         const departure = formData.get('departure') || this.querySelector('input[type="date"]').value;
-        
+
         // Show loading state
         const searchBtn = this.querySelector('.search-btn');
         const originalText = searchBtn.innerHTML;
         searchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
         searchBtn.disabled = true;
-        
+
         // Simulate search process and redirect to flight-booking
         setTimeout(() => {
             searchBtn.innerHTML = originalText;
             searchBtn.disabled = false;
-            
+
             // Store search data in localStorage for flight-booking page
             const searchData = {
                 from: from,
                 to: to,
                 departure: departure,
+                tripType: (searchForm.querySelector('input[name="tripType"]:checked')?.value) || 'oneway',
+                return: returnDate?.value || '',
                 timestamp: new Date().toISOString()
             };
             localStorage.setItem('searchData', JSON.stringify(searchData));
-            
+
             // Redirect to flight-booking page
             window.location.href = 'flight-booking.html';
         }, 2000);
@@ -53,20 +79,36 @@ function initializeSearchForm() {
 }
 
 // Initialize auto-booking functionality
-function initializeAutoBooking() {
-    const autoBookingToggle = document.getElementById('autoBookingToggle');
-    const autoBookingOptions = document.getElementById('autoBookingOptions');
-    
-    if (!autoBookingToggle || !autoBookingOptions) return;
-    
-    autoBookingToggle.addEventListener('change', function() {
-        if (this.checked) {
-            autoBookingOptions.classList.add('active');
-            
-            // Show notification
+function initializeSearchMode() {
+    const modeSwitch = document.getElementById('searchModeSwitch');
+    const priceGroup = document.getElementById('priceGroup');
+    const maxPriceInput = document.getElementById('maxPrice');
+    const autoInfo = document.getElementById('autoInfo');
+    if (!modeSwitch) return;
+
+    // Default to manual mode
+    if (priceGroup) priceGroup.style.display = 'none';
+    if (maxPriceInput) maxPriceInput.required = false;
+    if (autoInfo) autoInfo.style.display = 'none';
+
+    modeSwitch.addEventListener('click', function (e) {
+        const button = e.target.closest('.mode-btn');
+        if (!button) return;
+
+        // Toggle active state
+        modeSwitch.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+        button.classList.add('active');
+
+        const mode = button.getAttribute('data-mode');
+        if (mode === 'automatic') {
+            if (priceGroup) priceGroup.style.display = '';
+            if (maxPriceInput) maxPriceInput.required = true;
+            if (autoInfo) autoInfo.style.display = '';
             showAutoBookingNotification();
         } else {
-            autoBookingOptions.classList.remove('active');
+            if (priceGroup) priceGroup.style.display = 'none';
+            if (maxPriceInput) { maxPriceInput.required = false; maxPriceInput.value = ''; }
+            if (autoInfo) autoInfo.style.display = 'none';
         }
     });
 }
@@ -94,7 +136,7 @@ function showAutoBookingNotification() {
         color: #1f2937;
         animation: slideInRight 0.3s ease-out;
     `;
-    
+
     notification.innerHTML = `
         <i class="fas fa-robot" style="color: #4facfe; font-size: 1.2rem;"></i>
         <div>
@@ -102,9 +144,9 @@ function showAutoBookingNotification() {
             <div style="font-size: 0.8rem; color: #6b7280;">We'll notify you when flights match your criteria</div>
         </div>
     `;
-    
+
     document.body.appendChild(notification);
-    
+
     // Remove after 5 seconds
     setTimeout(() => {
         notification.style.animation = 'slideOutRight 0.3s ease-out';
@@ -123,9 +165,9 @@ function bookFlight(flightNumber) {
         flightNumber: flightNumber,
         timestamp: new Date().toISOString()
     };
-    
+
     localStorage.setItem('selectedFlight', JSON.stringify(flightData));
-    
+
     // Redirect to flight booking page
     window.location.href = `flight-booking.html?flight=${flightNumber}`;
 }
@@ -133,7 +175,7 @@ function bookFlight(flightNumber) {
 // Display airline details
 function displayAirlineDetails(airline) {
     const content = document.getElementById('airlineDetailsContent');
-    
+
     content.innerHTML = `
         <div class="airline-header-detail">
             <div class="airline-header-content">
@@ -266,7 +308,7 @@ function viewFlights(airlineName) {
 // Show error state
 function showErrorState() {
     const content = document.getElementById('airlineDetailsContent');
-    
+
     content.innerHTML = `
         <div class="error-state">
             <i class="fas fa-exclamation-triangle"></i>

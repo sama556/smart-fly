@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Bookings - FlySmart</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Segoe+UI:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/bookings.css">
     <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/notifications.css">
 </head>
+
 <body>
     <!-- Animated Background -->
     <div class="animated-bg" id="animatedBg"></div>
@@ -27,25 +31,25 @@
                     <li><a href="index.html#about">About</a></li>
                     <li><a href="index.html#features">Features</a></li>
                     <li><a href="airlines.html">Airlines</a></li>
-                    <li><a href="index.html#deals">Deals</a></li> 
-                    <li><a href ="bookings.html">Bookings</a>
+                    <li><a href="index.html#deals">Recommendations</a></li>
+                    <li><a href="bookings.html">Bookings</a>
                     <li><a href="index.html#contact">Contact</a></li>
                 </ul>
-                
+
                 <div class="auth-buttons">
                     <div class="header-icons">
                         <div class="notification-icon" id="notificationIcon">
                             <i class="fas fa-bell"></i>
                             <span class="notification-badge" id="notificationBadge">0</span>
                         </div>
-                        
+
                         <div class="profile-icon" id="profileIcon">
-                           <a href="profile.html" ><i class="fas fa-user"></i></a>
+                            <a href="profile.html"><i class="fas fa-user"></i></a>
                         </div>
                     </div>
                     <button class="btn btn-primary" id="registerBtn"><a href="../login.html">sigin out </a></button>
                 </div>
-                
+
                 <div class="menu-toggle" id="menuToggle">
                     <i class="fas fa-bars"></i>
                 </div>
@@ -58,9 +62,9 @@
         <div class="container">
             <!-- Page Header -->
             <div class="page-header">
-           
-                
-                
+
+
+
                 <div class="page-title-section">
                     <h1 class="page-title">
                         <i class="fas fa-plane"></i>
@@ -116,36 +120,145 @@
                 <div class="booking-card glass">
                     <!-- Row 1: Flights card -->
                     <div class="booking-row booking-flight">
-                        <div class="section-header"><i class="fas fa-plane"></i><h3>Flights</h3></div>
+                        <div class="section-header"><i class="fas fa-plane"></i>
+                            <h3>Flights</h3>
+                        </div>
                         <div class="booking-info-grid">
-                            <div class="info-item"><i class="fas fa-hashtag"></i><div class="info-content"><div class="label">Flight Number</div><div class="value">SV1234</div></div></div>
-                            <div class="info-item"><i class="fas fa-ticket-alt"></i><div class="info-content"><div class="label">Airline Number</div><div class="value">SV</div></div></div>
-                            <div class="info-item"><i class="fas fa-plane-departure"></i><div class="info-content"><div class="label">Departure Airport (Code)</div><div class="value">RUH</div></div></div>
-                            <div class="info-item"><i class="fas fa-city"></i><div class="info-content"><div class="label">Departure City</div><div class="value">Riyadh</div></div></div>
-                            <div class="info-item"><i class="fas fa-calendar-day"></i><div class="info-content"><div class="label">Departure Date</div><div class="value">15 Jan 2024</div></div></div>
-                            <div class="info-item"><i class="fas fa-clock"></i><div class="info-content"><div class="label">Departure Time</div><div class="value">08:30</div></div></div>
-                            <div class="info-item"><i class="fas fa-plane-arrival"></i><div class="info-content"><div class="label">Arrival Airport (Code)</div><div class="value">JED</div></div></div>
-                            <div class="info-item"><i class="fas fa-city"></i><div class="info-content"><div class="label">Arrival City</div><div class="value">Jeddah</div></div></div>
-                            <div class="info-item"><i class="fas fa-calendar-day"></i><div class="info-content"><div class="label">Arrival Date</div><div class="value">15 Jan 2024</div></div></div>
-                            <div class="info-item"><i class="fas fa-clock"></i><div class="info-content"><div class="label">Arrival Time</div><div class="value">11:15</div></div></div>
-                            <div class="info-item"><i class="fas fa-hourglass-half"></i><div class="info-content"><div class="label">Duration (mins)</div><div class="value">165</div></div></div>
-                            <div class="info-item"><i class="fas fa-info-circle"></i><div class="info-content"><div class="label">Status</div><div class="value">On Time</div></div></div>
-                            <div class="info-item"><i class="fas fa-users"></i><div class="info-content"><div class="label">Total Seats</div><div class="value">180</div></div></div>
-                            <div class="info-item"><i class="fas fa-tag"></i><div class="info-content"><div class="label">Base Seat Price</div><div class="value">299 SAR</div></div></div>
+                            <div class="info-item"><i class="fas fa-hashtag"></i>
+                                <div class="info-content">
+                                    <div class="label">Flight Number</div>
+                                    <div class="value">SV1234</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-ticket-alt"></i>
+                                <div class="info-content">
+                                    <div class="label">Airline Number</div>
+                                    <div class="value">SV</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-plane-departure"></i>
+                                <div class="info-content">
+                                    <div class="label">Departure Airport (Code)</div>
+                                    <div class="value">RUH</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-city"></i>
+                                <div class="info-content">
+                                    <div class="label">Departure City</div>
+                                    <div class="value">Riyadh</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-calendar-day"></i>
+                                <div class="info-content">
+                                    <div class="label">Departure Date</div>
+                                    <div class="value">15 Jan 2024</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-clock"></i>
+                                <div class="info-content">
+                                    <div class="label">Departure Time</div>
+                                    <div class="value">08:30</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-plane-arrival"></i>
+                                <div class="info-content">
+                                    <div class="label">Arrival Airport (Code)</div>
+                                    <div class="value">JED</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-city"></i>
+                                <div class="info-content">
+                                    <div class="label">Arrival City</div>
+                                    <div class="value">Jeddah</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-calendar-day"></i>
+                                <div class="info-content">
+                                    <div class="label">Arrival Date</div>
+                                    <div class="value">15 Jan 2024</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-clock"></i>
+                                <div class="info-content">
+                                    <div class="label">Arrival Time</div>
+                                    <div class="value">11:15</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-hourglass-half"></i>
+                                <div class="info-content">
+                                    <div class="label">Duration (mins)</div>
+                                    <div class="value">165</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-info-circle"></i>
+                                <div class="info-content">
+                                    <div class="label">Status</div>
+                                    <div class="value">On Time</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-users"></i>
+                                <div class="info-content">
+                                    <div class="label">Total Seats</div>
+                                    <div class="value">180</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-tag"></i>
+                                <div class="info-content">
+                                    <div class="label">Base Seat Price</div>
+                                    <div class="value">299 SAR</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Row 2: Customer Details card -->
                     <div class="booking-row booking-passenger booking-section customer-details-section">
-                        <div class="section-header"><i class="fas fa-id-card"></i><h3>Customer Details</h3></div>
+                        <div class="section-header"><i class="fas fa-id-card"></i>
+                            <h3>Customer Details</h3>
+                        </div>
                         <div class="passenger-grid">
-                            <div class="info-item"><i class="fas fa-id-badge"></i><div class="info-content"><div class="label">First Name</div><div class="value">Ahmed</div></div></div>
-                            <div class="info-item"><i class="fas fa-id-badge"></i><div class="info-content"><div class="label">Last Name</div><div class="value">Al-Rashid</div></div></div>
-                            <div class="info-item"><i class="fas fa-venus-mars"></i><div class="info-content"><div class="label">Gender</div><div class="value">Male</div></div></div>
-                            <div class="info-item"><i class="fas fa-birthday-cake"></i><div class="info-content"><div class="label">Date of Birth</div><div class="value">1995-06-10</div></div></div>
-                            <div class="info-item"><i class="fas fa-envelope"></i><div class="info-content"><div class="label">Email</div><div class="value">ahmed.rashid@email.com</div></div></div>
-                            <div class="info-item"><i class="fas fa-phone"></i><div class="info-content"><div class="label">Phone Number</div><div class="value">+966 50 123 4567</div></div></div>
-                            <div class="info-item"><i class="fas fa-flag"></i><div class="info-content"><div class="label">Country</div><div class="value">Saudi Arabia</div></div></div>
+                            <div class="info-item"><i class="fas fa-id-badge"></i>
+                                <div class="info-content">
+                                    <div class="label">First Name</div>
+                                    <div class="value">Ahmed</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-id-badge"></i>
+                                <div class="info-content">
+                                    <div class="label">Last Name</div>
+                                    <div class="value">Al-Rashid</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-venus-mars"></i>
+                                <div class="info-content">
+                                    <div class="label">Gender</div>
+                                    <div class="value">Male</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-birthday-cake"></i>
+                                <div class="info-content">
+                                    <div class="label">Date of Birth</div>
+                                    <div class="value">1995-06-10</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-envelope"></i>
+                                <div class="info-content">
+                                    <div class="label">Email</div>
+                                    <div class="value">ahmed.rashid@email.com</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-phone"></i>
+                                <div class="info-content">
+                                    <div class="label">Phone Number</div>
+                                    <div class="value">+966 50 123 4567</div>
+                                </div>
+                            </div>
+                            <div class="info-item"><i class="fas fa-flag"></i>
+                                <div class="info-content">
+                                    <div class="label">Country</div>
+                                    <div class="value">Saudi Arabia</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -153,13 +266,17 @@
                     <div class="booking-row booking-summary">
                         <div class="booking-info-grid" style="grid-template-columns:1fr 1fr;">
                             <div class="price-summary">
-                                <div class="price-item"><span class="price-label">Base Seat Price</span><span class="price-amount">299 SAR</span></div>
-                                <div class="price-item"><span class="price-label">Taxes & Fees</span><span class="price-amount">+50 SAR</span></div>
+                                <div class="price-item"><span class="price-label">Base Seat Price</span><span
+                                        class="price-amount">299 SAR</span></div>
+                                <div class="price-item"><span class="price-label">Taxes & Fees</span><span
+                                        class="price-amount">+50 SAR</span></div>
                                 <div class="price-divider"></div>
-                                <div class="price-total"><span class="total-label">Total</span><span class="total-amount">349 SAR</span></div>
+                                <div class="price-total"><span class="total-label">Total</span><span
+                                        class="total-amount">349 SAR</span></div>
                             </div>
                             <div class="qr-container">
-                                <div class="qr-box" style="width:100px;height:100px;border:3px solid #3B82F6;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#fff;color:#3B82F6;">
+                                <div class="qr-box"
+                                    style="width:100px;height:100px;border:3px solid #3B82F6;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#fff;color:#3B82F6;">
                                     <i class="fas fa-qrcode"></i>
                                 </div>
                                 <div>
@@ -200,10 +317,11 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>FlySmart</h3>
-                    <p>Revolutionizing airline bookings with AI-driven insights for the best travel experiences. Your intelligent travel companion.</p>
-                    
+                    <p>Revolutionizing airline bookings with AI-driven insights for the best travel experiences. Your
+                        intelligent travel companion.</p>
+
                 </div>
-                
+
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
@@ -214,11 +332,11 @@
                         <li><a href="index.html#contact">Contact Us</a></li>
                     </ul>
                 </div>
-              
-              
-            
+
+
+
             </div>
-            
+
             <div class="footer-bottom">
                 <p>&copy; 2025 FlySmart. All rights reserved</p>
             </div>
@@ -231,5 +349,5 @@
     <script src="js/cart.js"></script>
     <script src="js/notifications.js"></script>
 </body>
-</html>
 
+</html>
