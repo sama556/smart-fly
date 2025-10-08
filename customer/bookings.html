@@ -117,68 +117,56 @@
             <div class="bookings-list" id="bookingsList">
                 <!-- Booking Card -->
                 <div class="booking-card glass">
-                    <!-- Row 1: Flight details -->
+                    <!-- Row 1: Flights card -->
                     <div class="booking-row booking-flight">
-                        <div class="flight-route" style="display:flex;gap:16px;align-items:center;justify-content:space-between;">
-                            <div class="departure" style="text-align:center;flex:1;">
-                                <div class="airport-code" style="font-size:1.6rem;font-weight:800;color:#1e3a8a;">RUH</div>
-                                <div class="city" style="color:#475569;font-weight:700;">Riyadh</div>
-                                <div class="date-time" style="color:#64748b;font-weight:600;">15 Jan 2024 • 08:30</div>
-                            </div>
-                            <div class="flight-center" style="flex:2;display:flex;flex-direction:column;align-items:center;gap:10px;">
-                                <div class="airline-summary" style="display:flex;align-items:center;gap:10px;justify-content:center;width:100%;">
-                                    <img src="images/image1.jpg" alt="Airline" onerror="this.src='./images/airline-placeholder.png'" style="width:42px;height:42px;border-radius:8px;">
-                                    <div style="display:flex;flex-direction:column;align-items:flex-start;">
-                                        <div class="airline-name" style="font-weight:800;color:#0f172a;">Saudia</div>
-                                        <div class="flight-number" style="color:#64748b;font-weight:700;">Flight: SV1234</div>
-                                    </div>
-                                    <span class="status-badge confirmed" style="margin-left:auto;padding:6px 12px;border-radius:999px;background:#10b981;color:#fff;font-weight:700;">Confirmed</span>
-                                </div>
-                                <div class="flight-line" style="width:100%;display:flex;align-items:center;gap:12px;">
-                                    <div style="height:3px;background:linear-gradient(90deg,#e5e7eb,#3B82F6);flex:1;border-radius:2px;"></div>
-                                    <i class="fas fa-plane" style="color:#3B82F6;"></i>
-                                    <div style="height:3px;background:linear-gradient(90deg,#3B82F6,#e5e7eb);flex:1;border-radius:2px;"></div>
-                                </div>
-                            </div>
-                            <div class="arrival" style="text-align:center;flex:1;">
-                                <div class="airport-code" style="font-size:1.6rem;font-weight:800;color:#1e3a8a;">JED</div>
-                                <div class="city" style="color:#475569;font-weight:700;">Jeddah</div>
-                                <div class="date-time" style="color:#64748b;font-weight:600;">15 Jan 2024 • 11:15</div>
-                            </div>
+                        <div class="section-header"><i class="fas fa-plane"></i><h3>Flights</h3></div>
+                        <div class="booking-info-grid">
+                            <div class="info-item"><i class="fas fa-hashtag"></i><div class="info-content"><div class="label">Flight Number</div><div class="value">SV1234</div></div></div>
+                            <div class="info-item"><i class="fas fa-ticket-alt"></i><div class="info-content"><div class="label">Airline Number</div><div class="value">SV</div></div></div>
+                            <div class="info-item"><i class="fas fa-plane-departure"></i><div class="info-content"><div class="label">Departure Airport (Code)</div><div class="value">RUH</div></div></div>
+                            <div class="info-item"><i class="fas fa-city"></i><div class="info-content"><div class="label">Departure City</div><div class="value">Riyadh</div></div></div>
+                            <div class="info-item"><i class="fas fa-calendar-day"></i><div class="info-content"><div class="label">Departure Date</div><div class="value">15 Jan 2024</div></div></div>
+                            <div class="info-item"><i class="fas fa-clock"></i><div class="info-content"><div class="label">Departure Time</div><div class="value">08:30</div></div></div>
+                            <div class="info-item"><i class="fas fa-plane-arrival"></i><div class="info-content"><div class="label">Arrival Airport (Code)</div><div class="value">JED</div></div></div>
+                            <div class="info-item"><i class="fas fa-city"></i><div class="info-content"><div class="label">Arrival City</div><div class="value">Jeddah</div></div></div>
+                            <div class="info-item"><i class="fas fa-calendar-day"></i><div class="info-content"><div class="label">Arrival Date</div><div class="value">15 Jan 2024</div></div></div>
+                            <div class="info-item"><i class="fas fa-clock"></i><div class="info-content"><div class="label">Arrival Time</div><div class="value">11:15</div></div></div>
+                            <div class="info-item"><i class="fas fa-hourglass-half"></i><div class="info-content"><div class="label">Duration (mins)</div><div class="value">165</div></div></div>
+                            <div class="info-item"><i class="fas fa-info-circle"></i><div class="info-content"><div class="label">Status</div><div class="value">On Time</div></div></div>
+                            <div class="info-item"><i class="fas fa-users"></i><div class="info-content"><div class="label">Total Seats</div><div class="value">180</div></div></div>
+                            <div class="info-item"><i class="fas fa-tag"></i><div class="info-content"><div class="label">Base Seat Price</div><div class="value">299 SAR</div></div></div>
                         </div>
                     </div>
 
-                    <!-- Row 2: Passenger details (from profile) -->
-                    <div class="booking-row booking-passenger" style="margin-top:16px;">
-                        <div class="passenger-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
-                            <div class="info-item" style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">
-                                <div class="label" style="color:#64748b;font-weight:700;font-size:.9rem;"><i class="fas fa-user"></i> Passenger</div>
-                                <div class="value" style="color:#0f172a;font-weight:800;">Ahmed Al-Rashid</div>
-                            </div>
-                            <div class="info-item" style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">
-                                <div class="label" style="color:#64748b;font-weight:700;font-size:.9rem;"><i class="fas fa-envelope"></i> Email</div>
-                                <div class="value" style="color:#0f172a;font-weight:800;">ahmed.rashid@email.com</div>
-                            </div>
-                            <div class="info-item" style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">
-                                <div class="label" style="color:#64748b;font-weight:700;font-size:.9rem;"><i class="fas fa-phone"></i> Mobile</div>
-                                <div class="value" style="color:#0f172a;font-weight:800;">+966 50 123 4567</div>
-                            </div>
+                    <!-- Row 2: Travelers card -->
+                    <div class="booking-row booking-passenger">
+                        <div class="section-header"><i class="fas fa-user"></i><h3>Travelers</h3></div>
+                        <div class="passenger-grid">
+                            <div class="info-item"><i class="fas fa-id-badge"></i><div class="info-content"><div class="label">First Name</div><div class="value">Ahmed</div></div></div>
+                            <div class="info-item"><i class="fas fa-id-badge"></i><div class="info-content"><div class="label">Last Name</div><div class="value">Al-Rashid</div></div></div>
+                            <div class="info-item"><i class="fas fa-venus-mars"></i><div class="info-content"><div class="label">Gender</div><div class="value">Male</div></div></div>
+                            <div class="info-item"><i class="fas fa-birthday-cake"></i><div class="info-content"><div class="label">Date of Birth</div><div class="value">1995-06-10</div></div></div>
+                            <div class="info-item"><i class="fas fa-envelope"></i><div class="info-content"><div class="label">Email</div><div class="value">ahmed.rashid@email.com</div></div></div>
                         </div>
                     </div>
 
-                    <!-- Row 3: Total and QR -->
-                    <div class="booking-row booking-summary" style="margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
-                        <div class="total" style="display:flex;flex-direction:column;gap:4px;">
-                            <div style="color:#64748b;font-weight:700;">Total</div>
-                            <div style="font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#1b4965,#3B82F6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">299 SAR</div>
-                        </div>
-                        <div class="qr" style="display:flex;align-items:center;gap:12px;">
-                            <div style="width:90px;height:90px;border:3px solid #3B82F6;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#fff;color:#3B82F6;">
-                                <i class="fas fa-qrcode"></i>
+                    <!-- Row 3: Price & QR -->
+                    <div class="booking-row booking-summary">
+                        <div class="booking-info-grid" style="grid-template-columns:1fr 1fr;">
+                            <div class="price-summary">
+                                <div class="price-item"><span class="price-label">Base Seat Price</span><span class="price-amount">299 SAR</span></div>
+                                <div class="price-item"><span class="price-label">Taxes & Fees</span><span class="price-amount">+50 SAR</span></div>
+                                <div class="price-divider"></div>
+                                <div class="price-total"><span class="total-label">Total</span><span class="total-amount">349 SAR</span></div>
                             </div>
-                            <div style="color:#475569;font-weight:600;">
-                                <div>Scan for boarding</div>
-                                <small style="color:#64748b;">Valid until departure</small>
+                            <div class="qr-container">
+                                <div class="qr-box" style="width:100px;height:100px;border:3px solid #3B82F6;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#fff;color:#3B82F6;">
+                                    <i class="fas fa-qrcode"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight:700;color:#0f172a;">Scan for boarding</div>
+                                    <small style="color:#64748b;">Valid until departure</small>
+                                </div>
                             </div>
                         </div>
                     </div>

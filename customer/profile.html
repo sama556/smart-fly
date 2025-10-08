@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/cart.css">
+   
     <link rel="stylesheet" href="css/notifications.css">
 
 
@@ -31,7 +31,7 @@
                     <li><a href="index.html#about">About</a></li>
                     <li><a href="index.html#features">Features</a></li>
                     <li><a href="airlines.html">Airlines</a></li>
-                    <li><a href="index.html#deals">Deals</a></li> 
+                    <li><a href="index.html#deals">Recommendations</a></li> 
                     <li><a href ="bookings.html">Bookings</a>
                     <li><a href="index.html#contact">Contact</a></li>
                 </ul>
@@ -42,10 +42,7 @@
                             <i class="fas fa-bell"></i>
                             <span class="notification-badge" id="notificationBadge">0</span>
                         </div>
-                        <div class="cart-icon" id="cartIcon">
-                            <i class="fas fa-shopping-bag"></i>
-                            <span class="cart-badge" id="cartBadge">0</span>
-                        </div>
+                        
                         <div class="profile-icon" id="profileIcon">
                            <a href="profile.html" ><i class="fas fa-user"></i></a>
                         </div>
@@ -60,43 +57,7 @@
         </div>
     </header>
 
-    <!-- Profile Dropdown -->
-    <div class="profile-dropdown" id="profileDropdown">
-        <div class="profile-header">
-            <div class="profile-avatar">
-                <i class="fas fa-user"></i>
-            </div>
-            <div class="profile-name">Ahmed Al-Rashid</div>
-            <div class="profile-email">ahmed.rashid@email.com</div>
-        </div>
-        <div class="profile-menu">
-            <a href="profile.html" class="profile-menu-item">
-                <i class="fas fa-user-circle"></i>
-                My Profile
-            </a>
-            <a href="../admin/bookings.html" class="profile-menu-item">
-                <i class="fas fa-plane"></i>
-                My Bookings
-            </a>
-            <a href="#" class="profile-menu-item" onclick="openFavorites()">
-                <i class="fas fa-heart"></i>
-                Favorites
-            </a>
-            <a href="#" class="profile-menu-item" onclick="openSettings()">
-                <i class="fas fa-cog"></i>
-                Settings
-            </a>
-            <div class="profile-menu-divider"></div>
-            <a href="#" class="profile-menu-item" onclick="openHelp()">
-                <i class="fas fa-question-circle"></i>
-                Help & Support
-            </a>
-            <a href="#" class="profile-menu-item" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i>
-                Sign Out
-            </a>
-        </div>
-    </div>
+   
 
     <!-- Main Content -->
     <main class="main-content">

@@ -28,7 +28,7 @@
                     <li><a href="index.html#about">About</a></li>
                     <li><a href="index.html#features">Features</a></li>
                     <li><a href="airlines.html">Airlines</a></li>
-                    <li><a href="index.html#deals">Deals</a></li> 
+                    <li><a href="index.html#deals">Recommendations</a></li> 
                     <li><a href ="bookings.html">Bookings</a>
                     <li><a href="index.html#contact">Contact</a></li>
                 </ul>
@@ -38,10 +38,7 @@
                             <i class="fas fa-bell"></i>
                             <span class="notification-badge" id="notificationBadge">0</span>
                         </div>
-                        <div class="cart-icon" id="cartIcon">
-                            <i class="fas fa-shopping-bag"></i>
-                            <span class="cart-badge" id="cartBadge">0</span>
-                        </div>
+                        
                         <div class="profile-icon" id="profileIcon">
                            <a href="profile.html" ><i class="fas fa-user"></i></a>
                         </div>
@@ -56,93 +53,9 @@
         </div>
     </header>
 
-    <!-- Notification Dropdown -->
-    <div class="notification-dropdown" id="notificationDropdown">
-        <div class="notification-header">
-            <span>Notifications</span>
-            <button onclick="clearAllNotifications()" style="background: none; border: none; color: var(--light-blue); cursor: pointer; font-size: 0.8rem;">Clear All</button>
-        </div>
-        <div id="notificationList">
-            <div class="notification-item">
-                <div class="notification-title">Price Drop Alert</div>
-                <div class="notification-message">Flight from JED to DXB dropped to 299 SAR</div>
-                <div class="notification-time">2 minutes ago</div>
-            </div>
-            <div class="notification-item">
-                <div class="notification-title">Booking Confirmation</div>
-                <div class="notification-message">Your flight booking has been confirmed</div>
-                <div class="notification-time">1 hour ago</div>
-            </div>
-            <div class="notification-item">
-                <div class="notification-title">New Deal Available</div>
-                <div class="notification-message">Special offer: 20% off on all flights to Europe</div>
-                <div class="notification-time">3 hours ago</div>
-            </div>
-        </div>
-    </div>
+ 
 
-    <!-- Cart Dropdown -->
-    <div class="cart-dropdown" id="cartDropdown">
-        <div class="cart-header">
-            <span>Your Bookings</span>
-            <span id="cartItemCount">0 items</span>
-        </div>
-        <div id="cartList">
-            <div class="empty-cart">
-                <i class="fas fa-shopping-bag"></i>
-                <p>Your cart is empty</p>
-                <p style="font-size: 0.9rem; margin-top: 10px;">Add some flights to get started!</p>
-            </div>
-        </div>
-        <div class="cart-footer" id="cartFooter" style="display: none;">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cartTotal">0 SAR</span>
-            </div>
-            <button class="cart-checkout" onclick="proceedToCheckout()">
-                <i class="fas fa-credit-card"></i> Proceed to Checkout
-            </button>
-        </div>
-    </div>
-
-    <!-- Profile Dropdown -->
-    <div class="profile-dropdown" id="profileDropdown">
-        <div class="profile-header">
-            <div class="profile-avatar">
-                <i class="fas fa-user"></i>
-            </div>
-            <div class="profile-name">Ahmed Al-Rashid</div>
-            <div class="profile-email">ahmed.rashid@email.com</div>
-        </div>
-        <div class="profile-menu">
-            <a href="#" class="profile-menu-item" onclick="openProfile()">
-                <i class="fas fa-user-circle"></i>
-                My Profile
-            </a>
-            <a href="#" class="profile-menu-item" onclick="openBookings()">
-                <i class="fas fa-plane"></i>
-                My Bookings
-            </a>
-            <a href="#" class="profile-menu-item" onclick="openFavorites()">
-                <i class="fas fa-heart"></i>
-                Favorites
-            </a>
-            <a href="#" class="profile-menu-item" onclick="openSettings()">
-                <i class="fas fa-cog"></i>
-                Settings
-            </a>
-            <div class="profile-menu-divider"></div>
-            <a href="#" class="profile-menu-item" onclick="openHelp()">
-                <i class="fas fa-question-circle"></i>
-                Help & Support
-            </a>
-            <a href="#" class="profile-menu-item" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i>
-                Sign Out
-            </a>
-        </div>
-    </div>
-
+ 
     <!-- Flight Booking Section -->
     <section class="flight-booking-section">
         <div class="container">
@@ -381,7 +294,7 @@
 
     <script src="js/script.js"></script>
     <script src="js/index.js"></script>
-    <script src="js/cart.js"></script>
+ 
     <script src="js/flight-booking.js"></script>
     <script src="js/notifications.js"></script>
     <script>

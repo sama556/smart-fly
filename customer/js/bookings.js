@@ -335,21 +335,7 @@ function renderBookingCard(b) {
             </div>
             
             <div class="customer-info-item">
-                <div class="info-label">
-                    <i class="fas fa-id-card"></i>
-                    Passenger ID
-                </div>
-                <div class="info-value">${escapeHtml(b.passengerId)}</div>
-            </div>
-            
-            <div class="customer-info-item">
-                <div class="info-label">
-                    <i class="fas fa-receipt"></i>
-                    Booking Number
-                </div>
-                <div class="info-value">${escapeHtml(b.bookingNumber)}</div>
-            </div>
-            
+                
             <div class="customer-info-item">
                 <div class="info-label">
                     <i class="fas fa-calendar-alt"></i>
@@ -377,14 +363,8 @@ function renderBookingCard(b) {
         <div class="total-qr-content">
             <div class="price-summary">
                 <div class="price-breakdown">
-                    <div class="price-item">
-                        <span class="price-label">Base Fare</span>
-                        <span class="price-amount">${escapeNumber(b.totalPriceSar * 0.7)} SAR</span>
-                    </div>
-                    <div class="price-item">
-                        <span class="price-label">Taxes & Fees</span>
-                        <span class="price-amount">${escapeNumber(b.totalPriceSar * 0.3)} SAR</span>
-                    </div>
+                    
+                    
                     <div class="price-divider"></div>
                     <div class="price-total">
                         <span class="total-label">Total Amount</span>

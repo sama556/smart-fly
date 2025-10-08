@@ -199,9 +199,9 @@ function handleNotificationAction(action, notificationId) {
     switch (action) {
         case 'viewFlightDetails':
             showNotificationToast('Opening flight details...', 'info');
-            // Navigate to bookings page
+            // Navigate to airline details page with id
             setTimeout(() => {
-                window.location.href = 'bookings.html';
+                window.location.href = 'airline-details.html?id=1';
             }, 1000);
             break;
             

@@ -29,7 +29,7 @@
                     <li><a href="index.html#about">About</a></li>
                     <li><a href="index.html#features">Features</a></li>
                     <li><a href="airlines.html">Airlines</a></li>
-                    <li><a href="index.html#deals">Deals</a></li> 
+                    <li><a href="index.html#deals"> Recommendations</a></li> 
                     <li><a href ="bookings.html">Bookings</a>
                     <li><a href="index.html#contact">Contact</a></li>
                 </ul>
@@ -40,10 +40,7 @@
                             <i class="fas fa-bell"></i>
                             <span class="notification-badge" id="notificationBadge">0</span>
                         </div>
-                        <div class="cart-icon" id="cartIcon">
-                            <i class="fas fa-shopping-bag"></i>
-                            <span class="cart-badge" id="cartBadge">0</span>
-                        </div>
+                        
                         <div class="profile-icon" id="profileIcon">
                            <a href="profile.html" ><i class="fas fa-user"></i></a>
                         </div>
@@ -281,28 +278,7 @@
             </div>
         </div>
     </section>
-    <div class="cart-dropdown" id="cartDropdown">
-        <div class="cart-header">
-            <span>Your Bookings</span>
-            <span id="cartItemCount">0 items</span>
-        </div>
-        <div id="cartList">
-            <div class="empty-cart">
-                <i class="fas fa-shopping-bag"></i>
-                <p>Your cart is empty</p>
-                <p style="font-size: 0.9rem; margin-top: 10px;">Add some flights to get started!</p>
-            </div>
-        </div>
-        <div class="cart-footer" id="cartFooter" style="display: none;">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cartTotal">0 SAR</span>
-            </div>
-            <button class="cart-checkout" onclick="proceedToCheckout()">
-                <i class="fas fa-credit-card"></i> Proceed to Checkout
-            </button>
-        </div>
-    </div>
+  
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -338,6 +314,7 @@
     <script src="js/index.js"></script>
     <script src="js/airlines.js"></script>
     <script src="js/cart.js"></script>
+    <script src="js/notifications.js"></script>
     <script>
         // Initialize AOS
         AOS.init({

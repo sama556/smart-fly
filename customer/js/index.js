@@ -82,45 +82,7 @@ function setupFlightSlider() {
     updateSlider();
 }
 
-// Auto-booking functionality
-function setupAutoBooking() {
-    const autoBookingToggle = document.getElementById('autoBookingToggle');
-    const autoBookingOptions = document.getElementById('autoBookingOptions');
-    const autoBookingNotification = document.getElementById('autoBookingNotification');
-    if (!autoBookingToggle || !autoBookingOptions || !autoBookingNotification) return;
 
-    autoBookingToggle.addEventListener('change', function() {
-        if (this.checked) {
-            autoBookingOptions.classList.add('active');
-            
-            // Show notification
-            autoBookingNotification.classList.add('show');
-            setTimeout(() => {
-                autoBookingNotification.classList.remove('show');
-            }, 5000);
-            
-            // Simulate auto-booking process
-            simulateAutoBooking();
-        } else {
-            autoBookingOptions.classList.remove('active');
-        }
-    });
-}
-
-// Simulate auto-booking process
-function simulateAutoBooking() {
-    setTimeout(() => {
-        const notification = document.getElementById('autoBookingNotification');
-        notification.querySelector('.notification-icon').innerHTML = '<i class="fas fa-plane"></i>';
-       
-        notification.querySelector('div > div:last-child').textContent = 'A flight matching your preferences has been found';
-        notification.classList.add('show');
-        
-        setTimeout(() => {
-            notification.classList.remove('show');
-        }, 5000);
-    }, 3000);
-}
 
 // Scroll animations
 function setupScrollAnimations() {
@@ -289,169 +251,19 @@ function setupHeaderIcons() {
     updateCartCount();
 }
 
-// Update notification count
-function updateNotificationCount() {
-    const notificationBadge = document.getElementById('notificationBadge');
-    const notificationItems = document.querySelectorAll('.notification-item');
-    const count = notificationItems.length;
-    notificationBadge.textContent = count;
-    notificationBadge.style.display = count > 0 ? 'flex' : 'none';
-}
 
-// Update cart count
-function updateCartCount() {
-    const cartBadge = document.getElementById('cartBadge');
-    const cartItemCount = document.getElementById('cartItemCount');
-    const cartItems = document.querySelectorAll('.cart-item:not(.empty-cart)');
-    const count = cartItems.length;
-    cartBadge.textContent = count;
-    cartBadge.style.display = count > 0 ? 'flex' : 'none';
-    cartItemCount.textContent = count + ' items';
-}
 
-// Clear all notifications
-function clearAllNotifications() {
-    const notificationList = document.getElementById('notificationList');
-    notificationList.innerHTML = '<div class="notification-item"><div class="notification-message">No notifications</div></div>';
-    updateNotificationCount();
-}
 
-// Add flight to cart
-function addToCart(flightData) {
-    const cartList = document.getElementById('cartList');
-    const cartFooter = document.getElementById('cartFooter');
-    const emptyCart = cartList.querySelector('.empty-cart');
-    
-    if (emptyCart) {
-        emptyCart.remove();
-    }
 
-    const cartItem = document.createElement('div');
-    cartItem.className = 'cart-item';
-    cartItem.innerHTML = `
-        <div class="cart-item-info">
-            <div class="cart-route">${flightData.from} → ${flightData.to}</div>
-            <div class="cart-details">${flightData.airline} • ${flightData.duration}</div>
-            <div class="cart-price">${flightData.price} SAR</div>
-        </div>
-        <button class="cart-remove" onclick="removeFromCart(this)">
-            <i class="fas fa-times"></i>
-        </button>
-    `;
-    
-    cartList.appendChild(cartItem);
-    cartFooter.style.display = 'block';
-    updateCartCount();
-    updateCartTotal();
-}
 
-// Remove flight from cart
-function removeFromCart(button) {
-    const cartItem = button.closest('.cart-item');
-    cartItem.remove();
-    
-    const cartList = document.getElementById('cartList');
-    const cartFooter = document.getElementById('cartFooter');
-    
-    if (cartList.children.length === 0) {
-        cartList.innerHTML = `
-            <div class="empty-cart">
-                <i class="fas fa-shopping-bag"></i>
-                <p>Your cart is empty</p>
-                <p style="font-size: 0.9rem; margin-top: 10px;">Add some flights to get started!</p>
-            </div>
-        `;
-        cartFooter.style.display = 'none';
-    }
-    
-    updateCartCount();
-    updateCartTotal();
-}
-
-// Update cart total
-function updateCartTotal() {
-    const cartItems = document.querySelectorAll('.cart-item:not(.empty-cart)');
-    let total = 0;
-    
-    cartItems.forEach(item => {
-        const priceText = item.querySelector('.cart-price').textContent;
-        const price = parseInt(priceText.replace(/[^\d]/g, ''));
-        total += price;
-    });
-    
-    const cartTotal = document.getElementById('cartTotal');
-    cartTotal.textContent = total + ' SAR';
-}
-
-// Proceed to checkout
-function proceedToCheckout() {
-    const cartItems = document.querySelectorAll('.cart-item:not(.empty-cart)');
-    if (cartItems.length === 0) {
-        alert('Your cart is empty!');
-        return;
-    }
-    
-    alert('Redirecting to checkout...');
-    // Here you would redirect to checkout page
-}
-
-// Profile navigation functions
-function openProfile() {
-    window.location.href = '../admin/profile.html';
-}
-
-function openBookings() {
-    window.location.href = '../admin/bookings.html';
-}
-
-function openFavorites() {
-    alert('Favorites page coming soon!');
-}
-
-function openSettings() {
-    alert('Settings page coming soon!');
-}
-
-function openHelp() {
-    alert('Help & Support page coming soon!');
-}
-
-function logout() {
-    if (confirm('Are you sure you want to sign out?')) {
-        window.location.href = '../login.html';
-    }
-}
 
 // Add click handlers to book buttons
 function setupBookButtons() {
     const bookButtons = document.querySelectorAll('.book-btn');
     bookButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const flightCard = this.closest('.flight-card');
-            const route = flightCard.querySelector('.route');
-            const airline = flightCard.querySelector('.airline');
-            const price = flightCard.querySelector('.price-badge');
-            const flightTime = flightCard.querySelector('.flight-time');
-            
-            const flightData = {
-                from: route.querySelector('.city:first-child').textContent,
-                to: route.querySelector('.city:last-child').textContent,
-                airline: airline.textContent,
-                duration: flightTime.textContent,
-                price: price.textContent
-            };
-            
-            addToCart(flightData);
-            
-            // Show success message
-            const notification = document.getElementById('autoBookingNotification');
-            notification.querySelector('.notification-icon').innerHTML = '<i class="fas fa-check"></i>';
-            notification.querySelector('div > div:last-child').textContent = 'Flight added to cart successfully!';
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
+            // Navigate to airline details with id
+            window.location.href = 'airline-details.html?id=1';
         });
     });
 }
@@ -462,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
     handleHeaderScroll();
     setupMobileMenu();
     setupFlightSlider();
-    setupAutoBooking();
+  
     setupScrollAnimations();
     setupFormHandlers();
     setupTestimonialSlider();

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/cart.css">
+   
     <link rel="stylesheet" href="css/notifications.css">
    
 </head>
@@ -28,7 +28,7 @@
                     <li><a href="index.html#about">About</a></li>
                     <li><a href="index.html#features">Features</a></li>
                     <li><a href="airlines.html">Airlines</a></li>
-                    <li><a href="index.html#deals">Deals</a></li> 
+                    <li><a href="index.html#deals">Recommendations</a></li> 
                     <li><a href ="bookings.html">Bookings</a>
                     <li><a href="index.html#contact">Contact</a></li>
                 </ul>
@@ -39,10 +39,7 @@
                             <i class="fas fa-bell"></i>
                             <span class="notification-badge" id="notificationBadge">0</span>
                         </div>
-                        <div class="cart-icon" id="cartIcon">
-                            <i class="fas fa-shopping-bag"></i>
-                            <span class="cart-badge" id="cartBadge">0</span>
-                        </div>
+                        
                         <div class="profile-icon" id="profileIcon">
                            <a href="profile.html" ><i class="fas fa-user"></i></a>
                         </div>
@@ -82,68 +79,7 @@
         </div>
     </div>
 
-    <!-- Cart Dropdown -->
-    <div class="cart-dropdown" id="cartDropdown">
-        <div class="cart-header">
-            <span>Your Bookings</span>
-            <span id="cartItemCount">0 items</span>
-        </div>
-        <div id="cartList">
-            <div class="empty-cart">
-                <i class="fas fa-shopping-bag"></i>
-                <p>Your cart is empty</p>
-                <p style="font-size: 0.9rem; margin-top: 10px;">Add some flights to get started!</p>
-            </div>
-        </div>
-        <div class="cart-footer" id="cartFooter" style="display: none;">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cartTotal">0 SAR</span>
-            </div>
-            <button class="cart-checkout" onclick="proceedToCheckout()">
-                <i class="fas fa-credit-card"></i> Proceed to Checkout
-            </button>
-        </div>
-    </div>
-
-    <!-- Profile Dropdown -->
-    <div class="profile-dropdown" id="profileDropdown">
-        <div class="profile-header">
-            <div class="profile-avatar">
-                <i class="fas fa-user"></i>
-            </div>
-            <div class="profile-name">Ahmed Al-Rashid</div>
-            <div class="profile-email">ahmed.rashid@email.com</div>
-        </div>
-        <div class="profile-menu">
-            <a href="#" class="profile-menu-item" onclick="openProfile()">
-                <i class="fas fa-user-circle"></i>
-                My Profile
-            </a>
-            <a href="#" class="profile-menu-item" onclick="openBookings()">
-                <i class="fas fa-plane"></i>
-                My Bookings
-            </a>
-            <a href="#" class="profile-menu-item" onclick="openFavorites()">
-                <i class="fas fa-heart"></i>
-                Favorites
-            </a>
-            <a href="#" class="profile-menu-item" onclick="openSettings()">
-                <i class="fas fa-cog"></i>
-                Settings
-            </a>
-            <div class="profile-menu-divider"></div>
-            <a href="#" class="profile-menu-item" onclick="openHelp()">
-                <i class="fas fa-question-circle"></i>
-                Help & Support
-            </a>
-            <a href="#" class="profile-menu-item" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i>
-                Sign Out
-            </a>
-        </div>
-    </div>
-
+   
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
@@ -151,83 +87,7 @@
                 <h1>FlySmart: Intelligent Travel Solutions</h1>
                 <p>Experience the future of travel booking with AI-powered price predictions, seamless bookings, and personalized recommendations.</p>
                 
-                <div class="search-container">
-                    <form class="search-form glass" id="quickSearch">
-                        <div class="form-group">
-                            <label>From</label>
-                            <input type="text" placeholder="Departure City" required>
-                        </div>
-                        <div class="form-group">
-                            <label>To</label>
-                            <input type="text" placeholder="Destination City" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Departure</label>
-                            <input type="date" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Return</label>
-                            <input type="date">
-                        </div>
-                        <div class="form-group">
-                            <label>Passengers</label>
-                            <select>
-                                <option>1 Passenger</option>
-                                
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="class">Class</label>
-                            <select>
-                                <option>Economy</option>
-                                <option>Business</option>
-                                <option>First</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="search-btn">
-                                <i class="fas fa-search"></i> Search Flights
-                            </button>
-                        </div>
-                        <!-- Auto-booking section -->
-                        <div class="auto-booking-section">
-                            <div class="auto-booking-toggle">
-                                <div class="toggle-label">
-                                    <i class="fas fa-robot"></i>
-                                    <span>Enable Auto-Booking</span>
-                                </div>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="autoBookingToggle">
-                                    <span class="toggle-slider"></span>
-                                </label>
-                            </div>
-                            
-                            <div class="auto-booking-options" id="autoBookingOptions">
-                                <div class="price-input-group">
-                                    <div class="form-group" style="flex: 1;">
-                                        <label>Max Price (SAR)</label>
-                                        <input type="number" id="maxPrice" placeholder="e.g. 500">
-                                    </div>
-                                    <div class="form-group" style="flex: 1;">
-                                        <label>Preferred Time</label>
-                                        <select id="preferredTime">
-                                            <option>Any Time</option>
-                                           
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>
-                        
-                        <div class="info-box">
-                            <i class="fas fa-info-circle"></i>
-                            <p>Our AI will monitor prices and automatically reserve the flight when it matches or drops below your target price. You'll have 10 minutes to complete payment.</p>
-                        </div>
-
-                       
-                    </form>
-                </div>
+              
             </div>
         </div>
     </section>
@@ -235,7 +95,7 @@
     <!-- Flight Deals Section -->
     <section class="deals-section" id="deals">
         <div class="container">
-            <h2 class="section-title scroll-animate">🔥 Hottest Flight Deals</h2>
+            <h2 class="section-title scroll-animate">🔥 Hottest Flight Recommendations</h2>
             
             <div class="flight-slider scroll-animate">
                 <div class="flight-slides" id="flightSlides">
@@ -541,6 +401,7 @@
     </div>
 <script src="js/script.js"></script>
 <script src="js/index.js"></script>
+<script src="js/notifications.js"></script>
    
 </body>
 </html>

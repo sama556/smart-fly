@@ -223,127 +223,7 @@
         }
 
         // ----- Temporary Hold (10 minutes) -----
-        const HOLD_MINUTES = 10;
-        const HOLDS_KEY = 'fs_holds_v1';
-
-        function getHolds() {
-            try { return JSON.parse(localStorage.getItem(HOLDS_KEY)) || {}; }
-            catch { return {}; }
-        }
-        function setHolds(holds) {
-            localStorage.setItem(HOLDS_KEY, JSON.stringify(holds));
-        }
-
-        function flightFromCard(card) {
-            const cities = Array.from(card.querySelectorAll('.route .city')).map(n => n.textContent.trim());
-            const airline = card.querySelector('.airline')?.textContent.trim() || '';
-            const price = card.querySelector('.price-badge')?.textContent.trim() || '';
-            const id = `${cities[0] || ''}-${cities[1] || ''}-${airline}-${price}`.replace(/\s+/g, '_');
-            return { id, from: cities[0] || '', to: cities[1] || '', airline, price };
-        }
-
-        function formatRemaining(ms) {
-            const total = Math.max(0, Math.floor(ms / 1000));
-            const m = String(Math.floor(total / 60)).padStart(2,'0');
-            const s = String(total % 60).padStart(2,'0');
-            return `${m}:${s}`;
-        }
-
-        function applyHoldUI(card, remainingMs) {
-            if (!card.querySelector('.hold-badge')) {
-                const badge = document.createElement('div');
-                badge.className = 'hold-badge';
-                badge.textContent = 'On Hold';
-                card.querySelector('.flight-image').appendChild(badge);
-            }
-            let chip = card.querySelector('.countdown-chip');
-            if (!chip) {
-                chip = document.createElement('div');
-                chip.className = 'countdown-chip';
-                card.querySelector('.flight-info').appendChild(chip);
-            }
-            chip.textContent = `Expires in ${formatRemaining(remainingMs)}`;
-            card.classList.add('on-hold');
-            const btn = card.querySelector('.book-btn');
-            btn.disabled = true;
-        }
-
-        function clearHoldUI(card) {
-            card.classList.remove('on-hold');
-            card.querySelector('.hold-badge')?.remove();
-            card.querySelector('.countdown-chip')?.remove();
-            const btn = card.querySelector('.book-btn');
-            if (btn) {
-                btn.disabled = false;
-                btn.textContent = 'Book Now';
-            }
-        }
-
-        function refreshAllHolds() {
-            const holds = getHolds();
-            const now = Date.now();
-            let changed = false;
-
-            document.querySelectorAll('.flight-card').forEach(card => {
-                const { id } = flightFromCard(card);
-                const hold = holds[id];
-                if (hold && now < hold.expiresAt) {
-                    applyHoldUI(card, hold.expiresAt - now);
-                } else if (hold && now >= hold.expiresAt) {
-                    delete holds[id];
-                    clearHoldUI(card);
-                    changed = true;
-                } else {
-                    clearHoldUI(card);
-                }
-            });
-
-            if (changed) setHolds(holds);
-        }
-
-        function startCountdownTicker() {
-            refreshAllHolds();
-            setInterval(refreshAllHolds, 1000);
-        }
-
-        function openHoldModal(summaryText, onConfirm, onContinue) {
-            const modal = document.getElementById('holdModal');
-            if (!modal) { onConfirm?.(); return; }
-            const closeBtn = modal.querySelector('[data-close]');
-            const confirmBtn = document.getElementById('confirmHoldBtn');
-            const contBtn = document.getElementById('continueBookingBtn');
-            const summary = document.getElementById('holdModalSummary');
-            if (summary) summary.textContent = summaryText;
-
-            modal.style.display = 'flex';
-
-            const cleanup = () => {
-                confirmBtn.removeEventListener('click', confirmHandler);
-                contBtn.removeEventListener('click', continueHandler);
-                closeBtn.removeEventListener('click', closeHandler);
-                modal.removeEventListener('click', outsideHandler);
-            };
-            const confirmHandler = () => { cleanup(); modal.style.display = 'none'; onConfirm?.(); };
-            const continueHandler = () => { cleanup(); modal.style.display = 'none'; onContinue?.(); };
-            const closeHandler = () => { cleanup(); modal.style.display = 'none'; };
-            const outsideHandler = (e) => { if (e.target === modal) closeHandler(); };
-
-            confirmBtn.addEventListener('click', confirmHandler);
-            contBtn.addEventListener('click', continueHandler);
-            closeBtn.addEventListener('click', closeHandler);
-            modal.addEventListener('click', outsideHandler);
-        }
-
-        function placeHold(card) {
-            const flight = flightFromCard(card);
-            const holds = getHolds();
-            const expiresAt = Date.now() + HOLD_MINUTES * 60 * 1000;
-            holds[flight.id] = { ...flight, expiresAt };
-            setHolds(holds);
-            applyHoldUI(card, expiresAt - Date.now());
-            if (window.showNotification) showNotification('Fare held for 10 minutes.', 'success');
-        }
-
+       
         // Add interactive effects
         function addInteractiveEffects() {
             // Add hover effect to feature cards
@@ -425,7 +305,7 @@
              
                 initSmoothScrolling();
                 initBookingButtons();
-                startCountdownTicker();
+           
                 addInteractiveEffects();
                 
                 // Add scroll listener

@@ -204,9 +204,9 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-// Add CSS animations
-const style = document.createElement('style');
-style.textContent = `
+// Add CSS animations (scoped variable to avoid global name clashes)
+const bookingStylesheet = document.createElement('style');
+bookingStylesheet.textContent = `
     @keyframes slideInRight {
         from {
             transform: translateX(100%);
@@ -229,7 +229,7 @@ style.textContent = `
         }
     }
 `;
-document.head.appendChild(style);
+document.head.appendChild(bookingStylesheet);
 
 // Export functions for use in other scripts
 window.bookingConfirmation = {
