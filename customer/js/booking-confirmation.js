@@ -19,8 +19,8 @@ function loadBookingData() {
         const booking = JSON.parse(bookingData);
         updateBookingDisplay(booking);
     } else {
-        // If no booking data, redirect to home
-        window.location.href = 'index.html';
+        // If no booking data, skip dynamic fill; static content remains
+        console.warn('No currentBooking found in localStorage; using static content');
     }
 }
 
@@ -28,18 +28,21 @@ function loadBookingData() {
 function updateBookingDisplay(booking) {
     // Generate booking reference
     const bookingRef = generateBookingReference();
-    document.getElementById('bookingReference').textContent = bookingRef;
+    const bookingRefEl = document.getElementById('bookingReference');
+    if (bookingRefEl) bookingRefEl.textContent = bookingRef;
     
     // Update flight information
-    document.getElementById('flightNumber').textContent = booking.flightNumber;
-    document.getElementById('seatNumber').textContent = booking.seat;
+    const flightNumEl = document.getElementById('flightNumber');
+    if (flightNumEl && booking.flightNumber) flightNumEl.textContent = booking.flightNumber;
+    const seatNumEl = document.getElementById('seatNumber');
+    if (seatNumEl && booking.seat) seatNumEl.textContent = booking.seat;
     
     // Calculate total amount
     const basePrice = 299; // Base price from flight data
-    const isPremium = isPremiumSeat(booking.seat);
+    const isPremium = booking?.seat ? isPremiumSeat(booking.seat) : false;
     const totalAmount = isPremium ? basePrice + 50 : basePrice;
-    
-    document.getElementById('totalAmount').textContent = `${totalAmount} SAR`;
+    const totalAmountEl = document.getElementById('totalAmount');
+    if (totalAmountEl) totalAmountEl.textContent = `${totalAmount} SAR`;
     
     // Store booking reference for future use
     localStorage.setItem('bookingReference', bookingRef);

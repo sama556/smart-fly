@@ -86,15 +86,14 @@
         <div class="container">
             <!-- Page Header -->
             <div class="page-header">
-                <div class="breadcrumb">
-                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
-                    <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
-                    <a href="airlines.html"><i class="fas fa-plane"></i> Airlines</a>
-                    <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
-                    <span class="current-page"><i class="fas fa-check-circle"></i> Confirmation</span>
+                <div class="page-title-section" id="paymentTitle">
+                    <h1 class="page-title">
+                        <i class="fas fa-credit-card"></i>
+                        Complete Your Payment
+                    </h1>
+                    <p class="page-subtitle">Pay for your ticket securely to confirm your booking.</p>
                 </div>
-                
-                <div class="page-title-section">
+                <div class="page-title-section" id="confirmedTitle" style="display:none;">
                     <h1 class="page-title">
                         <i class="fas fa-rocket"></i>
                         Booking Confirmed!
@@ -105,8 +104,36 @@
 
             <!-- Confirmation Content -->
             <div class="confirmation-content">
-                <!-- Success Message Card -->
-                <div class="success-message-card glass">
+                <!-- Payment Card (shown first) -->
+                <div class="payment-card glass" id="paymentCard">
+                    <div class="card-header">
+                        <div class="header-content">
+                            <h2><i class="fas fa-credit-card"></i> Payment</h2>
+                            <p>Use your saved payment method to complete the purchase</p>
+                        </div>
+                    </div>
+                    <div style="padding:16px;">
+                        <div class="form-row">
+                            <div class="form-group" style="width:100%">
+                                <label>Amount (SAR)</label>
+                                <input type="number" id="amountToPay" min="1" step="0.01" disabled>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="width:100%">
+                                <label for="confirmSelectCard">Select Card</label>
+                                <select id="confirmSelectCard" required></select>
+                                <div class="error-text" id="confirmCardError" style="display:none; margin-top:6px;"></div>
+                            </div>
+                        </div>
+                        <div class="form-actions" style="display:flex; justify-content:flex-end; gap:10px;">
+                            <button type="button" class="btn-cancel" onclick="window.location.href='airlines.html'">Cancel</button>
+                            <button type="button" class="btn-save" id="payNowBtn"><i class="fas fa-lock"></i> Pay Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Success Message Card (hidden until paid) -->
+                <div class="success-message-card glass" id="successMessageCard" style="display:none;">
                     <div class="success-icon">
                         <i class="fas fa-check-circle"></i>
                     </div>
@@ -114,8 +141,8 @@
                     <p>Your flight booking has been successfully processed. All details are provided below.</p>
                 </div>
 
-                <!-- Reservation Details Card -->
-                <div class="reservation-details-card glass">
+                <!-- Reservation Details Card (hidden until paid) -->
+                <div class="reservation-details-card glass" id="reservationDetailsCard" style="display:none;">
                     <div class="card-header">
                         <div class="header-content">
                             <h2><i class="fas fa-receipt"></i> Reservation Details</h2>
@@ -139,13 +166,7 @@
                                 <div class="info-value" id="reservationNumber">FLY-2024-001234</div>
                             </div>
                             
-                            <div class="info-item">
-                                <div class="info-label">
-                                    <i class="fas fa-user"></i>
-                                    Booking Owner ID
-                                </div>
-                                <div class="info-value" id="bookingOwnerId">PASS-789456</div>
-                            </div>
+                           
                             
                             <div class="info-item">
                                 <div class="info-label">
@@ -160,35 +181,16 @@
                                     <i class="fas fa-calendar"></i>
                                     Booking Date
                                 </div>
-                                <div class="info-value" id="bookingDate">15 Jan 2024</div>
+                                <div class="info-value" id="bookingDate">15 october 2025</div>
                             </div>
                             
-                            <div class="info-item">
-                                <div class="info-label">
-                                    <i class="fas fa-dollar-sign"></i>
-                                    Total Price
-                                </div>
-                                <div class="info-value amount" id="totalPrice">299 SAR</div>
-                            </div>
-                            
-                            <div class="info-item">
-                                <div class="info-label">
-                                    <i class="fas fa-info-circle"></i>
-                                    Status
-                                </div>
-                                <div class="info-value">
-                                    <span class="status-badge confirmed">
-                                        <i class="fas fa-check-circle"></i>
-                                        Confirmed
-                                    </span>
-                                </div>
-                            </div>
+                         
                         </div>
                     </div>
                 </div>
 
-                <!-- Passenger Information Card -->
-                <div class="passenger-info-card glass">
+                <!-- Passenger Information Card (hidden until paid) -->
+                <div class="passenger-info-card glass" id="passengerInfoCard" style="display:none;">
                     <div class="card-header">
                         <div class="header-content">
                             <h2><i class="fas fa-users"></i> Passenger Information</h2>
@@ -206,10 +208,7 @@
                                         Primary Passenger
                                     </span>
                                 </div>
-                                <div class="passenger-id">
-                                    <div class="id-label">Passenger ID</div>
-                                    <div class="id-value" id="passengerId">PASS-789456</div>
-                                </div>
+                                
                             </div>
                             
                             <div class="qr-code-section">
@@ -240,86 +239,7 @@
                     </div>
                 </div>
 
-                <!-- Flight Information Card -->
-                <div class="flight-info-card glass">
-                    <div class="card-header">
-                        <div class="header-content">
-                            <h2><i class="fas fa-plane"></i> Flight Information</h2>
-                            <p>Your flight details and itinerary</p>
-                        </div>
-                    </div>
-
-                    <div class="flight-route">
-                        <div class="departure">
-                            <div class="airport-section">
-                                <div class="airport-code">RUH</div>
-                                <div class="airport-name">King Khalid International</div>
-                                <div class="city">Riyadh</div>
-                            </div>
-                            <div class="datetime">
-                                <div class="date-section">
-                                    <i class="fas fa-calendar"></i>
-                                    <span class="date">15 Jan 2024</span>
-                                </div>
-                                <div class="time-section">
-                                    <i class="fas fa-clock"></i>
-                                    <span class="time">08:30</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="flight-info">
-                            <div class="duration-section">
-                                <div class="duration">
-                                    <i class="fas fa-clock"></i>
-                                    2h 45m
-                                </div>
-                                <div class="flight-type-badge">Direct</div>
-                            </div>
-                            
-                            <div class="flight-line">
-                                <div class="line-start"></div>
-                                <div class="line-middle">
-                                    <div class="flight-path">
-                                        <i class="fas fa-plane"></i>
-                                    </div>
-                                </div>
-                                <div class="line-end"></div>
-                            </div>
-                            
-                            <div class="airline-info">
-                                <div class="airline-logo-small">
-                                    <img src="images/image1.jpg" alt="Saudia" onerror="this.src='./images/airline-placeholder.png'">
-                                </div>
-                                <div class="airline-details">
-                                    <div class="airline-name">Saudia</div>
-                                    <div class="aircraft-info">
-                                        <i class="fas fa-plane"></i>
-                                        Boeing 777-300ER
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="arrival">
-                            <div class="airport-section">
-                                <div class="airport-code">JED</div>
-                                <div class="airport-name">King Abdulaziz International</div>
-                                <div class="city">Jeddah</div>
-                            </div>
-                            <div class="datetime">
-                                <div class="date-section">
-                                    <i class="fas fa-calendar"></i>
-                                    <span class="date">15 Jan 2024</span>
-                                </div>
-                                <div class="time-section">
-                                    <i class="fas fa-clock"></i>
-                                    <span class="time">11:15</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              >
 
                 <!-- Seat Information Card -->
                 <div class="seat-info-card glass">
@@ -345,32 +265,38 @@
                     </div>
                 </div>
 
-                
+                <!-- Receipt Card (hidden until paid) -->
+                <div class="receipt-card glass" id="receiptCard" style="display:none; margin-top: 12px;">
+                    <div class="card-header">
+                        <div class="header-content">
+                            <h2><i class="fas fa-receipt"></i> Payment Receipt</h2>
+                            <p>Confirmation of your transaction</p>
+                        </div>
+                    </div>
+                    <div class="reservation-info">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label"><i class="fas fa-hashtag"></i> Transaction ID</div>
+                                <div class="info-value" id="transactionId">-</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label"><i class="fas fa-credit-card"></i> Paid With</div>
+                                <div class="info-value" id="paidCard">-</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label"><i class="fas fa-dollar-sign"></i> Amount Paid</div>
+                                <div class="info-value amount" id="amountPaid">-</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label"><i class="fas fa-calendar-check"></i> Paid At</div>
+                                <div class="info-value" id="paidAt">-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    <div class="cart-dropdown" id="cartDropdown">
-        <div class="cart-header">
-            <span>Your Bookings</span>
-            <span id="cartItemCount">0 items</span>
-        </div>
-        <div id="cartList">
-            <div class="empty-cart">
-                <i class="fas fa-shopping-bag"></i>
-                <p>Your cart is empty</p>
-                <p style="font-size: 0.9rem; margin-top: 10px;">Add some flights to get started!</p>
-            </div>
-        </div>
-        <div class="cart-footer" id="cartFooter" style="display: none;">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cartTotal">0 SAR</span>
-            </div>
-            <button class="cart-checkout" onclick="proceedToCheckout()">
-                <i class="fas fa-credit-card"></i> Proceed to Checkout
-            </button>
-        </div>
-    </div>
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -402,9 +328,94 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+ 
     <script src="js/index.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/booking-confirmation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Pre-fill amount from Total Price if available
+            const totalEl = document.getElementById('totalPrice');
+            const amountInput = document.getElementById('amountToPay');
+            if (totalEl && amountInput) {
+                const match = (totalEl.textContent || '').match(/([0-9]+(?:\.[0-9]+)?)\s*S?A?R?/i);
+                if (match) amountInput.value = match[1];
+                else amountInput.value = '299';
+            } else if (amountInput) {
+                // Fallback if total price element is missing
+                amountInput.value = '299';
+            }
+
+            // Populate saved cards for dropdown
+            const confirmSelectCard = document.getElementById('confirmSelectCard');
+            const confirmCardError = document.getElementById('confirmCardError');
+            try {
+                const savedCards = JSON.parse(localStorage.getItem('savedCards') || '[]');
+                if (confirmSelectCard) {
+                    confirmSelectCard.innerHTML = '<option value="" disabled selected>Select a card</option>';
+                    if (Array.isArray(savedCards) && savedCards.length) {
+                        savedCards.forEach(masked => {
+                            const opt = document.createElement('option');
+                            opt.value = masked;
+                            opt.textContent = masked;
+                            confirmSelectCard.appendChild(opt);
+                        });
+                    } else {
+                        ['**** **** **** 1234','**** **** **** 5678'].forEach(masked => {
+                            const opt = document.createElement('option');
+                            opt.value = masked;
+                            opt.textContent = masked;
+                            confirmSelectCard.appendChild(opt);
+                        });
+                    }
+                }
+            } catch {}
+
+            // One-click payment: require a selected card
+            const payBtn = document.getElementById('payNowBtn');
+            payBtn.addEventListener('click', function () {
+                let amount = parseFloat(amountInput.value);
+                if (isNaN(amount) || amount <= 0) {
+                    amount = 299; // default fallback
+                    if (amountInput) amountInput.value = String(amount);
+                }
+                if (confirmSelectCard && !confirmSelectCard.value) {
+                    if (confirmCardError) {
+                        confirmCardError.textContent = 'Please select a card.';
+                        confirmCardError.style.display = 'block';
+                    }
+                    return;
+                }
+                payBtn.disabled = true;
+                const original = payBtn.innerHTML;
+                payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+                setTimeout(() => {
+                    const maskedCard = (confirmSelectCard && confirmSelectCard.value) ? confirmSelectCard.value : '**** **** **** 1234';
+                    const txEl = document.getElementById('transactionId');
+                    if (txEl) txEl.textContent = 'TX-' + Math.random().toString(36).slice(2, 10).toUpperCase();
+                    const paidCardEl = document.getElementById('paidCard');
+                    if (paidCardEl) paidCardEl.textContent = maskedCard;
+                    const amountPaidEl = document.getElementById('amountPaid');
+                    if (amountPaidEl) amountPaidEl.textContent = amount.toFixed(2) + ' SAR';
+                    const paidAtEl = document.getElementById('paidAt');
+                    if (paidAtEl) paidAtEl.textContent = new Date().toLocaleString();
+
+                    const setDisplay = (id, value) => {
+                        const el = document.getElementById(id);
+                        if (el) el.style.display = value;
+                    };
+                    setDisplay('paymentCard', 'none');
+                    setDisplay('paymentTitle', 'none');
+                    setDisplay('confirmedTitle', 'block');
+                    setDisplay('successMessageCard', 'block');
+                    setDisplay('reservationDetailsCard', 'block');
+                    setDisplay('passengerInfoCard', 'block');
+                    setDisplay('flightInfoCard', 'block');
+                    setDisplay('receiptCard', 'block');
+                }, 1000);
+            });
+        });
+    </script>
 </body>
 </html>

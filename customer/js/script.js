@@ -52,6 +52,7 @@
             const slides = document.getElementById('flightSlides');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
+            if (!slides || !prevBtn || !nextBtn) return;
             let currentSlide = 0;
             const slideWidth = 380; // 350px card + 30px margin
 
@@ -191,10 +192,11 @@
                         // Close mobile menu if open
                         const navLinks = document.getElementById('navLinks');
                         const menuToggle = document.getElementById('menuToggle');
-                        navLinks.classList.remove('active');
-                        const icon = menuToggle.querySelector('i');
-                        icon.classList.add('fa-bars');
-                        icon.classList.remove('fa-times');
+                        if (navLinks) navLinks.classList.remove('active');
+                        if (menuToggle) {
+                            const icon = menuToggle.querySelector('i');
+                            if (icon) { icon.classList.add('fa-bars'); icon.classList.remove('fa-times'); }
+                        }
                     }
                 });
             });
@@ -432,13 +434,14 @@
                 // Set current date as minimum for date inputs
                 const today = new Date().toISOString().split('T')[0];
                 document.querySelectorAll('input[type="date"]').forEach(input => {
-                    input.min = today;
+                    try { input.min = today; } catch {}
                 });
                 
                 // Add typing effect to hero title
                 const heroTitle = document.querySelector('.hero h1');
-                const text = heroTitle.textContent;
-                heroTitle.textContent = '';
+                if (heroTitle) {
+                    const text = heroTitle.textContent;
+                    heroTitle.textContent = '';
                 let i = 0;
                 
                 const typeWriter = () => {
@@ -449,7 +452,8 @@
                     }
                 };
                 
-                setTimeout(typeWriter, 2500);
+                    setTimeout(typeWriter, 2500);
+                }
                 
                 // Add success notifications for forms
                 window.showNotification = function(message, type = 'success') {

@@ -260,97 +260,197 @@ function renderStaticBookings(bookings) {
 function renderBookingCard(b) {
     return `
 <div class="booking-card" dir="ltr" aria-label="Booking details card">
-    <div class="booking-header">
-        <div class="booking-main-info">
-            <div class="booking-number">
-                <i class="fas fa-receipt"></i>
-                <span class="label">Booking #</span>
-                <span class="value">${escapeHtml(b.bookingNumber)}</span>
+    <!-- Card 1: Flight Details -->
+    <div class="booking-section flight-details-section">
+        <div class="section-header">
+            <i class="fas fa-plane"></i>
+            <h3>Flight Details</h3>
+        </div>
+        <div class="flight-main-info">
+            <div class="flight-route-display">
+                <div class="route-point departure">
+                    <div class="airport-code">${getAirportCode(b.flightRoute.from)}</div>
+                    <div class="city-name">${getCityName(b.flightRoute.from)}</div>
+                    <div class="route-time">${getDepartureTime(b.flightRoute.time)}</div>
+                </div>
+                
+                <div class="route-connector">
+                    <div class="flight-duration">${calculateFlightDuration(b.flightRoute.time)}</div>
+                    <div class="connector-line"></div>
+                    <i class="fas fa-plane"></i>
+                </div>
+                
+                <div class="route-point arrival">
+                    <div class="airport-code">${getAirportCode(b.flightRoute.to)}</div>
+                    <div class="city-name">${getCityName(b.flightRoute.to)}</div>
+                    <div class="route-time">${getArrivalTime(b.flightRoute.time)}</div>
+                </div>
             </div>
-            <div class="flight-info">
-                <i class="fas fa-plane"></i>
-                <span class="label">Flight</span>
-                <span class="value">${escapeHtml(b.tripNumber)}</span>
+            
+            <div class="flight-metadata">
+                <div class="metadata-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>${escapeHtml(b.flightRoute.date)}</span>
+                </div>
+                <div class="metadata-item">
+                    <i class="fas fa-clock"></i>
+                    <span>${escapeHtml(b.flightRoute.time)}</span>
+                </div>
+                <div class="metadata-item">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>${escapeHtml(b.tripNumber)}</span>
+                </div>
             </div>
         </div>
-        <div class="status-badge ${escapeHtml(b.status)}" title="Status">
-            ${statusIcon(b.status)}
-            ${escapeHtml(b.statusText)}
+        
+        <div class="status-display">
+            <div class="status-badge ${escapeHtml(b.status)}">
+                ${statusIcon(b.status)}
+                ${escapeHtml(b.statusText)}
+            </div>
         </div>
     </div>
 
-    <div class="flight-route-info">
-        <div class="route-details">
-            <div class="route-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <span class="route-from">${escapeHtml(b.flightRoute.from)}</span>
-            </div>
-            <div class="route-arrow">
-                <i class="fas fa-arrow-right"></i>
-            </div>
-            <div class="route-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <span class="route-to">${escapeHtml(b.flightRoute.to)}</span>
-            </div>
+    <!-- Card 2: Customer Details -->
+    <div class="booking-section customer-details-section">
+        <div class="section-header">
+            <i class="fas fa-user"></i>
+            <h3>Customer Details</h3>
         </div>
-        <div class="flight-datetime">
-            <i class="fas fa-calendar"></i>
-            <span>${escapeHtml(b.flightRoute.date)}</span>
-            <i class="fas fa-clock"></i>
-            <span>${escapeHtml(b.flightRoute.time)}</span>
+        <div class="customer-info-grid">
+            <div class="customer-info-item">
+                <div class="info-label">
+                    <i class="fas fa-user-circle"></i>
+                    Passenger Name
+                </div>
+                <div class="info-value">${escapeHtml(currentUser.name)}</div>
+            </div>
+            
+            <div class="customer-info-item">
+                <div class="info-label">
+                    <i class="fas fa-envelope"></i>
+                    Email Address
+                </div>
+                <div class="info-value">${escapeHtml(currentUser.email)}</div>
+            </div>
+            
+            <div class="customer-info-item">
+                <div class="info-label">
+                    <i class="fas fa-id-card"></i>
+                    Passenger ID
+                </div>
+                <div class="info-value">${escapeHtml(b.passengerId)}</div>
+            </div>
+            
+            <div class="customer-info-item">
+                <div class="info-label">
+                    <i class="fas fa-receipt"></i>
+                    Booking Number
+                </div>
+                <div class="info-value">${escapeHtml(b.bookingNumber)}</div>
+            </div>
+            
+            <div class="customer-info-item">
+                <div class="info-label">
+                    <i class="fas fa-calendar-alt"></i>
+                    Booking Date
+                </div>
+                <div class="info-value">${escapeHtml(b.bookingDate)}</div>
+            </div>
+            
+            <div class="customer-info-item">
+                <div class="info-label">
+                    <i class="fas fa-robot"></i>
+                    Booking Type
+                </div>
+                <div class="info-value">${escapeHtml(b.bookingType)}</div>
+            </div>
         </div>
     </div>
 
-    <div class="booking-content">
-        <div class="booking-info-grid">
-            <div class="info-item">
-                <i class="fas fa-calendar-alt"></i>
-                <div class="info-content">
-                    <span class="label">Booking Date</span>
-                    <span class="value">${escapeHtml(b.bookingDate)}</span>
-                </div>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-user"></i>
-                <div class="info-content">
-                    <span class="label">Passenger</span>
-                    <span class="value">${escapeHtml(currentUser.name)}</span>
-                </div>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-id-card"></i>
-                <div class="info-content">
-                    <span class="label">ID</span>
-                    <span class="value">${escapeHtml(b.passengerId)}</span>
-                </div>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-robot"></i>
-                <div class="info-content">
-                    <span class="label">Booking Type</span>
-                    <span class="value">${escapeHtml(b.bookingType)}</span>
-                </div>
-            </div>
+    <!-- Card 3: Total & QR Code -->
+    <div class="booking-section total-qr-section">
+        <div class="section-header">
+            <i class="fas fa-receipt"></i>
+            <h3>Payment & Boarding</h3>
         </div>
-
-        <div class="booking-footer">
-            <div class="price-section">
-                <div class="total-price">
-                    <i class="fas fa-tags"></i>
-                    <span class="price-label">Total Price</span>
-                    <span class="price-value">${escapeNumber(b.totalPriceSar)} ﷼</span>
+        <div class="total-qr-content">
+            <div class="price-summary">
+                <div class="price-breakdown">
+                    <div class="price-item">
+                        <span class="price-label">Base Fare</span>
+                        <span class="price-amount">${escapeNumber(b.totalPriceSar * 0.7)} SAR</span>
+                    </div>
+                    <div class="price-item">
+                        <span class="price-label">Taxes & Fees</span>
+                        <span class="price-amount">${escapeNumber(b.totalPriceSar * 0.3)} SAR</span>
+                    </div>
+                    <div class="price-divider"></div>
+                    <div class="price-total">
+                        <span class="total-label">Total Amount</span>
+                        <span class="total-amount">${escapeNumber(b.totalPriceSar)} SAR</span>
+                    </div>
                 </div>
-                <div class="price-note">Taxes included</div>
+                <div class="payment-status">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Payment ${b.status === 'pending' ? 'Pending' : 'Completed'}</span>
+                </div>
             </div>
-            <div class="qr-section">
-                <div class="qr-code">
-                    <i class="fas fa-qrcode"></i>
+            
+            <div class="qr-container">
+                <div class="qr-code-display">
+                    <div class="qr-placeholder">
+                        <i class="fas fa-qrcode"></i>
+                        <span>Boarding Pass QR</span>
+                    </div>
                 </div>
-                <div class="qr-label">Boarding Pass</div>
+                <div class="qr-info">
+                    <div class="qr-flight">${escapeHtml(b.tripNumber)}</div>
+                    <div class="qr-passenger">${escapeHtml(currentUser.name)}</div>
+                    <div class="qr-notice">Scan at boarding gate</div>
+                </div>
             </div>
         </div>
     </div>
 </div>`;
+}
+
+// Helper functions for flight details
+function getAirportCode(route) {
+    const match = route.match(/\(([^)]+)\)/);
+    return match ? match[1] : route.split(' ')[0];
+}
+
+function getCityName(route) {
+    return route.split(' (')[0];
+}
+
+function getDepartureTime(timeRange) {
+    return timeRange.split(' - ')[0];
+}
+
+function getArrivalTime(timeRange) {
+    return timeRange.split(' - ')[1];
+}
+
+function calculateFlightDuration(timeRange) {
+    const [departure, arrival] = timeRange.split(' - ');
+    const depTime = new Date(`2000/01/01 ${departure}`);
+    const arrTime = new Date(`2000/01/01 ${arrival}`);
+    const diff = (arrTime - depTime) / (1000 * 60); // difference in minutes
+    
+    if (diff < 0) {
+        // Handle overnight flights
+        return "24h+";
+    }
+    
+    const hours = Math.floor(diff / 60);
+    const minutes = diff % 60;
+    
+    if (hours > 0) {
+        return minutes > 0 ? `${hours}h ${minutes}m` : `${hours}h`;
+    }
+    return `${minutes}m`;
 }
 
 function statusIcon(status) {

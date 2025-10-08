@@ -1,3 +1,68 @@
+/* Add Money: Select Card styling */
+#addMoneyModal .form-group label {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+#addMoneyModal .form-group select#selectTopupCard {
+  width: 100%;
+  padding: 12px 42px 12px 14px;
+  border: 1.5px solid rgba(2, 6, 23, 0.15);
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #0f172a;
+  font-weight: 600;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='%233B82F6' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
+}
+
+#addMoneyModal .form-group select#selectTopupCard:focus {
+  outline: none;
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+#addMoneyModal .form-group .error-text#topupCardError {
+  margin-top: 6px;
+}
+.edit-info-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #1b4965, #3B82F6);
+  box-shadow: 0 8px 20px rgba(27, 73, 101, 0.25);
+  transition: transform .15s ease, box-shadow .25s ease, filter .25s ease;
+}
+
+.edit-info-btn i { font-size: 0.95rem; }
+
+.edit-info-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(59, 130, 246, 0.25);
+  filter: brightness(1.03);
+}
+
+.edit-info-btn:active { transform: translateY(0); box-shadow: 0 8px 18px rgba(27,73,101,0.22); }
+
+.edit-info-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35), 0 10px 24px rgba(27, 73, 101, 0.25);
+}
+
+@media (max-width: 480px) {
+  .edit-info-btn { padding: 9px 12px; gap: 6px; }
+}
 /* Variables */
 :root {
     --primary-gradient: linear-gradient(135deg, #667eea 0%, #62b6cb 100%);
@@ -225,7 +290,7 @@ h1, h2 {
 /* Profile Cards */
 .profile-grid {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+  
     gap: 30px;
     margin-bottom: 40px;
 }
@@ -1264,4 +1329,9 @@ header .nav-links a{
     .passenger-type-card {
         padding: 20px;
     }
+}
+.profile-card-header {
+    display: flex
+;
+    justify-content: space-between;
 }

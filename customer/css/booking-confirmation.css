@@ -226,6 +226,133 @@
     border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
+/* Payment Card */
+.payment-card {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: var(--shadow);
+}
+
+#paymentCard .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 10px;
+}
+
+#paymentCard .form-group label {
+    display: block;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 6px;
+}
+
+#paymentCard .form-group input[type="number"] {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    color: #1f2937;
+    font-weight: 700;
+}
+
+#paymentCard select#confirmSelectCard {
+    width: 100%;
+    padding: 12px 42px 12px 14px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    background-color: #ffffff;
+    color: #1f2937;
+    font-weight: 700;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='%233B82F6' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px 16px;
+}
+
+#paymentCard select#confirmSelectCard:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 4px rgba(59,130,246,0.12);
+}
+
+#paymentCard .form-actions .btn-cancel {
+    background: transparent;
+    border: 2px solid #d1d5db;
+    color: #374151;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-weight: 700;
+}
+
+#paymentCard .form-actions .btn-save {
+    background: linear-gradient(135deg, #1b4965, #3B82F6);
+    color: #fff;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: 800;
+    box-shadow: 0 10px 24px rgba(27,73,101,0.25);
+}
+
+#paymentCard .form-actions .btn-cancel:hover { background: #f3f4f6; }
+#paymentCard .form-actions .btn-save:hover { filter: brightness(1.03); transform: translateY(-1px); }
+
+/* Receipt Card - match other cards */
+.receipt-card {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 35px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.receipt-card .card-header {
+    border-bottom: 2px solid #e5e7eb;
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+}
+
+.receipt-card .header-content h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #1f2937;
+}
+
+.receipt-card .header-content h2 i { color: var(--light-blue); }
+
+.receipt-card .header-content p {
+    color: var(--dark-gray);
+    font-weight: 500;
+}
+
+.receipt-card .reservation-info .info-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.receipt-card .info-item {
+    background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+    border: 1px solid #e5e7eb;
+}
+
+.receipt-card .info-value.amount {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+}
+
 .card-header {
     display: flex;
     justify-content: space-between;

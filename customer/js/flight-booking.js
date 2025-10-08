@@ -332,34 +332,7 @@ function proceedToManualBooking() {
     }, 1000);
 }
 
-// Proceed to automatic booking
-function proceedToAutomaticBooking() {
-    // Show loading state
-    const button = document.querySelector('.automatic-booking');
-    button.classList.add('loading');
-    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> AI Processing...';
-    
-    // Simulate AI booking process
-    setTimeout(() => {
-        // AI selects the best available seat
-        const bestSeat = findBestAvailableSeat();
-        
-        // Store booking data
-        const bookingData = {
-            flightNumber: flightData.flightNumber,
-            seat: bestSeat,
-            price: flightData.price,
-            type: 'automatic',
-            aiSelected: true,
-            timestamp: new Date().toISOString()
-        };
-        
-        localStorage.setItem('currentBooking', JSON.stringify(bookingData));
-        
-        // Redirect to booking confirmation
-        window.location.href = 'booking-confirmation.html';
-    }, 3000);
-}
+
 
 // Cart: storage and UI helpers
 function getCart() {

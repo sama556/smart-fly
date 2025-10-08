@@ -40,7 +40,8 @@ function handleHeaderScroll() {
 function setupMobileMenu() {
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
-    
+    if (!menuToggle || !navLinks) return;
+
     menuToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
     });
@@ -52,8 +53,11 @@ function setupFlightSlider() {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const flightCards = document.querySelectorAll('.flight-card');
+    if (!flightSlides || !prevBtn || !nextBtn || flightCards.length === 0) {
+        return; // Slider not present on this page
+    }
     let currentIndex = 0;
-    const cardsPerView = Math.floor(flightSlides.offsetWidth / 380);
+    const cardsPerView = Math.max(1, Math.floor(flightSlides.offsetWidth / 380));
     
     function updateSlider() {
         const translateX = -currentIndex * (380 + 30);
@@ -83,7 +87,8 @@ function setupAutoBooking() {
     const autoBookingToggle = document.getElementById('autoBookingToggle');
     const autoBookingOptions = document.getElementById('autoBookingOptions');
     const autoBookingNotification = document.getElementById('autoBookingNotification');
-    
+    if (!autoBookingToggle || !autoBookingOptions || !autoBookingNotification) return;
+
     autoBookingToggle.addEventListener('change', function() {
         if (this.checked) {
             autoBookingOptions.classList.add('active');
@@ -152,7 +157,7 @@ function setupScrollAnimations() {
 function setupFormHandlers() {
     // Quick search form
     const quickSearchForm = document.getElementById('quickSearch');
-    quickSearchForm.addEventListener('submit', function(e) {
+    if (quickSearchForm) quickSearchForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
         // Get form data
@@ -179,7 +184,7 @@ function setupFormHandlers() {
     
     // Contact form
     const contactForm = document.getElementById('contactForm');
-    contactForm.addEventListener('submit', function(e) {
+    if (contactForm) contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
         // Show loading state
@@ -204,6 +209,7 @@ function setupFormHandlers() {
 function setupTestimonialSlider() {
     const slides = document.querySelectorAll('.testimonial-slide');
     const dots = document.querySelectorAll('.dot');
+    if (slides.length === 0 || dots.length === 0) return;
     let currentSlide = 0;
     
     function showSlide(n) {
@@ -240,7 +246,7 @@ function setupHeaderIcons() {
     const profileDropdown = document.getElementById('profileDropdown');
     const notificationBadge = document.getElementById('notificationBadge');
     const cartBadge = document.getElementById('cartBadge');
-
+    if (!notificationIcon || !cartIcon || !profileIcon || !notificationDropdown || !cartDropdown || !profileDropdown) return;
     // Notification icon click
     notificationIcon.addEventListener('click', function(e) {
         e.stopPropagation();

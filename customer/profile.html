@@ -109,34 +109,23 @@
 
             <!-- Profile Information -->
             <div class="profile-grid">
-                <!-- Profile Photo Section -->
-                <div class="profile-card profile-photo-section">
-                    <div class="profile-photo" id="profilePhoto">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <button class="photo-upload-btn" onclick="document.getElementById('photo-upload').click()">
-                        <i class="fas fa-camera"></i> Change Photo
-                    </button>
-                    <input type="file" id="photo-upload" accept="image/*" onchange="handlePhotoUpload(event)">
-                </div>
-
                 <!-- Profile Info Section -->
-                <div class="profile-card profile-info-section">
+                <div class="profile-card profile-info-section profile-info-full">
+                    <div class="profile-card-header">
                     <h3>Personal Information</h3>
+                        <button class="edit-info-btn" onclick="showEditAllInfoModal()"><i class="fas fa-pen"></i> Edit Information</button>
+                    </div>
                     <div class="info-item">
                         <span class="info-label">Full Name:</span>
-                        <span class="info-value">Ahmed Al-Rashid</span>
-                        <button class="edit-btn" onclick="editField('name')">Edit</button>
+                        <span class="info-value" id="nameValue" onclick="showEditInfoModal('name')" role="button" tabindex="0" title="Edit Full Name">Ahmed Al-Rashid</span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">Email:</span>
-                        <span class="info-value">ahmed.rashid@email.com</span>
-                        <button class="edit-btn" onclick="editField('email')">Edit</button>
+                        <span class="info-value" id="emailValue" onclick="showEditInfoModal('email')" role="button" tabindex="0" title="Edit Email">ahmed.rashid@email.com</span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">Mobile:</span>
-                        <span class="info-value">+966 50 123 4567</span>
-                        <button class="edit-btn" onclick="editField('mobile')">Edit</button>
+                        <span class="info-value" id="mobileValue" onclick="showEditInfoModal('mobile')" role="button" tabindex="0" title="Edit Mobile">+966 50 123 4567</span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">Country:</span>
@@ -161,6 +150,71 @@
                     </div>
                 </div>
             </div>
+    
+    <!-- Edit Information Modal -->
+    <div class="modal-overlay" id="editInfoModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="editFieldTitle">Edit</h3>
+                <button class="modal-close" onclick="closeEditInfoModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editInfoForm">
+                    <div class="form-group">
+                        <label id="editFieldLabel" for="editFieldInput">Value</label>
+                        <input type="text" id="editFieldInput" required>
+                        <div class="error-text" id="singleFieldError" style="display:none;"></div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" onclick="closeEditInfoModal()">Cancel</button>
+                        <button type="submit" class="btn-save">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit All Information Modal -->
+    <div class="modal-overlay" id="editAllInfoModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Information</h3>
+                <button class="modal-close" onclick="closeEditAllInfoModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editAllInfoForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullNameInput">Full Name</label>
+                            <input type="text" id="fullNameInput" required>
+                            <div class="error-text" id="nameError" style="display:none;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailInput">Email</label>
+                            <input type="email" id="emailInput" required>
+                            <div class="error-text" id="emailError" style="display:none;"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobileInput">Mobile</label>
+                        <input type="text" id="mobileInput" required>
+                        <div class="error-text" id="mobileError" style="display:none;"></div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" onclick="closeEditAllInfoModal()">Cancel</button>
+                        <button type="submit" class="btn-save">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
 
             <!-- Wallet Section -->
             <div class="wallet-section">
@@ -288,29 +342,13 @@
                     <div class="form-group">
                         <label for="amount">Amount (SAR)</label>
                         <input type="number" id="amount" placeholder="Enter amount" required min="1" step="0.01">
+                        <div class="error-text" id="amountError" style="display:none;"></div>
                     </div>
-                    
                     <div class="form-group">
-                        <label for="cardNumber">Card Number</label>
-                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required maxlength="19">
+                        <label for="selectTopupCard">Select Card</label>
+                        <select id="selectTopupCard" required></select>
+                        <div class="error-text" id="topupCardError" style="display:none;"></div>
                     </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="expiryDate">Expiry Date</label>
-                            <input type="text" id="expiryDate" placeholder="MM/YY" required maxlength="5">
-                        </div>
-                        <div class="form-group">
-                            <label for="cvv">CVV</label>
-                            <input type="text" id="cvv" placeholder="123" required maxlength="4">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="cardHolder">Cardholder Name</label>
-                        <input type="text" id="cardHolder" placeholder="Ahmed Al-Rashid" required>
-                    </div>
-                    
                     <div class="form-actions">
                         <button type="button" class="btn-cancel" onclick="closeAddMoneyModal()">Cancel</button>
                         <button type="submit" class="btn-save">Add Money</button>
@@ -453,7 +491,285 @@
             </div>
         </div>
     </footer>
-<script src="js/profile.js"></script>
+<script>
+let currentEditField = null;
+
+function showEditInfoModal(field) {
+    currentEditField = field;
+    const modal = document.getElementById('editInfoModal');
+    const input = document.getElementById('editFieldInput');
+    const title = document.getElementById('editFieldTitle');
+    const label = document.getElementById('editFieldLabel');
+
+    const fieldMap = {
+        name: { label: 'Full Name', valueId: 'nameValue' },
+        email: { label: 'Email', valueId: 'emailValue' },
+        mobile: { label: 'Mobile', valueId: 'mobileValue' }
+    };
+
+    const config = fieldMap[field];
+    if (!config) return;
+
+    title.textContent = `Edit ${config.label}`;
+    label.textContent = config.label;
+    const valueEl = document.getElementById(config.valueId);
+    input.type = field === 'email' ? 'email' : 'text';
+    input.value = valueEl ? valueEl.textContent.trim() : '';
+
+    modal.style.display = 'flex';
+    setTimeout(() => input.focus(), 0);
+}
+
+function closeEditInfoModal() {
+    const modal = document.getElementById('editInfoModal');
+    modal.style.display = 'none';
+    currentEditField = null;
+}
+
+function showEditAllInfoModal() {
+    const modal = document.getElementById('editAllInfoModal');
+    if (!modal) return;
+    const nameEl = document.getElementById('nameValue');
+    const emailEl = document.getElementById('emailValue');
+    const mobileEl = document.getElementById('mobileValue');
+    document.getElementById('fullNameInput').value = nameEl ? nameEl.textContent.trim() : '';
+    document.getElementById('emailInput').value = emailEl ? emailEl.textContent.trim() : '';
+    document.getElementById('mobileInput').value = mobileEl ? mobileEl.textContent.trim() : '';
+    modal.style.display = 'flex';
+    setTimeout(() => document.getElementById('fullNameInput').focus(), 0);
+}
+
+function closeEditAllInfoModal() {
+    const modal = document.getElementById('editAllInfoModal');
+    modal.style.display = 'none';
+}
+
+// Additional modals: Add Money, Add Card, Change Password
+function showAddMoneyModal() {
+    const modal = document.getElementById('addMoneyModal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    const first = modal.querySelector('input, button, select, textarea');
+    setTimeout(() => first && first.focus(), 0);
+}
+
+function closeAddMoneyModal() {
+    const modal = document.getElementById('addMoneyModal');
+    if (modal) modal.style.display = 'none';
+}
+
+function showAddCardModal() {
+    const modal = document.getElementById('addCardModal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    const first = modal.querySelector('input, button, select, textarea');
+    setTimeout(() => first && first.focus(), 0);
+}
+
+function closeAddCardModal() {
+    const modal = document.getElementById('addCardModal');
+    if (modal) modal.style.display = 'none';
+}
+
+function showChangePasswordModal() {
+    const modal = document.getElementById('changePasswordModal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    const first = modal.querySelector('input, button, select, textarea');
+    setTimeout(() => first && first.focus(), 0);
+}
+
+function closeChangePasswordModal() {
+    const modal = document.getElementById('changePasswordModal');
+    if (modal) modal.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Submit handler for edit form
+    const form = document.getElementById('editInfoForm');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const singleError = document.getElementById('singleFieldError');
+        singleError.style.display = 'none';
+        const fieldMap = {
+            name: { valueId: 'nameValue' },
+            email: { valueId: 'emailValue' },
+            mobile: { valueId: 'mobileValue' }
+        };
+        const input = document.getElementById('editFieldInput');
+        const value = input.value.trim();
+        if (currentEditField === 'email' && !/^\S+@\S+\.\S+$/.test(value)) {
+            singleError.textContent = 'Please enter a valid email address.';
+            singleError.style.display = 'block';
+            input.focus();
+            return;
+        }
+        if (currentEditField === 'mobile' && value.replace(/\D/g, '').length < 7) {
+            singleError.textContent = 'Please enter a valid mobile number.';
+            singleError.style.display = 'block';
+            input.focus();
+            return;
+        }
+        const config = fieldMap[currentEditField];
+        if (config) {
+            const valueEl = document.getElementById(config.valueId);
+            if (valueEl) valueEl.textContent = value;
+        }
+        closeEditInfoModal();
+        showToast('Updated successfully');
+    });
+
+    // Close modal when clicking outside content
+    document.getElementById('editInfoModal').addEventListener('click', function (e) {
+        if (e.target === this) closeEditInfoModal();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            closeEditInfoModal();
+            closeEditAllInfoModal();
+            closeAddMoneyModal();
+            closeAddCardModal();
+            closeChangePasswordModal();
+        }
+    });
+
+    // Keyboard accessibility: open modal on Enter when focused on value spans
+    const keyHandler = (field) => (e) => {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            showEditInfoModal(field);
+        }
+    };
+    const nameEl = document.getElementById('nameValue');
+    const emailEl = document.getElementById('emailValue');
+    const mobileEl = document.getElementById('mobileValue');
+    if (nameEl) nameEl.addEventListener('keydown', keyHandler('name'));
+    if (emailEl) emailEl.addEventListener('keydown', keyHandler('email'));
+    if (mobileEl) mobileEl.addEventListener('keydown', keyHandler('mobile'));
+
+    // Save all info
+    const editAllForm = document.getElementById('editAllInfoForm');
+    editAllForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const nameInput = document.getElementById('fullNameInput');
+        const emailInput = document.getElementById('emailInput');
+        const mobileInput = document.getElementById('mobileInput');
+        const nameError = document.getElementById('nameError');
+        const emailError = document.getElementById('emailError');
+        const mobileError = document.getElementById('mobileError');
+        nameError.style.display = emailError.style.display = mobileError.style.display = 'none';
+
+        let hasError = false;
+        if (nameInput.value.trim().length < 2) {
+            nameError.textContent = 'Name must be at least 2 characters.';
+            nameError.style.display = 'block';
+            hasError = true;
+        }
+        if (!/^\S+@\S+\.\S+$/.test(emailInput.value.trim())) {
+            emailError.textContent = 'Enter a valid email address.';
+            emailError.style.display = 'block';
+            hasError = true;
+        }
+        if (mobileInput.value.replace(/\D/g, '').length < 7) {
+            mobileError.textContent = 'Enter a valid mobile number.';
+            mobileError.style.display = 'block';
+            hasError = true;
+        }
+        if (hasError) return;
+
+        if (nameEl) nameEl.textContent = nameInput.value.trim();
+        if (emailEl) emailEl.textContent = emailInput.value.trim();
+        if (mobileEl) mobileEl.textContent = mobileInput.value.trim();
+        closeEditAllInfoModal();
+        showToast('Profile information saved');
+    });
+
+    // Close modal when clicking outside content
+    document.getElementById('editAllInfoModal').addEventListener('click', function (e) {
+        if (e.target === this) closeEditAllInfoModal();
+    });
+
+    // Overlay click-to-close for other modals
+    ['addMoneyModal','addCardModal','changePasswordModal'].forEach(id => {
+        const m = document.getElementById(id);
+        if (m) {
+            m.addEventListener('click', function (e) {
+                if (e.target === this) {
+                    if (id === 'addMoneyModal') closeAddMoneyModal();
+                    if (id === 'addCardModal') closeAddCardModal();
+                    if (id === 'changePasswordModal') closeChangePasswordModal();
+                }
+            });
+        }
+    });
+
+    // Populate the top-up card select when Add Money opens
+    const addMoneyObserver = new MutationObserver(() => {
+        const modal = document.getElementById('addMoneyModal');
+        if (modal && getComputedStyle(modal).display !== 'none') {
+            const select = document.getElementById('selectTopupCard');
+            if (select && select.children.length === 0) {
+                // Build options from cards shown on page
+                const cardItems = document.querySelectorAll('#cardsGrid .card-item .card-number');
+                select.innerHTML = '<option value="" disabled selected>Select a card</option>';
+                cardItems.forEach((el, idx) => {
+                    const masked = el.textContent.trim();
+                    const opt = document.createElement('option');
+                    opt.value = masked;
+                    opt.textContent = masked;
+                    select.appendChild(opt);
+                });
+            }
+        }
+    });
+    const addMoneyModal = document.getElementById('addMoneyModal');
+    if (addMoneyModal) {
+        addMoneyObserver.observe(addMoneyModal, { attributes: true, attributeFilter: ['style'] });
+    }
+
+    // Handle Add Money submit
+    const addMoneyForm = document.getElementById('addMoneyForm');
+    if (addMoneyForm) {
+        addMoneyForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const amountInput = document.getElementById('amount');
+            const cardSelect = document.getElementById('selectTopupCard');
+            const amountError = document.getElementById('amountError');
+            const cardError = document.getElementById('topupCardError');
+            amountError.style.display = cardError.style.display = 'none';
+
+            const value = parseFloat(amountInput.value);
+            if (isNaN(value) || value <= 0) {
+                amountError.textContent = 'Enter a valid positive amount.';
+                amountError.style.display = 'block';
+                amountInput.focus();
+                return;
+            }
+            if (!cardSelect.value) {
+                cardError.textContent = 'Please select a card.';
+                cardError.style.display = 'block';
+                cardSelect.focus();
+                return;
+            }
+
+            closeAddMoneyModal();
+            showToast('Money added to wallet');
+        });
+    }
+});
+
+function showToast(message, isError = false) {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast' + (isError ? ' error' : '');
+    toast.textContent = message;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-6px)';
+        setTimeout(() => container.removeChild(toast), 250);
+    }, 2000);
+}
+</script>
 <script src="js/index.js"></script>
 <script src="js/cart.js"></script>
 <script src="js/notifications.js"></script>

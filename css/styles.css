@@ -31,6 +31,23 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
+/* Profile page container spacing */
+.main-content .profile-container {
+    padding-top: 120px;
+    padding-bottom: 60px;
+}
+
+/* Profile header typography */
+.profile-header-section .profile-title {
+    font-size: 2.2rem;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.profile-header-section .profile-subtitle {
+    color: #475569;
+    font-weight: 500;
+}
 
         h1,
         h2 {
@@ -596,6 +613,43 @@
             background: var(--light-gray);
         }
 
+/* Airlines grid/cards alignment */
+.airlines-section .airlines-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.airline-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid rgba(2,6,23,0.06);
+    border-radius: 16px;
+    box-shadow: 0 12px 28px rgba(2,8,23,0.06);
+    padding: 16px;
+    min-height: 360px;
+}
+
+.airline-header { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; }
+.airline-logo { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; }
+.airline-info h3 { color: #0f172a; font-size: 1.05rem; }
+.airline-number { color: #64748b; font-weight: 700; font-size: .9rem; }
+
+.airline-details { color: #475569; font-weight: 600; margin-top: 6px; flex: 1 1 auto; }
+
+.airline-actions { display: flex; gap: 10px; margin-top: 12px; }
+.btn-airline { flex: 1; border-radius: 10px; padding: 10px 12px; cursor: pointer; border: none; font-weight: 700; }
+.btn-primary-airline { background: linear-gradient(135deg, #1b4965, #3B82F6); color: #fff; }
+.btn-secondary-airline { background: #eef2ff; color: #1e3a8a; }
+
+@media (max-width: 1100px) {
+    .airlines-section .airlines-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+    .airlines-section .airlines-grid { grid-template-columns: 1fr; }
+}
+
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1100,6 +1154,266 @@
             color: white;
             border: 2px solid rgba(255, 255, 255, 0.5);
         }
+
+/* Profile grid and cards */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+.profile-card.profile-info-section {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 14px 36px rgba(2, 8, 23, 0.12);
+    border: 1px solid rgba(30,58,138,0.06);
+}
+
+.profile-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.edit-info-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, #1b4965, #3B82F6);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .25s ease;
+    box-shadow: 0 8px 20px rgba(27,73,101,0.25);
+}
+
+.edit-info-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px rgba(59,130,246,0.25);
+}
+
+.edit-info-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.35), 0 10px 24px rgba(27,73,101,0.25);
+}
+
+.info-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(30,58,138,0.08);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item .info-label {
+    color: #334155;
+    font-weight: 700;
+}
+
+.info-item .info-value {
+    color: #0f172a;
+}
+
+.info-item .info-value[role="button"] {
+    cursor: pointer;
+    border-bottom: 1px dashed rgba(30,58,138,0.35);
+}
+
+.info-item .info-value[role="button"]:hover {
+    color: #1E3A8A;
+}
+
+.info-item .info-value[role="button"]:focus-visible {
+    outline: none;
+    border-bottom-color: #3B82F6;
+    box-shadow: inset 0 -6px 0 rgba(59,130,246,0.12);
+}
+
+/* Modal overlay normalize */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-overlay .modal-content {
+    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+    color: #0f172a;
+    border-radius: 16px;
+    width: 92%;
+    max-width: 520px;
+    padding: 20px 20px 16px;
+    box-shadow: 0 24px 64px rgba(2, 8, 23, 0.25);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.modal-header h3 {
+    font-size: 1.1rem;
+    color: #0f172a;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #0f172a;
+}
+
+.modal-body .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-cancel {
+    background: transparent;
+    border: 1px solid rgba(2,6,23,0.2);
+    color: #0f172a;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-save {
+    background: linear-gradient(135deg, #1b4965, #3B82F6);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-cancel:hover { background: rgba(2,6,23,0.03); }
+.btn-save:hover { filter: brightness(1.03); box-shadow: 0 10px 24px rgba(59,130,246,0.25); }
+
+.error-text {
+    color: #b91c1c;
+    font-size: 0.85rem;
+    margin-top: 6px;
+}
+
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 3000;
+}
+
+.toast {
+    min-width: 240px;
+    max-width: 360px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    color: #0f172a;
+    background: #ecfeff;
+    border: 1px solid #22d3ee;
+    box-shadow: 0 10px 24px rgba(2,8,23,0.15);
+    font-weight: 600;
+}
+
+.toast.error {
+    background: #fef2f2;
+    border-color: #f87171;
+}
+
+/* Wallet + cards polish */
+.wallet-section {
+    margin-top: 24px;
+}
+
+.wallet-balance-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid rgba(2,6,23,0.06);
+    border-radius: 16px;
+    padding: 18px 20px;
+    box-shadow: 0 10px 24px rgba(2,8,23,0.06);
+    margin-bottom: 18px;
+}
+
+.balance-label { color: #475569; font-weight: 600; }
+.balance-amount { color: #0f172a; font-weight: 800; font-size: 1.2rem; }
+
+.add-money-btn, .add-card-btn {
+    background: linear-gradient(135deg, #1b4965, #3B82F6);
+    color: #fff;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(27,73,101,0.2);
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.card-item {
+    background: #ffffff;
+    border: 1px solid rgba(2,6,23,0.06);
+    border-radius: 14px;
+    box-shadow: 0 10px 24px rgba(2,8,23,0.06);
+    padding: 14px;
+}
+
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.card-type span { color: #0f172a; font-weight: 700; }
+.card-actions .action-btn { background: transparent; border: none; cursor: pointer; color: #0f172a; }
+.card-actions .action-btn:hover { color: #b91c1c; }
+
+.card-number { font-weight: 800; letter-spacing: 2px; color: #0f172a; }
+.card-details { display: flex; justify-content: space-between; color: #475569; font-weight: 600; margin-top: 6px; }
+
+.transactions-section { margin-top: 22px; }
+.transactions-title { color: #0f172a; }
+.transactions-list { display: grid; gap: 10px; }
+.transaction-item { display: grid; grid-template-columns: 36px 1fr auto; align-items: center; background: #fff; border: 1px solid rgba(2,6,23,0.06); border-radius: 12px; padding: 10px 12px; }
+.transaction-icon i { color: #3B82F6; }
+.transaction-description { color: #0f172a; font-weight: 700; }
+.transaction-date { color: #64748b; font-weight: 600; font-size: .9rem; }
+.transaction-amount { font-weight: 800; }
+.transaction-amount.positive { color: #15803d; }
+.transaction-amount.negative { color: #b91c1c; }
+
+@media (min-width: 900px) {
+    .profile-grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+    }
+    .profile-info-full {
+        grid-column: 1 / -1;
+    }
+}
 
         /* Mobile Menu */
         .menu-toggle {

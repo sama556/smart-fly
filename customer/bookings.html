@@ -61,11 +61,8 @@
         <div class="container">
             <!-- Page Header -->
             <div class="page-header">
-                <div class="breadcrumb">
-                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
-                    <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
-                    <span class="current-page"><i class="fas fa-list"></i> My Bookings</span>
-                </div>
+           
+                
                 
                 <div class="page-title-section">
                     <h1 class="page-title">
@@ -118,7 +115,74 @@
 
             <!-- Bookings List -->
             <div class="bookings-list" id="bookingsList">
-                <!-- Bookings will be rendered here by JavaScript -->
+                <!-- Booking Card -->
+                <div class="booking-card glass">
+                    <!-- Row 1: Flight details -->
+                    <div class="booking-row booking-flight">
+                        <div class="flight-route" style="display:flex;gap:16px;align-items:center;justify-content:space-between;">
+                            <div class="departure" style="text-align:center;flex:1;">
+                                <div class="airport-code" style="font-size:1.6rem;font-weight:800;color:#1e3a8a;">RUH</div>
+                                <div class="city" style="color:#475569;font-weight:700;">Riyadh</div>
+                                <div class="date-time" style="color:#64748b;font-weight:600;">15 Jan 2024 • 08:30</div>
+                            </div>
+                            <div class="flight-center" style="flex:2;display:flex;flex-direction:column;align-items:center;gap:10px;">
+                                <div class="airline-summary" style="display:flex;align-items:center;gap:10px;justify-content:center;width:100%;">
+                                    <img src="images/image1.jpg" alt="Airline" onerror="this.src='./images/airline-placeholder.png'" style="width:42px;height:42px;border-radius:8px;">
+                                    <div style="display:flex;flex-direction:column;align-items:flex-start;">
+                                        <div class="airline-name" style="font-weight:800;color:#0f172a;">Saudia</div>
+                                        <div class="flight-number" style="color:#64748b;font-weight:700;">Flight: SV1234</div>
+                                    </div>
+                                    <span class="status-badge confirmed" style="margin-left:auto;padding:6px 12px;border-radius:999px;background:#10b981;color:#fff;font-weight:700;">Confirmed</span>
+                                </div>
+                                <div class="flight-line" style="width:100%;display:flex;align-items:center;gap:12px;">
+                                    <div style="height:3px;background:linear-gradient(90deg,#e5e7eb,#3B82F6);flex:1;border-radius:2px;"></div>
+                                    <i class="fas fa-plane" style="color:#3B82F6;"></i>
+                                    <div style="height:3px;background:linear-gradient(90deg,#3B82F6,#e5e7eb);flex:1;border-radius:2px;"></div>
+                                </div>
+                            </div>
+                            <div class="arrival" style="text-align:center;flex:1;">
+                                <div class="airport-code" style="font-size:1.6rem;font-weight:800;color:#1e3a8a;">JED</div>
+                                <div class="city" style="color:#475569;font-weight:700;">Jeddah</div>
+                                <div class="date-time" style="color:#64748b;font-weight:600;">15 Jan 2024 • 11:15</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Passenger details (from profile) -->
+                    <div class="booking-row booking-passenger" style="margin-top:16px;">
+                        <div class="passenger-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+                            <div class="info-item" style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">
+                                <div class="label" style="color:#64748b;font-weight:700;font-size:.9rem;"><i class="fas fa-user"></i> Passenger</div>
+                                <div class="value" style="color:#0f172a;font-weight:800;">Ahmed Al-Rashid</div>
+                            </div>
+                            <div class="info-item" style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">
+                                <div class="label" style="color:#64748b;font-weight:700;font-size:.9rem;"><i class="fas fa-envelope"></i> Email</div>
+                                <div class="value" style="color:#0f172a;font-weight:800;">ahmed.rashid@email.com</div>
+                            </div>
+                            <div class="info-item" style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:12px;">
+                                <div class="label" style="color:#64748b;font-weight:700;font-size:.9rem;"><i class="fas fa-phone"></i> Mobile</div>
+                                <div class="value" style="color:#0f172a;font-weight:800;">+966 50 123 4567</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Total and QR -->
+                    <div class="booking-row booking-summary" style="margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+                        <div class="total" style="display:flex;flex-direction:column;gap:4px;">
+                            <div style="color:#64748b;font-weight:700;">Total</div>
+                            <div style="font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#1b4965,#3B82F6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">299 SAR</div>
+                        </div>
+                        <div class="qr" style="display:flex;align-items:center;gap:12px;">
+                            <div style="width:90px;height:90px;border:3px solid #3B82F6;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#fff;color:#3B82F6;">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                            <div style="color:#475569;font-weight:600;">
+                                <div>Scan for boarding</div>
+                                <small style="color:#64748b;">Valid until departure</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
