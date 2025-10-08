@@ -1,3 +1,139 @@
+// Render bookings page from JS data/localStorage
+
+document.addEventListener('DOMContentLoaded', function () {
+  const bookingsList = document.getElementById('bookingsList');
+  if (!bookingsList) return;
+
+  const stored = safeParse(localStorage.getItem('booking_details'));
+  const booking = stored || getSampleBooking();
+
+  bookingsList.innerHTML = buildBookingCardHTML(booking);
+});
+
+function buildBookingCardHTML(booking) {
+  const f = booking.flight || {};
+  const c = booking.customer || {};
+  const p = booking.price || {};
+
+  return `
+    <div class="booking-card glass">
+      <div class="booking-row booking-flight">
+        <div class="section-header"><i class="fas fa-plane"></i><h3>Flights</h3></div>
+        <div class="booking-info-grid">
+          ${infoItem('fas fa-hashtag','Flight Number', esc(f.flightNumber))}
+          ${infoItem('fas fa-ticket-alt','Airline Number', esc(f.airlineNumber))}
+          ${infoItem('fas fa-plane-departure','Departure Airport (Code)', esc(f.departureCode))}
+          ${infoItem('fas fa-city','Departure City', esc(f.departureCity))}
+          ${infoItem('fas fa-calendar-day','Departure Date', esc(f.departureDate))}
+          ${infoItem('fas fa-clock','Departure Time', esc(f.departureTime))}
+          ${infoItem('fas fa-plane-arrival','Arrival Airport (Code)', esc(f.arrivalCode))}
+          ${infoItem('fas fa-city','Arrival City', esc(f.arrivalCity))}
+          ${infoItem('fas fa-calendar-day','Arrival Date', esc(f.arrivalDate))}
+          ${infoItem('fas fa-clock','Arrival Time', esc(f.arrivalTime))}
+          ${infoItem('fas fa-hourglass-half','Duration (mins)', esc(String(f.durationMinutes)))}
+          ${infoItem('fas fa-info-circle','Status', esc(f.status))}
+          ${infoItem('fas fa-users','Total Seats', esc(String(f.totalSeats)))}
+          ${infoItem('fas fa-tag','Base Seat Price', esc(formatSar(f.baseSeatPrice)))}
+        </div>
+      </div>
+
+      <div class="booking-row booking-passenger">
+        <div class="section-header"><i class="fas fa-id-card"></i><h3>Customer Details</h3></div>
+        <div class="passenger-grid">
+          ${infoItem('fas fa-id-badge','First Name', esc(c.firstName))}
+          ${infoItem('fas fa-id-badge','Last Name', esc(c.lastName))}
+          ${infoItem('fas fa-venus-mars','Gender', esc(c.gender))}
+          ${infoItem('fas fa-birthday-cake','Date of Birth', esc(c.dateOfBirth))}
+          ${infoItem('fas fa-envelope','Email', esc(c.email))}
+          ${infoItem('fas fa-phone','Phone Number', esc(c.phone))}
+          ${infoItem('fas fa-flag','Country', esc(c.country))}
+        </div>
+      </div>
+
+      <div class="booking-row booking-summary">
+        <div class="booking-info-grid" style="grid-template-columns:1fr 1fr;">
+          <div class="price-summary">
+            <div class="price-item"><span class="price-label">Base Seat Price</span><span class="price-amount">${esc(formatSar(p.base))}</span></div>
+            <div class="price-item"><span class="price-label">Taxes & Fees</span><span class="price-amount">${esc(formatSar(p.taxes))}</span></div>
+            <div class="price-divider"></div>
+            <div class="price-total"><span class="total-label">Total</span><span class="total-amount">${esc(formatSar(p.total))}</span></div>
+          </div>
+          <div class="qr-container">
+            <div class="qr-box"><i class="fas fa-qrcode"></i></div>
+            <div>
+              <div style="font-weight:700;color:#0f172a;">Scan for boarding</div>
+              <small style="color:#64748b;">Valid until departure</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function infoItem(icon, label, value) {
+  return `
+    <div class="info-item">
+      <i class="${icon}"></i>
+      <div class="info-content">
+        <div class="label">${label}</div>
+        <div class="value">${value || '-'}</div>
+      </div>
+    </div>
+  `;
+}
+
+function esc(str){
+  if (str == null) return '';
+  const div = document.createElement('div');
+  div.textContent = String(str);
+  return div.innerHTML;
+}
+
+function formatSar(n){
+  if (n == null || isNaN(n)) return '';
+  return `${Number(n).toLocaleString('en-SA', {minimumFractionDigits: 0})} SAR`;
+}
+
+function safeParse(json){
+  try { return JSON.parse(json); } catch { return null; }
+}
+
+function getSampleBooking(){
+  return {
+    flight: {
+      flightNumber: 'SV1234',
+      airlineNumber: 'SV',
+      departureCode: 'RUH',
+      departureCity: 'Riyadh',
+      departureDate: '15 Jan 2024',
+      departureTime: '08:30',
+      arrivalCode: 'JED',
+      arrivalCity: 'Jeddah',
+      arrivalDate: '15 Jan 2024',
+      arrivalTime: '11:15',
+      durationMinutes: 165,
+      status: 'On Time',
+      totalSeats: 180,
+      baseSeatPrice: 299
+    },
+    customer: {
+      firstName: 'Ahmed',
+      lastName: 'Al-Rashid',
+      gender: 'Male',
+      dateOfBirth: '1995-06-10',
+      email: 'ahmed.rashid@email.com',
+      phone: '+966 50 123 4567',
+      country: 'Saudi Arabia'
+    },
+    price: {
+      base: 299,
+      taxes: 50,
+      total: 349
+    }
+  };
+}
+
 // Bookings Page - User-Specific Data
 
 // Current logged-in user
