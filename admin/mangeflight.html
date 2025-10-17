@@ -553,12 +553,7 @@
                         <span>Overview</span>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="airline.html" class="menu-link">
-                        <i class="fas fa-plane menu-icon"></i>
-                        <span>Manage Airlines</span>
-                    </a>
-                </li>
+               
                 <li class="menu-item">
                     <a href="mangeflight.html" class="menu-link active">
                         <i class="fas fa-route menu-icon"></i>
@@ -688,6 +683,9 @@
             <div class="flight-details-form">
                 
                 
+                <div class="form-group"><label class="form-label">Airline</label>
+                    <select id="v_airline_select" class="form-select" disabled></select>
+                </div>
                 <div class="form-group"><label class="form-label">Departure Airport</label><input id="v_dep_airport" class="form-input" readonly></div>
                 <div class="form-group"><label class="form-label">Departure City</label><input id="v_dep_city" class="form-input" readonly></div>
                 <div class="form-group"><label class="form-label">Departure Date</label><input id="v_dep_date" class="form-input" readonly></div>
@@ -716,6 +714,10 @@
             <form class="flight-details-form" onsubmit="updateFlight(); return false;">
                 
                 
+                <input type="hidden" id="e_fno">
+                <div class="form-group"><label class="form-label">Airline</label>
+                    <select id="e_airline_select" class="form-select" required></select>
+                </div>
                 <div class="form-group"><label class="form-label">Departure (Airport • City)</label>
                     <select id="e_dep_airport_select" class="form-select" required>
                         <option value="JED" data-city="Jeddah">JED • Jeddah</option>
@@ -791,6 +793,9 @@
             <form class="flight-details-form" onsubmit="addNewFlight(); return false;">
                 
                 
+                <div class="form-group"><label class="form-label">Airline</label>
+                    <select id="n_airline_select" class="form-select" required></select>
+                </div>
                 <div class="form-group"><label class="form-label">Departure (Airport • City)</label>
                     <select id="n_dep_airport_select" class="form-select" required>
                         <option value="JED" data-city="Jeddah">JED • Jeddah</option>
@@ -848,6 +853,29 @@
 
     <script>
         // Flight data storage
+        const airlines = [
+            'Saudia Airlines',
+            'Flynas',
+            'Flyadeal',
+            'Qatar Airways',
+            'Emirates',
+            'Etihad Airways',
+            'Kuwait Airways',
+            'Gulf Air'
+        ];
+
+        function renderAirlineOptions(selectElement, selectedValue) {
+            if (!selectElement) return;
+            selectElement.innerHTML = '';
+            airlines.forEach(name => {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                if (selectedValue && selectedValue === name) option.selected = true;
+                selectElement.appendChild(option);
+            });
+        }
+
         const flightData = {
             'SV1015': {
                 flightNumber: 'SV1015',
@@ -917,6 +945,7 @@
             if (!flight) return;
             
             
+            renderAirlineOptions(document.getElementById('v_airline_select'), flight.airline);
             document.getElementById('v_dep_airport').value = flight.depAirport;
             document.getElementById('v_dep_city').value = flight.depCity;
             document.getElementById('v_dep_date').value = flight.depDate;
@@ -938,6 +967,8 @@
             if (!flight) return;
             
             
+            document.getElementById('e_fno').value = flightNumber;
+            renderAirlineOptions(document.getElementById('e_airline_select'), flight.airline);
             // set select values for departure
             const eDepSelect = document.getElementById('e_dep_airport_select');
             if (eDepSelect) eDepSelect.value = flight.depAirport;
@@ -970,6 +1001,8 @@
             
             if (flight) {
                 // Update flight data
+                const airlineSelect = document.getElementById('e_airline_select');
+                flight.airline = airlineSelect ? airlineSelect.value : flight.airline;
                 const depSelect = document.getElementById('e_dep_airport_select');
                 flight.depAirport = depSelect ? depSelect.value : flight.depAirport;
                 flight.depCity = depSelect ? depSelect.options[depSelect.selectedIndex].getAttribute('data-city') : flight.depCity;
@@ -1001,9 +1034,10 @@
             // Add new flight to data
             const depSelect = document.getElementById('n_dep_airport_select');
             const arrSelect = document.getElementById('n_arr_airport_select');
+            const airlineSelect = document.getElementById('n_airline_select');
             flightData[flightNumber] = {
                 flightNumber: flightNumber,
-                airline: 'Saudia Airlines',
+                airline: airlineSelect ? airlineSelect.value : 'Saudia Airlines',
                 depAirport: depSelect ? depSelect.value : '',
                 depCity: depSelect ? depSelect.options[depSelect.selectedIndex].getAttribute('data-city') : '',
                 depDate: document.getElementById('n_dep_date').value,
@@ -1094,6 +1128,13 @@
                     modal.classList.remove('active');
                 }
             });
+        });
+
+        // Initialize airline dropdowns on load (for add/edit defaults)
+        window.addEventListener('DOMContentLoaded', function() {
+            renderAirlineOptions(document.getElementById('n_airline_select'));
+            renderAirlineOptions(document.getElementById('e_airline_select'));
+            renderAirlineOptions(document.getElementById('v_airline_select'));
         });
     </script>
 </body>

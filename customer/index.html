@@ -15,6 +15,16 @@
 
     <link rel="stylesheet" href="css/notifications.css">
 
+    <style>
+        /* Toggle visibility for search results */
+        #searchResults.hidden { display: none; }
+        #noResults.hidden { display: none; }
+        /* Flex row layout for search results */
+        #resultsSlides, #dynamicResults, #defaultStaticResults { display: flex; flex-wrap: wrap; gap: 20px; }
+        #resultsSlides { align-items: stretch; }
+        .flight-card { width: 340px; }
+    </style>
+
 </head>
 
 <body>
@@ -33,9 +43,9 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="index.html#about">About</a></li>
                     <li><a href="index.html#features">Features</a></li>
-                    <li><a href="airlines.html">Airlines</a></li>
+                 
                     <li><a href="index.html#deals">Recommendations</a></li>
-                    <li><a href="bookings.html">Bookings</a>
+                    <li><a href="bookings.html">Bookings</a></li>
                     <li><a href="index.html#contact">Contact</a></li>
                 </ul>
 
@@ -171,19 +181,17 @@
                                 <label>Return</label>
                                 <input type="date" id="returnDate" name="return">
                             </div>
-                            <div class="form-group">
-                                <label>Passengers</label>
-                                <select>
-                                    <option>1 Passenger</option>
-                                    <option>2 Passengers</option>
-                                    <option>3 Passengers</option>
-                                    <option>4 Passengers</option>
-                                    <option>5+ Passengers</option>
-                                </select>
-                            </div>
+                            
                             <div class="form-group" id="priceGroup" style="display:none;">
                                 <label for="maxPrice">Max Price (SAR)</label>
                                 <input type="number" id="maxPrice" name="maxPrice" placeholder="e.g. 500">
+                            </div>
+                            <div class="form-group">
+                                <label for="passengers">passengers</label>
+                                <select id="passengers" name="passengers">
+                                    <option value="">Passengers<option>
+                                    <option value="1">1 passenger </option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="search-btn">
@@ -199,6 +207,55 @@
                     </div>
                 </div>
             </section>
+        </div>
+    </section>
+
+    <!-- Search Results Section -->
+    <section class="deals-section hidden" id="searchResults">
+        <div class="container">
+            <h2 class="section-title scroll-animate">Search Results</h2>
+            <div class="flight-slider scroll-animate">
+                <div class="flight-slides" id="resultsSlides">
+                    <div id="defaultStaticResults">
+                        <div class="flight-card">
+                            <div class="flight-image" style="background-image: url('./images/image1.jpg')">
+                                <div class="price-badge">299SAR</div>
+                            </div>
+                            <div class="flight-info">
+                                <div class="route">
+                                    <div class="city">JED</div>
+                                    <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                    <div class="city">DXB</div>
+                                </div>
+                                <div class="flight-time">2h 30m • Direct Flight</div>
+                                <div class="airline">Saudia Airlines</div>
+                                <button class="book-btn">Book Now</button>
+                            </div>
+                        </div>
+                        <div class="flight-card">
+                            <div class="flight-image" style="background-image: url('./images/image2.jpg')">
+                                <div class="price-badge">459SAR</div>
+                            </div>
+                            <div class="flight-info">
+                                <div class="route">
+                                    <div class="city">JED</div>
+                                    <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                    <div class="city">LHR</div>
+                                </div>
+                                <div class="flight-time">6h 45m • Direct Flight</div>
+                                <div class="airline">Saudia Airlines</div>
+                                <button class="book-btn">Book Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="dynamicResults"></div>
+                </div>
+                <div class="slider-controls" id="resultsControls" style="display:none;">
+                    <button class="slider-btn" id="resultsPrev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn" id="resultsNext"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            
         </div>
     </section>
 
@@ -413,7 +470,75 @@
                 </div>
             </div>
         </div>
+
     </section>
+    <div class="booking-options-card glass">
+        <div class="card-header">
+            <div class="header-content">
+                <h2>
+                    <i class="fas fa-cog"></i>
+                    Choose Your Booking Option
+                </h2>
+                <p>Select how you'd like to complete your booking</p>
+            </div>
+            <div class="booking-tips">
+                <div class="tip-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Manual booking gives you full control</span>
+                </div>
+                <div class="tip-item">
+                    <i class="fas fa-robot"></i>
+                    <span>AI booking finds the best seat automatically</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="booking-options">
+            <div class="booking-option manual-option">
+                <div class="option-header">
+                    <div class="option-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="option-content">
+                        <h3>Manual Reservation</h3>
+                        <p>Take full control of your booking experience</p>
+                        <div class="option-badge">
+                            <i class="fas fa-star"></i>
+                            <span>Recommended</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-booking manual-booking" onclick="proceedToManualBooking()">
+                    <i class="fas fa-hand-pointer"></i>
+                    <span>Manual Booking</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            
+            <div class="booking-option automatic-option">
+                <div class="option-header">
+                    <div class="option-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="option-content">
+                        <h3>Automatic Reservation</h3>
+                        <p>Let AI find the perfect seat for you</p>
+                        <div class="option-badge ai">
+                            <i class="fas fa-magic"></i>
+                            <span>AI Powered</span>
+                        </div>
+                    </div>
+                </div>
+               
+                <button class="btn-booking automatic-booking" onclick="proceedToAutomaticBooking()">
+                    <i class="fas fa-magic"></i>
+                    <span>Automatic Booking</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
     <section class="testimonials-section">
         <div class="container">
             <h2 class="section-title scroll-animate" style="color: white;">What Our Customers Say</h2>
@@ -526,7 +651,7 @@
     <script src="js/script.js"></script>
     <script src="js/index.js"></script>
     <script src="js/notifications.js"></script>
-    <script src="js/airline-details.js"></script>
+    <script src="js/airline-index.js"></script>
 
 </body>
 

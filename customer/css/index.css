@@ -1571,3 +1571,6 @@ header {
 .search-section {
  background:  var(--glass-bg);
 }
+#registerBtn a{
+    color:white;
+}

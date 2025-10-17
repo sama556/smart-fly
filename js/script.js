@@ -2,6 +2,7 @@
         // Animated Background
         function createFloatingShapes() {
             const bg = document.getElementById('animatedBg');
+            if (!bg) return;
             for (let i = 0; i < 15; i++) {
                 const shape = document.createElement('div');
                 shape.className = 'floating-shape';
@@ -17,6 +18,7 @@
         // Header scroll effect
         function handleScroll() {
             const header = document.getElementById('header');
+            if (!header) return;
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
             } else {
@@ -28,6 +30,7 @@
         function initMobileMenu() {
             const menuToggle = document.getElementById('menuToggle');
             const navLinks = document.getElementById('navLinks');
+            if (!menuToggle || !navLinks) return;
             
             menuToggle.addEventListener('click', () => {
                 navLinks.classList.toggle('active');
@@ -52,6 +55,7 @@
             const slides = document.getElementById('flightSlides');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
+            if (!slides || !prevBtn || !nextBtn) return;
             let currentSlide = 0;
             const slideWidth = 380; // 350px card + 30px margin
 
@@ -92,6 +96,7 @@
             let currentSlide = 0;
             const slides = document.querySelectorAll('.testimonial-slide');
             const dots = document.querySelectorAll('.dot');
+            if (!slides.length || !dots.length) return;
             
             function showSlide(n) {
                 slides.forEach(slide => slide.classList.remove('active'));
@@ -180,7 +185,8 @@
                     
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
-                        const headerHeight = document.getElementById('header').offsetHeight;
+                        const headerEl = document.getElementById('header');
+                        const headerHeight = headerEl ? headerEl.offsetHeight : 0;
                         const targetPosition = targetElement.offsetTop - headerHeight;
                         
                         window.scrollTo({
@@ -191,10 +197,14 @@
                         // Close mobile menu if open
                         const navLinks = document.getElementById('navLinks');
                         const menuToggle = document.getElementById('menuToggle');
-                        navLinks.classList.remove('active');
-                        const icon = menuToggle.querySelector('i');
-                        icon.classList.add('fa-bars');
-                        icon.classList.remove('fa-times');
+                        if (navLinks && menuToggle) {
+                            navLinks.classList.remove('active');
+                            const icon = menuToggle.querySelector('i');
+                            if (icon) {
+                                icon.classList.add('fa-bars');
+                                icon.classList.remove('fa-times');
+                            }
+                        }
                     }
                 });
             });
@@ -357,10 +367,12 @@
 
             // Add floating animation to hero elements
             const heroContent = document.querySelector('.hero-content');
+            if (heroContent) {
             let floatDirection = 1;
             setInterval(() => {
                 heroContent.style.transform = `translateY(${Math.sin(Date.now() * 0.001) * 5}px)`;
             }, 16);
+            }
 
             // Add parallax effect to sections
             window.addEventListener('scroll', () => {
@@ -493,6 +505,99 @@
                 `;
                 document.head.appendChild(notificationStyles);
                 
+                // ---- Search handling and results rendering ----
+                const flightsCatalog = [
+                    { from: 'JED', to: 'DXB', airline: 'Saudia Airlines', duration: '2h 30m', price: 299, img: './images/image1.jpg' },
+                    { from: 'JED', to: 'LHR', airline: 'Saudia Airlines', duration: '6h 45m', price: 459, img: './images/image2.jpg' },
+                    { from: 'DMM', to: 'CAI', airline: 'EgyptAir', duration: '2h 15m', price: 189, img: 'images/image4.jpg' },
+                    { from: 'JED', to: 'IST', airline: 'Saudia Airlines', duration: '3h 20m', price: 699, img: 'images/image5.jpg' },
+                    { from: 'RUH', to: 'BKK', airline: 'Thai Airways', duration: '7h 10m', price: 329, img: 'images/image6.jpg' },
+                    { from: 'RUH', to: 'JED', airline: 'Flynas', duration: '1h 30m', price: 199, img: './images/image1.jpg' },
+                    { from: 'JED', to: 'MED', airline: 'Flyadeal', duration: '1h 10m', price: 149, img: './images/image2.jpg' }
+                ];
+
+                function renderResults(cards) {
+                    const section = document.getElementById('searchResults');
+                    const slides = document.getElementById('resultsSlides');
+                    const controls = document.getElementById('resultsControls');
+                    const noResults = document.getElementById('noResults');
+                    if (!section || !slides) return;
+
+                    slides.innerHTML = '';
+                    section.classList.remove('hidden');
+                    if (!cards.length) {
+                        controls.style.display = 'none';
+                        noResults.classList.remove('hidden');
+                        return;
+                    }
+                    noResults.classList.add('hidden');
+
+                    cards.forEach(f => {
+                        const card = document.createElement('div');
+                        card.className = 'flight-card';
+                        card.innerHTML = `
+                            <div class="flight-image" style="background-image: url('${f.img}')">
+                                <div class="price-badge">${f.price}SAR</div>
+                            </div>
+                            <div class="flight-info">
+                                <div class="route">
+                                    <div class="city">${f.from}</div>
+                                    <i class="fas fa-plane" style="color: var(--light-blue);"></i>
+                                    <div class="city">${f.to}</div>
+                                </div>
+                                <div class="flight-time">${f.duration} • Direct Flight</div>
+                                <div class="airline">${f.airline}</div>
+                                <button class="book-btn">Book Now</button>
+                            </div>
+                        `;
+                        slides.appendChild(card);
+                    });
+
+                    // Enable slider controls if too many
+                    const slideWidth = 380;
+                    const maxSlides = slides.children.length - Math.floor(slides.parentElement.offsetWidth / slideWidth);
+                    controls.style.display = maxSlides > 0 ? 'flex' : 'none';
+
+                    let current = 0;
+                    const update = () => { slides.style.transform = `translateX(${-current * slideWidth}px)`; };
+                    document.getElementById('resultsNext')?.addEventListener('click', () => {
+                        if (current < maxSlides) { current++; update(); }
+                    });
+                    document.getElementById('resultsPrev')?.addEventListener('click', () => {
+                        if (current > 0) { current--; update(); }
+                    });
+
+                    // Rebind booking buttons inside results
+                    initBookingButtons();
+                    refreshAllHolds();
+                }
+
+                const searchForm = document.getElementById('quickSearch');
+                if (searchForm) {
+                    searchForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const form = e.currentTarget;
+                        const from = form.querySelector('#from')?.value || '';
+                        const to = form.querySelector('#to')?.value || '';
+                        const maxPriceVal = form.querySelector('#maxPrice')?.value;
+                        const maxPrice = maxPriceVal ? parseFloat(maxPriceVal) : undefined;
+
+                        const results = flightsCatalog.filter(f => {
+                            const matchFrom = !from || f.from === from;
+                            const matchTo = !to || f.to === to;
+                            const matchPrice = maxPrice === undefined || f.price <= maxPrice;
+                            return matchFrom && matchTo && matchPrice;
+                        });
+                        renderResults(results);
+                        // Scroll to results
+                        const headerHeight = document.getElementById('header').offsetHeight;
+                        const targetPosition = document.getElementById('searchResults').offsetTop - headerHeight;
+                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                    });
+                }
+                // ---- End search handling ----
+
             }, 100);
         });
 
@@ -528,7 +633,7 @@
                         nextIndex = currentIndex < dots.length - 1 ? currentIndex + 1 : 0;
                     }
                     
-                    dots[nextIndex].click();
+                    if (dots[nextIndex]) dots[nextIndex].click();
                 }
             }
         });
