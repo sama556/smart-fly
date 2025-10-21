@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initialize search mode (manual/automatic)
     initializeSearchMode();
+
+    // Initialize prediction form
+    initializePredictionForm();
 });
 
 // Initialize search form functionality
@@ -386,4 +389,142 @@ function shareAirline(airlineName) {
             alert('Link copied to clipboard!');
         });
     }
+}
+
+// Initialize prediction form functionality
+function initializePredictionForm() {
+    const predictionForm = document.getElementById('predictionForm');
+    if (!predictionForm) return;
+
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    const dateInput = document.getElementById('predDate');
+    if (dateInput) {
+        dateInput.min = today;
+    }
+
+    // Prediction data with realistic price variations
+    const predictionData = {
+        'JED-DXB': [
+            { airline: 'Saudia Airlines', price: 299, duration: '2h 30m', savings: 'Save 15%' },
+            { airline: 'Emirates', price: 350, duration: '2h 45m', savings: 'Save 8%' },
+            { airline: 'Flydubai', price: 180, duration: '2h 15m', savings: 'Save 25%' }
+        ],
+        'JED-LHR': [
+            { airline: 'Saudia Airlines', price: 1200, duration: '6h 45m', savings: 'Save 20%' },
+            { airline: 'British Airways', price: 1400, duration: '7h 10m', savings: 'Save 10%' },
+            { airline: 'Virgin Atlantic', price: 1350, duration: '6h 55m', savings: 'Save 12%' }
+        ],
+        'RUH-DXB': [
+            { airline: 'Saudia Airlines', price: 250, duration: '1h 45m', savings: 'Save 18%' },
+            { airline: 'Emirates', price: 320, duration: '2h 00m', savings: 'Save 5%' },
+            { airline: 'Flynas', price: 199, duration: '1h 30m', savings: 'Save 30%' }
+        ],
+        'JED-IST': [
+            { airline: 'Saudia Airlines', price: 450, duration: '3h 20m', savings: 'Save 22%' },
+            { airline: 'Turkish Airlines', price: 380, duration: '3h 00m', savings: 'Save 15%' },
+            { airline: 'Pegasus', price: 320, duration: '3h 15m', savings: 'Save 25%' }
+        ],
+        'DMM-CAI': [
+            { airline: 'EgyptAir', price: 189, duration: '2h 15m', savings: 'Save 35%' },
+            { airline: 'Saudia Airlines', price: 220, duration: '2h 30m', savings: 'Save 20%' },
+            { airline: 'Nile Air', price: 165, duration: '2h 00m', savings: 'Save 40%' }
+        ]
+    };
+
+    function generatePredictions(from, to, date) {
+        const route = `${from}-${to}`;
+        const reverseRoute = `${to}-${from}`;
+        const baseData = predictionData[route] || predictionData[reverseRoute] || [];
+        
+        if (baseData.length === 0) {
+            // Generate random predictions if no specific data
+            const airlines = ['Saudia Airlines', 'Emirates', 'Flynas', 'Flyadeal', 'Qatar Airways'];
+            const basePrice = Math.floor(Math.random() * 800) + 200;
+            
+            return airlines.map((airline, index) => ({
+                airline: airline,
+                price: basePrice + (index * 50) + Math.floor(Math.random() * 100),
+                duration: `${Math.floor(Math.random() * 4) + 1}h ${Math.floor(Math.random() * 60)}m`,
+                savings: `Save ${Math.floor(Math.random() * 30) + 10}%`
+            }));
+        }
+        
+        return baseData.map(item => ({
+            ...item,
+            price: item.price + Math.floor(Math.random() * 50) - 25 // Add some variation
+        }));
+    }
+
+    function renderPredictionResults(predictions) {
+        const resultsContainer = document.getElementById('predictionResults');
+        const cardsContainer = document.getElementById('predictionCards');
+        
+        if (!resultsContainer || !cardsContainer) return;
+
+        // Find lowest price
+        const lowestPrice = Math.min(...predictions.map(p => p.price));
+        
+        cardsContainer.innerHTML = '';
+        
+        predictions.forEach((prediction, index) => {
+            const isLowest = prediction.price === lowestPrice;
+            const card = document.createElement('div');
+            card.className = `prediction-card ${isLowest ? 'lowest-price' : ''}`;
+            
+            card.innerHTML = `
+                <div class="prediction-airline">
+                    <div class="prediction-airline-logo">${prediction.airline.charAt(0)}</div>
+                    <div class="prediction-airline-name">${prediction.airline}</div>
+                </div>
+                <div class="prediction-route">
+                    <div class="prediction-cities">
+                        <div class="prediction-city">${document.getElementById('predFrom').value}</div>
+                        <i class="fas fa-plane prediction-plane"></i>
+                        <div class="prediction-city">${document.getElementById('predTo').value}</div>
+                    </div>
+                    <div class="prediction-date">${document.getElementById('predDate').value}</div>
+                </div>
+                <div class="prediction-price">${prediction.price} SAR</div>
+                <div class="prediction-savings">${prediction.savings}</div>
+                <div class="prediction-duration">Flight Duration: ${prediction.duration}</div>
+            `;
+            
+            cardsContainer.appendChild(card);
+        });
+        
+        resultsContainer.classList.add('show');
+        
+        // Scroll to results
+        resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    predictionForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const from = document.getElementById('predFrom').value;
+        const to = document.getElementById('predTo').value;
+        const date = document.getElementById('predDate').value;
+        
+        if (!from || !to || !date) {
+            alert('Please fill in all fields');
+            return;
+        }
+        
+        // Show loading state
+        const submitBtn = this.querySelector('.prediction-btn');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Predicting...';
+        submitBtn.disabled = true;
+        
+        // Simulate AI prediction delay
+        setTimeout(() => {
+            const predictions = generatePredictions(from, to, date);
+            renderPredictionResults(predictions);
+            
+            // Reset button
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }, 2000);
+    });
 }

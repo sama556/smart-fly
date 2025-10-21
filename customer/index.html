@@ -23,6 +23,195 @@
         #resultsSlides, #dynamicResults, #defaultStaticResults { display: flex; flex-wrap: wrap; gap: 20px; }
         #resultsSlides { align-items: stretch; }
         .flight-card { width: 340px; }
+        /* Flight Prediction Section */
+        .prediction-section {
+            background: linear-gradient(135deg, #667eea 0%, #62b6cb 100%);
+            padding: 40px 0;
+            margin: 40px 0;
+        }
+        .prediction-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .prediction-form {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .prediction-title {
+            text-align: center;
+            color: #1f2937;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .prediction-subtitle {
+            text-align: center;
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        .prediction-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 20px;
+            align-items: end;
+        }
+        .prediction-form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .prediction-form-group label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .prediction-form-group input,
+        .prediction-form-group select {
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        .prediction-form-group input:focus,
+        .prediction-form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .prediction-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .prediction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        .prediction-results {
+            margin-top: 30px;
+            display: none;
+        }
+        .prediction-results.show {
+            display: block;
+        }
+        .prediction-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .prediction-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .prediction-card.lowest-price {
+            border-color: #10b981;
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+        }
+        .prediction-card.lowest-price::before {
+            content: "💰 BEST DEAL";
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .prediction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        .prediction-airline {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .prediction-airline-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .prediction-airline-name {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 16px;
+        }
+        .prediction-route {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .prediction-cities {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .prediction-city {
+            font-weight: 600;
+            color: #374151;
+            font-size: 18px;
+        }
+        .prediction-plane {
+            color: #667eea;
+            font-size: 20px;
+        }
+        .prediction-date {
+            color: #6b7280;
+            font-size: 14px;
+        }
+        .prediction-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+        .prediction-savings {
+            color: #10b981;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .prediction-duration {
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        @media (max-width: 768px) {
+            .prediction-form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 
 </head>
@@ -207,6 +396,76 @@
                     </div>
                 </div>
             </section>
+        </div>
+    </section>
+
+    <!-- Flight Prediction Section -->
+    <section class="prediction-section">
+        <div class="prediction-container">
+            <div class="prediction-form">
+                <h2 class="prediction-title">🔮 AI Flight Price Prediction</h2>
+                <p class="prediction-subtitle">Get intelligent price forecasts for your future travel plans</p>
+                
+                <form id="predictionForm">
+                    <div class="prediction-form-grid">
+                        <div class="prediction-form-group">
+                            <label for="predFrom">From</label>
+                            <select id="predFrom" name="predFrom" required>
+                                <option value="">Select departure city</option>
+                                <option value="JED">Jeddah (JED)</option>
+                                <option value="RUH">Riyadh (RUH)</option>
+                                <option value="DMM">Dammam (DMM)</option>
+                                <option value="MED">Medina (MED)</option>
+                                <option value="DXB">Dubai (DXB)</option>
+                                <option value="AUH">Abu Dhabi (AUH)</option>
+                                <option value="CAI">Cairo (CAI)</option>
+                                <option value="LHR">London (LHR)</option>
+                                <option value="CDG">Paris (CDG)</option>
+                                <option value="FRA">Frankfurt (FRA)</option>
+                                <option value="IST">Istanbul (IST)</option>
+                                <option value="BKK">Bangkok (BKK)</option>
+                                <option value="SIN">Singapore (SIN)</option>
+                                <option value="NRT">Tokyo (NRT)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="prediction-form-group">
+                            <label for="predTo">To</label>
+                            <select id="predTo" name="predTo" required>
+                                <option value="">Select destination city</option>
+                                <option value="JED">Jeddah (JED)</option>
+                                <option value="RUH">Riyadh (RUH)</option>
+                                <option value="DMM">Dammam (DMM)</option>
+                                <option value="MED">Medina (MED)</option>
+                                <option value="DXB">Dubai (DXB)</option>
+                                <option value="AUH">Abu Dhabi (AUH)</option>
+                                <option value="CAI">Cairo (CAI)</option>
+                                <option value="LHR">London (LHR)</option>
+                                <option value="CDG">Paris (CDG)</option>
+                                <option value="FRA">Frankfurt (FRA)</option>
+                                <option value="IST">Istanbul (IST)</option>
+                                <option value="BKK">Bangkok (BKK)</option>
+                                <option value="SIN">Singapore (SIN)</option>
+                                <option value="NRT">Tokyo (NRT)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="prediction-form-group">
+                            <label for="predDate">Travel Date</label>
+                            <input type="date" id="predDate" name="predDate" required>
+                        </div>
+                        
+                        <button type="submit" class="prediction-btn">
+                            <i class="fas fa-crystal-ball"></i> Predict Prices
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="prediction-results" id="predictionResults">
+                    <h3 style="text-align: center; color: #1f2937; margin-bottom: 20px;">🎯 Predicted Flight Prices</h3>
+                    <div class="prediction-cards" id="predictionCards"></div>
+                </div>
+            </div>
         </div>
     </section>
 
